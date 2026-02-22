@@ -6,17 +6,31 @@ import { useRouter } from "next/navigation";
 export default function AdminLogin() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Simple fast hardcoded password for MVP admin security
-        if (password === "career2026") {
-            // In a real app we'd set a secure HTTP-only cookie
-            document.cookie = "adminAuth=true; path=/";
-            router.push("/admin/dashboard");
-        } else {
+        setLoading(true);
+        setError(false);
+
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password }),
+            });
+
+            if (res.ok) {
+                router.push("/admin/dashboard");
+                router.refresh();
+            } else {
+                setError(true);
+            }
+        } catch {
             setError(true);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -52,16 +66,17 @@ export default function AdminLogin() {
                                 setPassword(e.target.value);
                                 setError(false);
                             }}
-                            className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors"
+                            className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors placeholder:text-black/30"
                             placeholder="Enter password..."
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-black text-white border-[4px] border-black font-black uppercase text-xl py-4 shadow-[6px_6px_0px_0px_var(--color-primary-blue)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all"
+                        disabled={loading}
+                        className="w-full bg-black text-white border-[4px] border-black font-black uppercase text-xl py-4 shadow-[6px_6px_0px_0px_var(--color-primary-blue)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        LOGIN
+                        {loading ? "LOGGING IN..." : "LOGIN"}
                     </button>
                 </form>
             </div>
