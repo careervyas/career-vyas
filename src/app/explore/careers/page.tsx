@@ -1,11 +1,10 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CareerGrid from "@/components/explore/CareerGrid";
 
-// We'll fetch from our own internal API route to demonstrate full-stack data flow
 async function getCareers() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/content/careers`, {
-        cache: 'no-store' // Always fetch fresh for now
+        cache: 'no-store'
     });
     if (!res.ok) return [];
     return res.json();
@@ -33,59 +32,7 @@ export default async function ExploreCareersPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {careers.map((career: any, idx: number) => {
-                            const bgColors = [
-                                'bg-[var(--color-primary-blue)]',
-                                'bg-[#4ade80]',
-                                'bg-[var(--color-primary-orange)]',
-                                'bg-[#f43f5e]',
-                                'bg-[var(--color-primary-purple)]'
-                            ];
-                            const headerColor = bgColors[idx % bgColors.length];
-
-                            return (
-                                <Link
-                                    key={career.id}
-                                    href={`/explore/careers/${career.slug}`}
-                                    className="bg-white border-4 border-black flex flex-col brutal-shadow hover:translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all h-full group"
-                                >
-                                    <div className={`${headerColor} border-b-4 border-black p-6 flex justify-between items-center`}>
-                                        <span className="text-5xl drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] group-hover:scale-110 transition-transform">{career.icon || '💼'}</span>
-                                        <span className="brutal-badge bg-white text-black drop-shadow-none">₹{career.salary_range}</span>
-                                    </div>
-
-                                    <div className="p-6 flex flex-col flex-grow">
-                                        <h2 className="text-2xl font-black leading-tight mb-3 uppercase group-hover:underline decoration-4 underline-offset-4">
-                                            {career.title}
-                                        </h2>
-
-                                        <p className="text-black/80 font-bold mb-6 flex-grow leading-snug">
-                                            {career.summary}
-                                        </p>
-
-                                        <div className="grid grid-cols-2 gap-4 pt-4 border-t-4 border-black border-dashed mt-auto">
-                                            <div>
-                                                <p className="font-black uppercase text-[10px] text-black/50 tracking-wider">Demand</p>
-                                                <p className="font-bold uppercase text-sm">{career.demand || 'High'}</p>
-                                            </div>
-                                            <div>
-                                                <p className="font-black uppercase text-[10px] text-black/50 tracking-wider">Duration</p>
-                                                <p className="font-bold uppercase text-sm">{career.study_duration || '3-4 Yrs'}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-
-                        {careers.length === 0 && (
-                            <div className="col-span-full border-4 border-black p-12 text-center bg-white brutal-shadow-sm">
-                                <h3 className="text-2xl font-black uppercase mb-2">No Careers Found</h3>
-                                <p className="font-bold">Add some profiles via the Admin Dashboard to see them here.</p>
-                            </div>
-                        )}
-                    </div>
+                    <CareerGrid initialCareers={careers} />
 
                 </div>
             </section>
