@@ -21,6 +21,7 @@ export default function AdminLayout({
         { name: "Courses", href: "/admin/content/courses", icon: "📚" },
         { name: "Exams", href: "/admin/content/exams", icon: "📝" },
         { name: "Colleges", href: "/admin/content/colleges", icon: "🏢" },
+        { name: "Mentors", href: "/admin/mentors", icon: "🎓" },
         { name: "Users", href: "/admin/users", icon: "👥" },
         { name: "Bookings", href: "/admin/bookings", icon: "📅" },
         { name: "Analytics", href: "/admin/analytics", icon: "📈" },
@@ -44,8 +45,8 @@ export default function AdminLayout({
                                 key={link.name}
                                 href={link.href}
                                 className={`flex items-center gap-3 px-4 py-3 font-bold uppercase transition-all border-2 border-transparent ${isActive
-                                        ? "bg-black text-white brutal-shadow-sm border-black ml-2"
-                                        : "hover:bg-white hover:border-black hover:translate-x-1"
+                                    ? "bg-black text-white brutal-shadow-sm border-black ml-2"
+                                    : "hover:bg-white hover:border-black hover:translate-x-1"
                                     }`}
                             >
                                 <span className="text-xl">{link.icon}</span>
