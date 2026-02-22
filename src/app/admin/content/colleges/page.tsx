@@ -1,20 +1,30 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
+async function deleteCollege(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await supabaseAdmin.from("colleges").delete().eq("id", id);
+    revalidatePath("/admin/content/colleges");
+    revalidatePath("/explore/colleges");
+}
+
 export default async function AdminCollegesPage() {
-    const { data: colleges } = await supabaseAdmin
-        .from("colleges")
-        .select("*")
-        .order("created_at", { ascending: false });
+    let colleges: any[] = [];
+    try {
+        const { data } = await supabaseAdmin.from("colleges").select("*").order("created_at", { ascending: false });
+        colleges = data || [];
+    } catch { }
 
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
                 <h1 className="text-4xl font-black uppercase">
-                    Colleges <span className="text-[var(--color-primary-blue)]">({colleges?.length || 0})</span>
+                    Colleges <span className="text-[var(--color-primary-blue)]">({colleges.length})</span>
                 </h1>
                 <Link
                     href="/admin/content/colleges/new"
@@ -36,7 +46,7 @@ export default async function AdminCollegesPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {!colleges || colleges.length === 0 ? (
+                        {colleges.length === 0 ? (
                             <tr>
                                 <td colSpan={5} className="p-8 text-center font-bold text-xl uppercase">
                                     No colleges added yet.
@@ -62,9 +72,10 @@ export default async function AdminCollegesPage() {
                                         <Link href={`/explore/colleges/${college.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">
                                             VIEW
                                         </Link>
-                                        <button className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                            DEL
-                                        </button>
+                                        <form action={deleteCollege}>
+                                            <input type="hidden" name="id" value={college.id} />
+                                            <button type="submit" className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" onClick={(e) => { if (!confirm(`Delete "${college.name}"?`)) e.preventDefault(); }}>DEL</button>
+                                        </form>
                                     </td>
                                 </tr>
                             ))

@@ -1,20 +1,30 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
+async function deleteExam(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await supabaseAdmin.from("exams").delete().eq("id", id);
+    revalidatePath("/admin/content/exams");
+    revalidatePath("/explore/exams");
+}
+
 export default async function AdminExamsPage() {
-    const { data: exams } = await supabaseAdmin
-        .from("exams")
-        .select("*")
-        .order("created_at", { ascending: false });
+    let exams: any[] = [];
+    try {
+        const { data } = await supabaseAdmin.from("exams").select("*").order("created_at", { ascending: false });
+        exams = data || [];
+    } catch { }
 
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
                 <h1 className="text-4xl font-black uppercase">
-                    Exams <span className="text-[var(--color-primary-blue)]">({exams?.length || 0})</span>
+                    Exams <span className="text-[var(--color-primary-blue)]">({exams.length})</span>
                 </h1>
                 <Link
                     href="/admin/content/exams/new"
@@ -36,7 +46,7 @@ export default async function AdminExamsPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {!exams || exams.length === 0 ? (
+                        {exams.length === 0 ? (
                             <tr>
                                 <td colSpan={5} className="p-8 text-center font-bold text-xl uppercase">
                                     No exams mapped yet.
@@ -62,9 +72,10 @@ export default async function AdminExamsPage() {
                                         <Link href={`/explore/exams/${exam.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">
                                             VIEW
                                         </Link>
-                                        <button className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                            DEL
-                                        </button>
+                                        <form action={deleteExam}>
+                                            <input type="hidden" name="id" value={exam.id} />
+                                            <button type="submit" className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" onClick={(e) => { if (!confirm(`Delete "${exam.name}"?`)) e.preventDefault(); }}>DEL</button>
+                                        </form>
                                     </td>
                                 </tr>
                             ))

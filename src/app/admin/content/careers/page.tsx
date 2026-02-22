@@ -1,20 +1,30 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
+async function deleteCareer(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await supabaseAdmin.from("career_profiles").delete().eq("id", id);
+    revalidatePath("/admin/content/careers");
+    revalidatePath("/explore/careers");
+}
+
 export default async function AdminCareersPage() {
-    const { data: careers } = await supabaseAdmin
-        .from("career_profiles")
-        .select("*")
-        .order("created_at", { ascending: false });
+    let careers: any[] = [];
+    try {
+        const { data } = await supabaseAdmin.from("career_profiles").select("*").order("created_at", { ascending: false });
+        careers = data || [];
+    } catch { }
 
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
                 <h1 className="text-4xl font-black uppercase">
-                    Careers <span className="text-[var(--color-primary-blue)]">({careers?.length || 0})</span>
+                    Careers <span className="text-[var(--color-primary-blue)]">({careers.length})</span>
                 </h1>
                 <Link
                     href="/admin/content/careers/new"
@@ -36,7 +46,7 @@ export default async function AdminCareersPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {!careers || careers.length === 0 ? (
+                        {careers.length === 0 ? (
                             <tr>
                                 <td colSpan={5} className="p-8 text-center font-bold text-xl uppercase">
                                     No careers found. Start adding some!
@@ -61,9 +71,10 @@ export default async function AdminCareersPage() {
                                         <Link href={`/explore/careers/${career.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">
                                             VIEW
                                         </Link>
-                                        <button className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                            DEL
-                                        </button>
+                                        <form action={deleteCareer}>
+                                            <input type="hidden" name="id" value={career.id} />
+                                            <button type="submit" className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" onClick={(e) => { if (!confirm(`Delete "${career.title}"?`)) e.preventDefault(); }}>DEL</button>
+                                        </form>
                                     </td>
                                 </tr>
                             ))

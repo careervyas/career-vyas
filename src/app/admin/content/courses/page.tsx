@@ -1,25 +1,32 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
+async function deleteCourse(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await supabaseAdmin.from("courses").delete().eq("id", id);
+    revalidatePath("/admin/content/courses");
+    revalidatePath("/explore/courses");
+}
+
 export default async function AdminCoursesPage() {
-    const { data: courses } = await supabaseAdmin
-        .from("courses")
-        .select("*")
-        .order("created_at", { ascending: false });
+    let courses: any[] = [];
+    try {
+        const { data } = await supabaseAdmin.from("courses").select("*").order("created_at", { ascending: false });
+        courses = data || [];
+    } catch { }
 
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
                 <h1 className="text-4xl font-black uppercase">
-                    Courses <span className="text-[var(--color-primary-blue)]">({courses?.length || 0})</span>
+                    Courses <span className="text-[var(--color-primary-blue)]">({courses.length})</span>
                 </h1>
-                <Link
-                    href="/admin/content/courses/new"
-                    className="brutal-btn bg-[var(--color-primary-orange)] px-6 py-3 font-black uppercase text-black"
-                >
+                <Link href="/admin/content/courses/new" className="brutal-btn bg-[var(--color-primary-orange)] px-6 py-3 font-black uppercase text-black">
                     + Add Course
                 </Link>
             </div>
@@ -35,7 +42,7 @@ export default async function AdminCoursesPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {!courses || courses.length === 0 ? (
+                        {courses.length === 0 ? (
                             <tr>
                                 <td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">
                                     No courses found. Keep building the ecosystem!
@@ -58,9 +65,16 @@ export default async function AdminCoursesPage() {
                                         <Link href={`/explore/courses/${course.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">
                                             VIEW
                                         </Link>
-                                        <button className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                            DEL
-                                        </button>
+                                        <form action={deleteCourse}>
+                                            <input type="hidden" name="id" value={course.id} />
+                                            <button
+                                                type="submit"
+                                                className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                                                onClick={(e) => { if (!confirm(`Delete "${course.title}"?`)) e.preventDefault(); }}
+                                            >
+                                                DEL
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             ))
