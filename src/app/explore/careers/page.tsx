@@ -1,14 +1,22 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CareerGrid from "@/components/explore/CareerGrid";
+import { createClient } from "@supabase/supabase-js";
 
 async function getCareers() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/content/careers`, {
-        cache: 'no-store'
-    });
-    if (!res.ok) return [];
-    return res.json();
+    try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+        const { data } = await supabase.from("career_profiles").select("*").order("title");
+        return data || [];
+    } catch {
+        return [];
+    }
 }
+
+export const dynamic = "force-dynamic";
 
 export default async function ExploreCareersPage() {
     const careers = await getCareers();

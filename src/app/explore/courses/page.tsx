@@ -1,14 +1,22 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CourseGrid from "@/components/explore/CourseGrid";
+import { createClient } from "@supabase/supabase-js";
 
 async function getCourses() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/content/courses`, {
-        cache: 'no-store'
-    });
-    if (!res.ok) return [];
-    return res.json();
+    try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+        const { data } = await supabase.from("courses").select("*").order("title");
+        return data || [];
+    } catch {
+        return [];
+    }
 }
+
+export const dynamic = "force-dynamic";
 
 export default async function ExploreCoursesPage() {
     const courses = await getCourses();
