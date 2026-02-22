@@ -2,10 +2,11 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { revalidatePath } from "next/cache";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 export const dynamic = "force-dynamic";
 
-async function deleteCourse(formData: FormData) {
+async function deleteCourse(formData: FormData): Promise<void> {
     "use server";
     const id = formData.get("id") as string;
     await supabaseAdmin.from("courses").delete().eq("id", id);
@@ -30,7 +31,6 @@ export default async function AdminCoursesPage() {
                     + Add Course
                 </Link>
             </div>
-
             <div className="bg-white border-4 border-black brutal-shadow-sm overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                     <thead>
@@ -43,11 +43,7 @@ export default async function AdminCoursesPage() {
                     </thead>
                     <tbody>
                         {courses.length === 0 ? (
-                            <tr>
-                                <td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">
-                                    No courses found. Keep building the ecosystem!
-                                </td>
-                            </tr>
+                            <tr><td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">No courses found.</td></tr>
                         ) : (
                             courses.map((course) => (
                                 <tr key={course.id} className="border-b-4 border-black hover:bg-[var(--color-bg)] transition-colors">
@@ -55,26 +51,13 @@ export default async function AdminCoursesPage() {
                                         {course.title}<br />
                                         <span className="brutal-badge bg-black text-white mt-2">{course.type || 'Degree'}</span>
                                     </td>
-                                    <td className="p-4 border-r-4 border-black font-black uppercase">
-                                        {course.duration || 'N/A'}
-                                    </td>
+                                    <td className="p-4 border-r-4 border-black font-black uppercase">{course.duration || 'N/A'}</td>
                                     <td className="p-4 border-r-4 border-black text-sm font-bold opacity-70">
                                         {course.created_at ? formatDistanceToNow(new Date(course.created_at), { addSuffix: true }) : 'N/A'}
                                     </td>
                                     <td className="p-4 flex gap-2">
-                                        <Link href={`/explore/courses/${course.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">
-                                            VIEW
-                                        </Link>
-                                        <form action={deleteCourse}>
-                                            <input type="hidden" name="id" value={course.id} />
-                                            <button
-                                                type="submit"
-                                                className="px-3 py-1 border-2 border-black bg-[#f43f5e] text-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-                                                onClick={(e) => { if (!confirm(`Delete "${course.title}"?`)) e.preventDefault(); }}
-                                            >
-                                                DEL
-                                            </button>
-                                        </form>
+                                        <Link href={`/explore/courses/${course.slug}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all" target="_blank">VIEW</Link>
+                                        <DeleteButton id={course.id} name={course.title} deleteAction={deleteCourse} />
                                     </td>
                                 </tr>
                             ))
