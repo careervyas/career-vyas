@@ -1,0 +1,170 @@
+career-vyas/
+│
+├── app/                          # Main app folder (Next.js 14+)
+│   ├── layout.tsx                # Root layout
+│   ├── page.tsx                   # Home page
+│   │
+│   ├── explore/                   # Explore section
+│   │   ├── page.tsx               # /explore - Main explore page
+│   │   │
+│   │   ├── careers/               
+│   │   │   ├── page.tsx           # /explore/careers - All careers
+│   │   │   └── [slug]/            
+│   │   │       └── page.tsx       # /explore/careers/doctor
+│   │   │
+│   │   ├── courses/               
+│   │   │   ├── page.tsx           # /explore/courses
+│   │   │   └── [slug]/            
+│   │   │       └── page.tsx       # /explore/courses/mbbs
+│   │   │
+│   │   ├── exams/                 
+│   │   │   ├── page.tsx           # /explore/exams
+│   │   │   └── [slug]/            
+│   │   │       └── page.tsx       # /explore/exams/neet
+│   │   │
+│   │   └── colleges/              
+│   │       ├── page.tsx           # /explore/colleges
+│   │       └── [slug]/            
+│   │           └── page.tsx       # /explore/colleges/aiims
+│   │
+│   ├── mentors/                   
+│   │   ├── page.tsx               # /mentors - All mentors
+│   │   └── [id]/                  
+│   │       └── page.tsx           # /mentors/123 - Mentor profile
+│   │
+│   ├── community/                 
+│   │   └── page.tsx               # /community - WhatsApp join
+│   │
+│   ├── blog/                      
+│   │   ├── page.tsx               # /blog - All posts
+│   │   └── [slug]/                
+│   │       └── page.tsx           # /blog/how-to-choose-career
+│   │
+│   ├── admin/                      # ADMIN SECTION (Protected)
+│   │   ├── layout.tsx              # Admin layout with auth check
+│   │   ├── login/                  
+│   │   │   └── page.tsx            # /admin/login
+│   │   ├── dashboard/               
+│   │   │   └── page.tsx            # /admin/dashboard
+│   │   ├── users/                   
+│   │   │   ├── page.tsx            # /admin/users - List all users
+│   │   │   └── [id]/               
+│   │   │       └── page.tsx        # /admin/users/123 - User details
+│   │   ├── content/                 
+│   │   │   ├── page.tsx            # /admin/content - Content overview
+│   │   │   ├── careers/             
+│   │   │   │   ├── page.tsx        # Manage careers
+│   │   │   │   └── new/             
+│   │   │   │       └── page.tsx    # Add new career
+│   │   │   ├── courses/             # Similar structure
+│   │   │   ├── exams/               # Similar structure
+│   │   │   └── colleges/            # Similar structure
+│   │   ├── analytics/               
+│   │   │   └── page.tsx            # /admin/analytics
+│   │   └── bookings/                
+│   │       └── page.tsx            # /admin/bookings
+│   │
+│   ├── api/                         # API Routes
+│   │   ├── content/
+│   │   │   ├── careers/
+│   │   │   │   ├── route.ts        # GET all, POST new
+│   │   │   │   └── [slug]/
+│   │   │   │       └── route.ts    # GET, PUT, DELETE by slug
+│   │   │   ├── courses/
+│   │   │   │   └── [slug]/
+│   │   │   │       └── route.ts
+│   │   │   ├── exams/
+│   │   │   │   └── [slug]/
+│   │   │   │       └── route.ts
+│   │   │   └── colleges/
+│   │   │       └── [slug]/
+│   │   │           └── route.ts
+│   │   │
+│   │   ├── activity/
+│   │   │   └── track/
+│   │   │       └── route.ts        # POST - Track user activity
+│   │   │
+│   │   ├── search/
+│   │   │   └── route.ts            # GET - Search all content
+│   │   │
+│   │   ├── admin/
+│   │   │   ├── users/
+│   │   │   │   ├── route.ts        # GET all users
+│   │   │   │   └── [id]/
+│   │   │   │       └── route.ts    # GET user details
+│   │   │   ├── stats/
+│   │   │   │   └── route.ts        # GET dashboard stats
+│   │   │   └── analytics/
+│   │   │       └── route.ts        # GET analytics data
+│   │   │
+│   │   └── bookings/
+│   │       ├── route.ts            # POST new booking
+│   │       └── [id]/
+│   │           └── route.ts        # GET, PUT, DELETE booking
+│   │
+│   ├── components/                   # Reusable components
+│   │   ├── layout/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Navigation.tsx
+│   │   │
+│   │   ├── ui/                       # Small UI components
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── SearchBar.tsx
+│   │   │   └── LoadingSpinner.tsx
+│   │   │
+│   │   ├── content/                  # Content-specific components
+│   │   │   ├── CareerCard.tsx
+│   │   │   ├── CourseCard.tsx
+│   │   │   ├── ExamCard.tsx
+│   │   │   ├── CollegeCard.tsx
+│   │   │   └── ContentGrid.tsx
+│   │   │
+│   │   ├── admin/                     # Admin components
+│   │   │   ├── AdminLayout.tsx
+│   │   │   ├── StatsCard.tsx
+│   │   │   ├── UsersTable.tsx
+│   │   │   ├── ActivityFeed.tsx
+│   │   │   └── Charts.tsx
+│   │   │
+│   │   └── booking/                    # Booking components
+│   │       ├── BookingModal.tsx
+│   │       ├── AvailabilityCalendar.tsx
+│   │       └── BookingConfirmation.tsx
+│   │
+│   ├── lib/                            # Utilities and configurations
+│   │   ├── supabase/
+│   │   │   ├── client.ts               # Browser client
+│   │   │   ├── server.ts               # Server client
+│   │   │   └── admin.ts                 # Admin client (service role)
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── tracking.ts              # Activity tracking functions
+│   │   │   ├── slugify.ts               # URL slug generator
+│   │   │   └── formatters.ts            # Data formatters
+│   │   │
+│   │   └── constants/
+│   │       ├── contentTypes.ts          # Content type definitions
+│   │       └── routes.ts                 # Route constants
+│   │
+│   ├── types/                           # TypeScript type definitions
+│   │   ├── database.ts                   # Supabase database types
+│   │   ├── content.ts                     # Content types
+│   │   ├── user.ts                         # User types
+│   │   └── booking.ts                      # Booking types
+│   │
+│   ├── styles/                           # Global styles
+│   │   └── globals.css
+│   │
+│   ├── public/                           # Static assets
+│   │   ├── images/
+│   │   ├── icons/
+│   │   └── fonts/
+│   │
+│   ├── .env.local                         # Environment variables
+│   ├── .gitignore
+│   ├── package.json
+│   ├── tailwind.config.js
+│   ├── tsconfig.json
+│   └── next.config.js

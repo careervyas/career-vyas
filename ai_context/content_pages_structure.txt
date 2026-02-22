@@ -1,0 +1,76 @@
+# CAREER VYAS - PAGE STRUCTURE
+
+## EXPLORE SECTION
+
+### /explore (Main Landing)
+- Hero: "Explore Careers, Colleges, Exams & Courses"
+- Categories grid: Careers | Colleges | Exams | Courses
+- Featured content (most viewed)
+- Search bar
+
+### /careers (All Career Profiles)
+- List of 100+ careers with icons
+- Filter by stream (Science/Commerce/Arts)
+- Search functionality
+- Each card: Title, summary, salary range
+
+### /careers/[slug] (Career Detail)
+- Career title & summary
+- Key info: Duration, Salary, Demand
+- Related Courses section
+- Required Exams section
+- Top Colleges section
+- Similar Careers section
+- Mentor spotlight (mentors in this field)
+
+### /courses (All Courses)
+- List of 100+ courses
+- Filter by career, duration, type
+- Search
+
+### /courses/[slug] (Course Detail)
+- Course title & description
+- Duration & eligibility
+- Careers this leads to
+- Exams required
+- Colleges offering this
+- Syllabus overview
+
+### /exams (All Exams)
+- List of 100+ exams
+- Filter by conducting body, level
+- Upcoming exam dates
+
+### /exams/[slug] (Exam Detail)
+- Exam name & full form
+- Key dates
+- Pattern & syllabus
+- Eligibility
+- Courses covered
+- Colleges accepting
+- Preparation resources
+
+### /colleges (All Colleges)
+- 150+ colleges
+- Filter by state, type, ranking
+- Search
+
+### /colleges/[slug] (College Detail)
+- College name & type
+- Location & ranking
+- Courses offered
+- Exams accepted
+- Admission criteria
+- Fees overview
+- Placement summary
+- Facilities
+
+## ADMIN SECTION
+
+### /admin
+- Dashboard with metrics
+- Users management
+- Content management (all content types)
+- Analytics
+- Bookings overview
+- Settings

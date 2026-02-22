@@ -1,0 +1,41 @@
+# API ROUTES NEEDED
+
+## CONTENT API
+GET    /api/content/careers - List all careers
+GET    /api/content/careers/:slug - Get single career
+POST   /api/content/careers - Create career (admin)
+PUT    /api/content/careers/:id - Update career (admin)
+DELETE /api/content/careers/:id - Delete career (admin)
+
+GET    /api/content/courses - List all courses
+GET    /api/content/courses/:slug - Get single course
+GET    /api/content/courses/by-career/:careerId - Courses for career
+
+GET    /api/content/exams - List all exams
+GET    /api/content/exams/:slug - Get single exam
+GET    /api/content/exams/by-course/:courseId - Exams for course
+
+GET    /api/content/colleges - List all colleges
+GET    /api/content/colleges/:slug - Get single college
+GET    /api/content/colleges/by-course/:courseId - Colleges for course
+
+## SEARCH API
+GET    /api/search?q=:query - Search all content
+
+## USER ACTIVITY API
+POST   /api/activity/track - Track user activity
+GET    /api/admin/activity - Get all activity (admin)
+GET    /api/admin/activity/user/:userId - User specific activity
+
+## ADMIN API
+GET    /api/admin/users - List all users
+GET    /api/admin/users/:id - Get user details
+GET    /api/admin/stats - Dashboard statistics
+GET    /api/admin/analytics - Detailed analytics
+
+## BOOKING API
+GET    /api/mentors/:id/availability - Get mentor availability
+POST   /api/bookings - Create booking
+GET    /api/bookings/user/:userId - User's bookings
+GET    /api/admin/bookings - All bookings (admin)
+PUT    /api/bookings/:id/cancel - Cancel booking
