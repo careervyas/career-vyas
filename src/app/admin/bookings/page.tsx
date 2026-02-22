@@ -4,7 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 export const dynamic = "force-dynamic";
 
 export default async function AdminBookingsPage() {
-    const { data: bookings } = await supabaseAdmin
+    const { data: bookingsRaw } = await supabaseAdmin
         .from("bookings")
         .select(`
       *,
@@ -12,6 +12,8 @@ export default async function AdminBookingsPage() {
       mentor:mentors(name)
     `)
         .order("created_at", { ascending: false });
+
+    const bookings: any[] = bookingsRaw || [];
 
     return (
         <div>
@@ -54,7 +56,7 @@ export default async function AdminBookingsPage() {
                                     </td>
                                     <td className="p-4 border-r-4 border-black">
                                         <span className={`brutal-badge border-black ${booking.status === 'confirmed' ? 'bg-[#4ade80]' :
-                                                booking.status === 'cancelled' ? 'bg-[#f43f5e] text-white' : 'bg-[var(--color-primary-yellow)]'
+                                            booking.status === 'cancelled' ? 'bg-[#f43f5e] text-white' : 'bg-[var(--color-primary-yellow)]'
                                             }`}>
                                             {booking.status || 'Pending'}
                                         </span>

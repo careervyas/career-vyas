@@ -14,7 +14,7 @@ export default async function AdminAnalyticsPage() {
         .order("timestamp", { ascending: false })
         .limit(100);
 
-    const logs = activityLogs || [];
+    const logs: any[] = activityLogs || [];
 
     // Calculate Search Volume
     const searchLogs = logs.filter(l => l.activity_type === 'SEARCH' || l.content_type === 'GLOBAL_SEARCH');
