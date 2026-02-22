@@ -1,173 +1,118 @@
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 
 const features = [
   {
-    icon: "🎓",
-    title: "IIT & NIT Mentors",
-    description:
-      "Get guidance from students and alumni of India's top colleges who've walked the path you're on.",
+    provider: "CAREER VYAS",
+    title: "1-on-1 Mentorship",
+    highlight: "FREE SESSIONS",
+    highlightBg: "bg-[#3b82f6]", // blue
+    desc: "Get personalized guidance from students studying in IITs, NITs, and top Medical Colleges. They've been where you are.",
+    badge: "EXPERT GUIDANCE",
+    link: "/mentors"
   },
   {
-    icon: "🤝",
-    title: "1-on-1 Sessions",
-    description:
-      "Personal mentoring sessions tailored to your interests, strengths, and career goals.",
-  },
-  {
-    icon: "📚",
+    provider: "CAREER VYAS",
     title: "Career Roadmaps",
-    description:
-      "Clear, step-by-step guides for every career path — from Engineering to Medicine to Design.",
+    highlight: "CUSTOM PLANS",
+    highlightBg: "bg-[#a855f7]", // purple
+    desc: "Not sure what to do after 10th or 12th? We provide step-by-step career blueprints for engineering, medicine, and more.",
+    badge: "ROADMAPS",
+    link: "/mentoring"
   },
   {
-    icon: "💬",
-    title: "Active Community",
-    description:
-      "Join 100+ students in our WhatsApp community. Ask questions, share doubts, grow together.",
+    provider: "CAREER VYAS",
+    title: "Live Webinars",
+    highlight: "WEEKLY EVENTS",
+    highlightBg: "bg-[#f97316]", // orange
+    desc: "Join our free weekly webinars covering exam strategies, college selection, and modern career paths you might not know about.",
+    badge: "LIVE SESSIONS",
+    link: "/webinar"
   },
-];
-
-const mentorColleges = [
-  "IIT Delhi",
-  "IIT Bombay",
-  "NIT Trichy",
-  "AIIMS Delhi",
-  "IIT Kanpur",
-  "NIT Warangal",
-];
-
-const stats = [
-  { value: "20+", label: "Expert Mentors" },
-  { value: "500+", label: "Students Guided" },
-  { value: "15+", label: "Career Paths" },
-  { value: "Free", label: "Webinars" },
+  {
+    provider: "CAREER VYAS",
+    title: "Student Community",
+    highlight: "500+ STUDENTS",
+    highlightBg: "bg-[#ffde59]", // yellow
+    desc: "Connect with like-minded peers, share resources, ask questions, and grow together in our active WhatsApp communities.",
+    badge: "COMMUNITY",
+    link: "/community",
+    textClass: "text-black"
+  }
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-
       <Hero />
 
-      {/* Trusted By Section */}
-      <section className="py-12 border-y border-border bg-bg-card/30">
+      {/* Features Grid styling to match Neo-Brutalism screenshot */}
+      <section className="py-24 bg-[var(--color-bg)] border-b-4 border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-text-muted text-sm mb-6 uppercase tracking-wider">
-            Mentors from India&apos;s Top Colleges
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-            {mentorColleges.map((college) => (
-              <span
-                key={college}
-                className="text-text-secondary font-medium text-lg opacity-70 hover:opacity-100 hover:text-primary-light transition-all duration-300"
-              >
-                {college}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-20 sm:py-28 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Why Students{" "}
-              <span className="gradient-text">Love Career Vyas</span>
-            </h2>
-            <p className="text-text-secondary max-w-xl mx-auto">
-              We&apos;re not a boring career website. We&apos;re like that helpful senior
-              who actually tells you the truth.
-            </p>
+          <div className="flex justify-between items-end mb-12">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.1)] text-black">
+                Why Career Vyas?
+              </h2>
+              <p className="text-xl font-bold text-black border-l-4 border-black pl-4">
+                Everything you need to confidently choose your path.
+              </p>
+            </div>
+            {/* Decorative arrow or shape could go here */}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {features.map((feature, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feat, idx) => (
               <div
-                key={feature.title}
-                className={`glass-card rounded-2xl p-8 hover:bg-bg-card-hover hover:scale-[1.02] transition-all duration-300 group ${i === 0 ? "md:col-span-2" : ""
-                  }`}
+                key={idx}
+                className="bg-[#fffbf0] border-[3px] border-black p-6 flex flex-col brutal-shadow hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform"
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+                <div className="flex justify-between items-start mb-4">
+                  <span className="text-xs font-black uppercase tracking-wider text-black/60">{feat.provider}</span>
+                  <svg className="w-5 h-5 text-[#ffde59] drop-shadow-[1px_1px_0_rgba(0,0,0,1)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-text-primary">
-                  {feature.title}
-                </h3>
-                <p className="text-text-secondary leading-relaxed">
-                  {feature.description}
+
+                <h3 className="text-2xl font-black leading-tight mb-4 text-black">{feat.title}</h3>
+
+                <div className={`mt-2 mb-6 border-[3px] border-black py-3 px-4 text-center font-black text-lg ${feat.highlightBg} ${feat.textClass || 'text-white'}`}>
+                  {feat.highlight}
+                </div>
+
+                <p className="text-black/80 font-medium mb-6 flex-grow leading-relaxed">
+                  {feat.desc}
                 </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* How it Works */}
-      <section className="py-20 sm:py-28 bg-bg-card/30 border-y border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Start in{" "}
-              <span className="gradient-text">3 Simple Steps</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                step: "01",
-                title: "Join the Community",
-                desc: "Join our free WhatsApp group and say hi! 👋",
-              },
-              {
-                step: "02",
-                title: "Explore Careers",
-                desc: "Browse career paths and read guides written by real mentors.",
-              },
-              {
-                step: "03",
-                title: "Talk to a Mentor",
-                desc: "Get personalized advice from mentors who've been where you are.",
-              },
-            ].map((item) => (
-              <div key={item.step} className="text-center group">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                  {item.step}
+                <div className="mb-6">
+                  <span className="brutal-badge">
+                    {feat.badge}
+                  </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-text-secondary text-sm">{item.desc}</p>
+
+                <div className="grid grid-cols-2 gap-3 mt-auto">
+                  <Link
+                    href={feat.link}
+                    className="border-2 border-black bg-white text-black font-black uppercase text-xs text-center py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all flex items-center justify-center gap-1"
+                  >
+                    Details <span className="text-lg leading-none">→</span>
+                  </Link>
+                  <Link
+                    href={feat.link}
+                    className="border-2 border-black bg-[var(--color-primary-yellow)] text-black font-black uppercase text-xs text-center py-2.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all flex items-center justify-center gap-1"
+                  >
+                    Apply
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="3" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 sm:py-28 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Confused About Your Career?
-            <br />
-            <span className="gradient-text">Let&apos;s Fix That. For Free.</span>
-          </h2>
-          <p className="text-text-secondary text-lg mb-10 max-w-2xl mx-auto">
-            Join 100+ students who are already getting career clarity from
-            India&apos;s best college mentors. No fees. No BS. Just honest guidance.
-          </p>
-          <Link
-            href="/community"
-            className="inline-flex px-10 py-5 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 cta-glow"
-          >
-            Join Career Vyas — It&apos;s Free 🚀
-          </Link>
         </div>
       </section>
 
