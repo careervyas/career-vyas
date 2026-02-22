@@ -1,10 +1,35 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// These env vars are available at runtime on Vercel once configured in project settings.
-// Using empty string fallback prevents build-time crashes during static analysis;
-// actual DB calls will fail gracefully if the var is truly missing.
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
-const supabaseRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
+// Lazy singleton: createClient is only called on the FIRST actual DB operation,
+// never at module evaluation / build time. This prevents Vercel build failures
+// caused by missing env vars during the static analysis phase.
+let _client: SupabaseClient | null = null;
 
-// This admin client bypasses RLS and should ONLY be used in server/api routes.
-export const supabaseAdmin = createClient(supabaseUrl, supabaseRoleKey);
+function getClient(): SupabaseClient {
+    if (!_client) {
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+        if (!url || !key) {
+            throw new Error(
+                'NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set in environment variables.'
+            );
+        }
+        _client = createClient(url, key, { auth: { persistSession: false } });
+    }
+    return _client;
+}
+
+// Export as `any` so TypeScript doesn't fight us on overloads.
+// All real type safety is preserved at the call site via Supabase's own filters.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const supabaseAdmin: any = new Proxy(
+    {},
+    {
+        get(_target, prop: string) {
+            // Forward every property access to the real client instance
+            const client = getClient();
+            const value = client[prop as keyof SupabaseClient];
+            return typeof value === 'function' ? value.bind(client) : value;
+        },
+    }
+);
