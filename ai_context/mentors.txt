@@ -1,0 +1,6 @@
+name,college,expertise,bio,image,isActive,order
+Dr. Priya Sharma,AIIMS Delhi,Medical,"MBBS from AIIMS, helping students crack NEET",https://example.com/priya.jpg,true,1
+Rahul Verma,IIT Bombay,Engineering,"IIT Bombay CS graduate, guide for JEE aspirants",https://example.com/rahul.jpg,true,2
+Sneha Patel,NIFT Mumbai,Design,"Fashion design expert, portfolio guidance specialist",https://example.com/sneha.jpg,true,3
+Arjun Singh,NLSIU Bangalore,Law,"National Law School alumnus, CLAT preparation mentor",https://example.com/arjun.jpg,true,4
+Neha Gupta,IIM Ahmedabad,Business,"IIM A graduate, guiding commerce students",https://example.com/neha.jpg,true,5
