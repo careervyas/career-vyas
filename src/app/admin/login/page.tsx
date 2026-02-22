@@ -1,22 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { loginAction } from "./actions";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function AdminLogin() {
-    const [error, setError] = useState(false);
+function LoginForm() {
     const [loading, setLoading] = useState(false);
-
-    async function handleSubmit(formData: FormData) {
-        setLoading(true);
-        setError(false);
-        const result = await loginAction(formData);
-        // If we get here, the action returned an error (success redirects away)
-        if (result?.error) {
-            setError(true);
-            setLoading(false);
-        }
-    }
+    const searchParams = useSearchParams();
+    const hasError = searchParams.get("error") === "1";
 
     return (
         <div className="min-h-[90vh] flex items-center justify-center p-4">
@@ -30,13 +21,19 @@ export default function AdminLogin() {
                     Authorized personnel only.
                 </p>
 
-                {error && (
+                {hasError && (
                     <div className="mb-6 p-4 border-[3px] border-black text-white font-black uppercase text-center brutal-shadow-sm bg-[#f43f5e]">
                         INCORRECT PASSWORD
                     </div>
                 )}
 
-                <form action={handleSubmit} className="space-y-6">
+                {/* Native form POST — no JS required, cookie is set before redirect */}
+                <form
+                    method="POST"
+                    action="/api/auth/login"
+                    onSubmit={() => setLoading(true)}
+                    className="space-y-6"
+                >
                     <div>
                         <label className="block font-black uppercase text-sm mb-2" htmlFor="password">
                             Master Password
@@ -46,7 +43,7 @@ export default function AdminLogin() {
                             name="password"
                             id="password"
                             required
-                            onChange={() => setError(false)}
+                            autoComplete="current-password"
                             className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors placeholder:text-black/30"
                             placeholder="Enter password..."
                         />
@@ -55,12 +52,20 @@ export default function AdminLogin() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-black text-white border-[4px] border-black font-black uppercase text-xl py-4 shadow-[6px_6px_0px_0px_var(--color-primary-blue)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-black text-white border-[4px] border-black font-black uppercase text-xl py-4 shadow-[6px_6px_0px_0px_var(--color-primary-blue)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all disabled:opacity-50"
                     >
                         {loading ? "LOGGING IN..." : "LOGIN"}
                     </button>
                 </form>
             </div>
         </div>
+    );
+}
+
+export default function AdminLogin() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-black text-2xl">LOADING...</div>}>
+            <LoginForm />
+        </Suspense>
     );
 }

@@ -1,18 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-    const { password } = await request.json();
+    // Handle both JSON and form data
+    let password = "";
+    const contentType = request.headers.get("content-type") || "";
 
-    if (password !== "career2026") {
-        return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+    if (contentType.includes("application/json")) {
+        const body = await request.json();
+        password = body.password;
+    } else {
+        const formData = await request.formData();
+        password = formData.get("password") as string;
     }
 
-    const response = NextResponse.json({ success: true });
+    if (password !== "career2026") {
+        // Redirect back to login with error
+        return NextResponse.redirect(new URL("/admin/login?error=1", request.url));
+    }
 
-    // Set a proper HTTP-only cookie that works on HTTPS/Vercel
+    // Set cookie directly ON the redirect response — browser processes Set-Cookie before following the redirect
+    const response = NextResponse.redirect(new URL("/admin/dashboard", request.url));
     response.cookies.set("adminAuth", "true", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        httpOnly: false, // Allow middleware to read it in Edge runtime
+        secure: false,   // Work on both HTTP and HTTPS
         sameSite: "lax",
         maxAge: 60 * 60 * 24 * 7, // 7 days
         path: "/",
