@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cal, { getCalApi } from "@calcom/embed-react";
+import PageTracker from "@/components/PageTracker";
 
 export default function MentorBookingPage() {
     const { id } = useParams();
@@ -59,6 +60,7 @@ export default function MentorBookingPage() {
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
             <Navbar />
+            <PageTracker activityType="BOOKING_INITIATED" contentType="MENTOR_SESSION" contentId={mentor.name} />
 
             <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

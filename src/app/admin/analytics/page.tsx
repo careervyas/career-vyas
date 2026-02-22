@@ -16,6 +16,26 @@ export default async function AdminAnalyticsPage() {
 
     const logs = activityLogs || [];
 
+    // Calculate Search Volume
+    const searchLogs = logs.filter(l => l.activity_type === 'SEARCH' || l.content_type === 'GLOBAL_SEARCH');
+    const searchVolume = searchLogs.length;
+
+    // Calculate Top Query
+    const queryCounts = searchLogs.reduce((acc, log) => {
+        const query = log.content_id || 'Unknown';
+        acc[query] = (acc[query] || 0) + 1;
+        return acc;
+    }, {} as Record<string, number>);
+
+    let topQuery = "N/A";
+    let max = 0;
+    for (const [q, count] of Object.entries(queryCounts)) {
+        if ((count as number) > max) {
+            max = count as number;
+            topQuery = q;
+        }
+    }
+
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
@@ -34,12 +54,12 @@ export default async function AdminAnalyticsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                 <div className="col-span-1 flex flex-col gap-6">
                     <div className="bg-[#4ade80] border-4 border-black p-6 brutal-shadow-sm flex-grow flex flex-col justify-center items-center">
-                        <p className="font-black uppercase text-sm mb-2 text-center">Top Career Query</p>
-                        <h4 className="text-3xl font-black text-center bg-white px-2 border-2 border-black">Software Eng.</h4>
+                        <p className="font-black uppercase text-sm mb-2 text-center">Top Search Query</p>
+                        <h4 className="text-3xl font-black text-center bg-white px-2 border-2 border-black line-clamp-1">{topQuery}</h4>
                     </div>
                     <div className="bg-[#f43f5e] border-4 border-black p-6 brutal-shadow-sm flex-grow flex flex-col justify-center items-center text-white">
-                        <p className="font-black uppercase text-sm mb-2 text-center text-white/80">Search Volume</p>
-                        <h4 className="text-5xl font-black text-center drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">1,245</h4>
+                        <p className="font-black uppercase text-sm mb-2 text-center text-white/80">Search Volume (Recents)</p>
+                        <h4 className="text-5xl font-black text-center drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">{searchVolume}</h4>
                     </div>
                 </div>
 

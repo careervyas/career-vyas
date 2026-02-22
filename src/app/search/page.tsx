@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageTracker from "@/components/PageTracker";
 
 async function performSearch(query: string) {
     if (!query) return null;
@@ -29,6 +30,10 @@ export default async function SearchResultsPage({
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
             <Navbar />
+
+            {q && q.length > 1 && (
+                <PageTracker activityType="SEARCH" contentType="GLOBAL_SEARCH" contentId={q} />
+            )}
 
             <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh]">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

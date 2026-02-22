@@ -37,6 +37,25 @@ export default async function AdminDashboard() {
         .from("user_activity")
         .select("*", { count: "exact", head: true });
 
+    // 3.5 Top Popular Content (last 100 views)
+    const { data: recentViews } = await supabaseAdmin
+        .from("user_activity")
+        .select("content_type, content_id")
+        .eq("activity_type", "PAGE_VIEW")
+        .order("timestamp", { ascending: false })
+        .limit(100);
+
+    const viewCounts = (recentViews || []).reduce((acc: any, log: any) => {
+        const id = log.content_id;
+        if (id) acc[id] = (acc[id] || 0) + 1;
+        return acc;
+    }, {});
+
+    const popularContent = Object.entries(viewCounts)
+        .sort(([, a], [, b]) => (b as number) - (a as number))
+        .slice(0, 3)
+        .map(([id]) => id);
+
     // 4. Recent Signups
     const { data: recentUsers } = await supabaseAdmin
         .from("users")
@@ -106,14 +125,28 @@ export default async function AdminDashboard() {
 
                 <div className="lg:col-span-2 bg-white border-4 border-black p-6 brutal-shadow-sm flex flex-col items-center justify-center">
                     <h2 className="text-2xl font-black uppercase mb-4 w-full text-left border-b-4 border-black pb-2">Top Popular Content</h2>
-                    <div className="w-full text-center py-8">
-                        <h3 className="text-3xl font-black uppercase opacity-20 rotate-[-2deg] mb-2">AWAITING MORE DATA</h3>
-                        <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[#4ade80] brutal-shadow-sm">Tracking view metrics across modules.</p>
-                        <div className="mt-4 flex gap-2 justify-center">
-                            <span className="brutal-badge bg-white border-black">Software Engineering</span>
-                            <span className="brutal-badge bg-white border-black">JEE Main</span>
-                            <span className="brutal-badge bg-white border-black">IIT Bombay</span>
-                        </div>
+                    <div className="w-full text-center py-4">
+                        {popularContent.length === 0 ? (
+                            <>
+                                <h3 className="text-3xl font-black uppercase opacity-20 rotate-[-2deg] mb-2">AWAITING MORE DATA</h3>
+                                <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[#4ade80] brutal-shadow-sm">Tracking view metrics across modules.</p>
+                            </>
+                        ) : (
+                            <div className="flex justify-center items-center h-full gap-4 flex-col">
+                                <p className="font-bold text-sm uppercase text-black/60 bg-[var(--color-bg)] px-2 border-2 border-black border-dashed">Trending Now</p>
+                                {popularContent.map((id, idx) => {
+                                    const colors = ['bg-[#ffde59]', 'bg-[#4ade80]', 'bg-white'];
+                                    return (
+                                        <div key={idx} className={`border-4 border-black p-4 w-full brutal-shadow-sm flex items-center justify-between ${colors[idx % colors.length]}`}>
+                                            <div className="flex items-center gap-4">
+                                                <span className="font-black text-2xl">#{idx + 1}</span>
+                                                <span className="font-black uppercase text-xl truncate text-left">{id}</span>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

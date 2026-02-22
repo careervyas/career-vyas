@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import ShareButtons from "@/components/explore/ShareButtons";
+import PageTracker from "@/components/PageTracker";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +53,7 @@ export default async function CareerProfilePage({
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
             <Navbar />
+            <PageTracker activityType="PAGE_VIEW" contentType="CAREER PROFILE" contentId={career.title} />
 
             <article className="pt-32 pb-24 min-h-[85vh] relative overflow-hidden">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
