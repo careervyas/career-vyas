@@ -2,18 +2,31 @@
 
 @theme {
   --color-primary: #6C3CE1;
+  /* Purple from Figma */
   --color-primary-light: #8B5CF6;
+  /* Light purple */
   --color-primary-dark: #5521C5;
+  /* Dark purple */
   --color-secondary: #F59E0B;
+  /* Amber */
   --color-secondary-light: #FBBF24;
+  /* Light amber */
   --color-accent: #10B981;
+  /* Teal accent */
   --color-bg-dark: #0F0A1A;
+  /* Dark background */
   --color-bg-card: #1A1230;
+  /* Card background */
   --color-bg-card-hover: #231845;
+  /* Card hover */
   --color-text-primary: #F8FAFC;
+  /* Light text */
   --color-text-secondary: #A5B4C8;
+  /* Secondary text */
   --color-text-muted: #6B7A8D;
+  /* Muted text */
   --color-border: #2D2454;
+  /* Border color */
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -22,9 +35,11 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-bg-dark);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 3px;
@@ -57,8 +72,15 @@ html {
 
 /* Pulse animation for CTA */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(108, 60, 225, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(108, 60, 225, 0.5), 0 0 60px rgba(245, 158, 11, 0.2); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(108, 60, 225, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(108, 60, 225, 0.5), 0 0 60px rgba(245, 158, 11, 0.2);
+  }
 }
 
 .cta-glow {
@@ -67,8 +89,15 @@ html {
 
 /* Float animation */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
@@ -77,8 +106,15 @@ html {
 
 /* Fade in up animation */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in-up {

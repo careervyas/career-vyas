@@ -8,6 +8,8 @@ export default function Navbar() {
 
     const navLinks = [
         { href: "/", label: "Home" },
+        { href: "/about", label: "About Us" },
+        { href: "/mentoring", label: "Mentoring" },
         { href: "/mentors", label: "Mentors" },
         { href: "/community", label: "Community" },
         { href: "/blog", label: "Blog" },

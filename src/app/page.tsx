@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 
 const features = [
   {
@@ -50,68 +51,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background gradient orbs */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-secondary/15 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 text-center">
-          {/* Badge */}
-          <div className="animate-fade-in-up inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-text-secondary mb-8">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            Free Webinar Coming Soon — Register Now!
-          </div>
-
-          {/* Main Heading */}
-          <h1 className="animate-fade-in-up text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-            Your Career Ka{" "}
-            <span className="gradient-text">Sahi Guide</span>
-            <br />
-            <span className="text-text-secondary text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-medium">
-              Class 8-12 Ke Students Ke Liye
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="animate-fade-in-up-delay-1 text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
-            IIT, NIT aur Medical College ke mentors se seedha baat karo.
-            Apne career ke confusion ko clarity mein badlo.
-            <span className="text-secondary font-medium"> 100% Free.</span>
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="animate-fade-in-up-delay-2 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link
-              href="/community"
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-semibold text-lg hover:scale-105 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 cta-glow"
-            >
-              Join Free Community →
-            </Link>
-            <Link
-              href="/mentors"
-              className="px-8 py-4 rounded-full glass-card text-text-primary font-semibold text-lg hover:bg-bg-card-hover hover:scale-105 transition-all duration-300"
-            >
-              Meet Our Mentors
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="animate-fade-in-up-delay-3 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="glass-card rounded-2xl p-4">
-                <div className="text-2xl sm:text-3xl font-bold gradient-text">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-text-secondary mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Trusted By Section */}
       <section className="py-12 border-y border-border bg-bg-card/30">
