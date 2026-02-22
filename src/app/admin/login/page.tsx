@@ -1,38 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { loginAction } from "./actions";
 
 export default function AdminLogin() {
-    const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
+    async function handleSubmit(formData: FormData) {
         setLoading(true);
         setError(false);
-
-        try {
-            const res = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ password }),
-            });
-
-            if (res.ok) {
-                router.push("/admin/dashboard");
-                router.refresh();
-            } else {
-                setError(true);
-            }
-        } catch {
+        const result = await loginAction(formData);
+        // If we get here, the action returned an error (success redirects away)
+        if (result?.error) {
             setError(true);
-        } finally {
             setLoading(false);
         }
-    };
+    }
 
     return (
         <div className="min-h-[90vh] flex items-center justify-center p-4">
@@ -52,20 +36,17 @@ export default function AdminLogin() {
                     </div>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-6">
+                <form action={handleSubmit} className="space-y-6">
                     <div>
                         <label className="block font-black uppercase text-sm mb-2" htmlFor="password">
                             Master Password
                         </label>
                         <input
                             type="password"
+                            name="password"
                             id="password"
                             required
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setError(false);
-                            }}
+                            onChange={() => setError(false)}
                             className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors placeholder:text-black/30"
                             placeholder="Enter password..."
                         />
