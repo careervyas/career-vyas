@@ -60,9 +60,9 @@ export default async function AdminUsersPage() {
                                         <span className="brutal-badge border-black bg-white">{user.source || 'Direct'}</span>
                                     </td>
                                     <td className="p-4 flex gap-2">
-                                        <button className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                            VIEW LOGS
-                                        </button>
+                                        <Link href={`/admin/users/${user.id}`} className="px-3 py-1 border-2 border-black bg-white font-bold text-sm brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                                            VIEW PROFILE
+                                        </Link>
                                     </td>
                                 </tr>
                             ))

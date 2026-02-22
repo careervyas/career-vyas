@@ -1,6 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
+import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,9 @@ export default async function AdminAnalyticsPage() {
       user:users(name)
     `)
         .order("timestamp", { ascending: false })
-        .limit(50);
+        .limit(100);
+
+    const logs = activityLogs || [];
 
     return (
         <div>
@@ -21,17 +23,15 @@ export default async function AdminAnalyticsPage() {
                     Platform Analytics
                 </h1>
                 <button className="brutal-btn bg-[var(--color-primary-orange)] px-6 py-3 font-black uppercase">
-                    Generate Report
+                    Download PDF Report
                 </button>
             </div>
 
+            <div className="mb-12">
+                <AnalyticsCharts activityData={logs} />
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                <div className="col-span-1 lg:col-span-2 bg-white border-4 border-black p-6 brutal-shadow-sm min-h-[300px] flex items-center justify-center">
-                    <div className="text-center">
-                        <h3 className="text-4xl font-black uppercase opacity-20 rotate-[-5deg] mb-4">CHARTS SYNCING...</h3>
-                        <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[var(--color-primary-yellow)] brutal-shadow-sm">Awaiting sufficient traffic data</p>
-                    </div>
-                </div>
                 <div className="col-span-1 flex flex-col gap-6">
                     <div className="bg-[#4ade80] border-4 border-black p-6 brutal-shadow-sm flex-grow flex flex-col justify-center items-center">
                         <p className="font-black uppercase text-sm mb-2 text-center">Top Career Query</p>
@@ -42,50 +42,51 @@ export default async function AdminAnalyticsPage() {
                         <h4 className="text-5xl font-black text-center drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">1,245</h4>
                     </div>
                 </div>
-            </div>
 
-            <h2 className="text-2xl font-black uppercase mb-4 border-b-4 border-black pb-2 inline-block">Real-Time Activity Feed</h2>
-
-            <div className="bg-white border-4 border-black brutal-shadow-sm overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                    <thead>
-                        <tr className="bg-black text-white uppercase text-sm font-black border-b-4 border-black">
-                            <th className="p-4 border-r-4 border-black w-24">Event</th>
-                            <th className="p-4 border-r-4 border-black">User</th>
-                            <th className="p-4 border-r-4 border-black">Content Target</th>
-                            <th className="p-4">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!activityLogs || activityLogs.length === 0 ? (
-                            <tr>
-                                <td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">
-                                    No activity tracked yet. Set up /api/activity endpoints.
-                                </td>
-                            </tr>
-                        ) : (
-                            activityLogs.map((log) => (
-                                <tr key={log.id} className="border-b-4 border-black hover:bg-[var(--color-bg)] transition-colors">
-                                    <td className="p-4 border-r-4 border-black">
-                                        <span className="brutal-badge border-black bg-[var(--color-primary-blue)] text-white font-mono text-xs">
-                                            {log.activity_type || 'PAGE_VIEW'}
-                                        </span>
-                                    </td>
-                                    <td className="p-4 border-r-4 border-black font-bold uppercase">
-                                        {log.user?.name || 'Anonymous User'}
-                                    </td>
-                                    <td className="p-4 border-r-4 border-black font-mono text-sm">
-                                        {log.content_type || 'PAGE'}
-                                        {log.content_id ? ` : ${log.content_id}` : ''}
-                                    </td>
-                                    <td className="p-4 text-sm font-bold opacity-70">
-                                        {log.timestamp ? formatDistanceToNow(new Date(log.timestamp), { addSuffix: true }) : 'N/A'}
-                                    </td>
+                <div className="col-span-1 lg:col-span-2 bg-white border-4 border-black brutal-shadow-sm flex flex-col">
+                    <h2 className="text-2xl font-black uppercase border-b-4 border-black p-6 bg-[var(--color-primary-yellow)] m-0">Real-Time Activity Feed</h2>
+                    <div className="overflow-x-auto flex-grow">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-black text-white uppercase text-sm font-black border-b-4 border-black">
+                                    <th className="p-4 border-r-4 border-black w-32">Event</th>
+                                    <th className="p-4 border-r-4 border-black">User</th>
+                                    <th className="p-4 border-r-4 border-black">Content Target</th>
+                                    <th className="p-4">Time</th>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                {logs.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">
+                                            No activity tracked yet. Set up /api/activity endpoints.
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    logs.slice(0, 50).map((log) => (
+                                        <tr key={log.id} className="border-b-4 border-black hover:bg-[var(--color-bg)] transition-colors">
+                                            <td className="p-4 border-r-4 border-black">
+                                                <span className="brutal-badge border-black bg-[var(--color-primary-blue)] text-white font-mono text-[10px]">
+                                                    {log.activity_type || 'PAGE_VIEW'}
+                                                </span>
+                                            </td>
+                                            <td className="p-4 border-r-4 border-black font-bold uppercase text-sm">
+                                                {log.user?.name || 'Anonymous User'}
+                                            </td>
+                                            <td className="p-4 border-r-4 border-black font-mono text-xs">
+                                                {log.content_type || 'PAGE'}
+                                                {log.content_id ? ` : ${log.content_id}` : ''}
+                                            </td>
+                                            <td className="p-4 text-xs font-bold opacity-70">
+                                                {log.timestamp ? formatDistanceToNow(new Date(log.timestamp), { addSuffix: true }) : 'N/A'}
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     );
