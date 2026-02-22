@@ -1,0 +1,114 @@
+
+---
+
+## 📁 DOCUMENT 5: AI IDE EXECUTION GUIDE
+
+*Purpose: Exact steps for you to implement this with zero coding*
+
+
+# CAREER VYAS - 15-DAY EXECUTION GUIDE
+## For Google Antigravity or Any AI IDE
+
+## STEP 1: INITIAL SETUP (30 MINUTES)
+
+### Create these accounts NOW:
+
+GitHub: https://github.com/signup
+
+Username: [choose something simple]
+Email: your email
+Vercel: https://vercel.com/signup
+
+Sign up with GitHub (easiest)
+Supabase: https://supabase.com
+
+Sign up with GitHub
+Create new project: "career-vyas"
+WhatsApp group (if not exist)
+
+Create group "Career Vyas Community"
+Generate invite link
+Copy link
+
+
+### Prepare these files (create now):
+Create a folder on your computer called "career-vyas-launch"
+
+**File 1: mentors.txt**
+
+Copy-paste this format and fill for 5 mentors:
+
+Mentor 1:
+Name:
+College:
+Expertise:
+Bio (1 line):
+Photo: (get from them or use placeholder)
+
+
+**File 2: blog-topics.txt**
+
+log 1 Title:
+Main points:
+-
+-
+-
+
+Blog 2 Title:
+Main points:
+-
+-
+-
+
+
+
+**File 3: whatsapp-link.txt**
+
+
+
+## STEP 2: UPLOAD TO AI IDE
+
+In your AI IDE (Google Antigravity), upload ALL 5 documents from this response:
+
+1. `01_master_context_15day.txt` (this entire doc)
+2. `02_agent_prompts_15day.txt` 
+3. `03_communication_15day.txt`
+4. `04_roadmap_15day.txt`
+5. `05_execution_guide_15day.txt`
+
+## STEP 3: FIRST COMMAND
+
+Copy-paste this EXACT message:
+
+I have created all accounts and uploaded the 5 context documents. Here are my details:
+
+GitHub username: [your username]
+Supabase project: [project name]
+WhatsApp group link: [your link]
+Domain (if bought): [your domain]
+I have 5 mentors ready with their info.
+
+I want to launch in 15 days starting today. Please act as my AI Orchestrator and:
+
+Confirm you have read all 5 documents
+Give me my Day 1 tasks (what I need to do today)
+Tell me what you'll set up automatically
+Share the preview URL once something is built
+Let's go!
+
+
+
+## STEP 4: DAILY ROUTINE
+
+### Each Morning (9 AM):
+Check what Orchestrator assigned. Do your 2-3 tasks.
+
+### During Day:
+Check occasionally for questions from AI.
+
+### Each Evening (8 PM):
+Review day's progress. Respond to any blockers.
+
+## STEP 5: QUICK REFERENCE - WHAT TO SAY
+
+**When you want status:**

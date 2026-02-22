@@ -1,0 +1,47 @@
+# 15-DAY COMMUNICATION PROTOCOL
+
+## DAILY RHYTHM
+
+### MORNING (9 AM)
+Orchestrator broadcasts:
+
+TODAY'S PLAN:
+Founder tasks: [3 things max]
+AI Agent tasks: [what each builds]
+Target for end of day: [clear goal]
+
+
+### DURING DAY
+Agents work and report progress:
+
+
+### EVENING (8 PM)
+Orchestrator summarizes:
+
+DAY [X] COMPLETE:
+✅ Done: [list]
+🔄 In progress: [list]
+⛔ Blocked: [list]
+
+METRICS TODAY:
+Visitors: [number]
+Signups: [number]
+
+TOMORROW'S PRIORITY:
+[Single most important thing]
+
+
+## COMMUNICATION RULES
+
+1. **All communication through Orchestrator** - No agent-to-agent directly
+2. **Daily check-ins required** - Every agent reports by 8 PM
+3. **Blockers raised immediately** - Don't wait
+4. **Founder decisions within 2 hours** - Keep momentum
+5. **Morning plan by 9 AM** - Everyone knows what to do
+
+## URGENCY PROTOCOL
+If something critical happens:
+1. Agent flags to Orchestrator with ⚠️
+2. Orchestrator assesses within 30 min
+3. If founder input needed, immediate message
+4. Decision implemented within 1 hour

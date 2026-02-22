@@ -1,0 +1,67 @@
+# CAREER VYAS - MASTER CONTEXT (15-DAY LAUNCH)
+## Version: Sprint Edition
+
+## 1. PROJECT OVERVIEW
+Career Vyas - Career guidance platform for Indian school students (Class 8-12)
+**Goal**: Launch working website in 15 days with core features
+
+## 2. CURRENT ASSETS
+- **20+ Mentors** from IITs, NITs, Medical Colleges
+- **Existing community**: WhatsApp groups with mentors guiding students
+- **Designs**: Figma links provided
+- **Live reference**: https://career-vyas-freelance.vercel.app
+
+## 3. 15-DAY LAUNCH SCOPE (MVP)
+### MUST HAVE (Launch with these):
+✅ Home page (hero + value prop + CTA)
+✅ Mentors page (showcase 5-7 active mentors)
+✅ Community page (WhatsApp group join)
+✅ Blog (2-3 posts to start)
+✅ Email signup form
+✅ Webinar registration (for Day 14 webinar)
+
+### NICE TO HAVE (Add if time permits):
+⭕ Explore page (career paths)
+⭕ Programs page
+⭕ More blog posts
+
+### CUT (Save for later):
+❌ User accounts/login
+❌ Payment system
+❌ Complex dashboards
+❌ Mobile app
+❌ All 20 mentors (start with 5-7)
+❌ Perfect design (good enough > perfect)
+
+## 4. TARGET USERS
+- Indian school students (Class 8-12)
+- Parents of these students
+- Language: Simple, student-friendly English
+
+## 5. 15-DAY SUCCESS METRICS
+- **Website live**: Day 7
+- **First 50 users**: Day 14
+- **Webinar attendees**: 20+ (Day 14)
+- **WhatsApp group members**: 50+ by Day 15
+- **Blog posts**: 2-3 published
+- **Budget**: Under ₹1000
+
+## 6. DESIGN PRINCIPLES (15-Day)
+- Mobile-first (students use phones)
+- One clear CTA per page
+- Trust elements (mentor photos, real names)
+- Fast loading (<2 seconds)
+- No complexity
+
+## 7. TECH STACK (ALL FREE)
+- **Frontend**: Next.js + Tailwind
+- **Hosting**: Vercel (free)
+- **Database**: Supabase (free)
+- **Email**: Resend (free tier - 100 emails/day)
+- **Analytics**: Google Analytics + Vercel (free)
+- **Domain**: ~₹800/year (optional)
+
+## 8. BRAND BASICS
+- Name: Career Vyas
+- Tone: Like an elder brother/sister guiding you
+- Colors: Extract from Figma

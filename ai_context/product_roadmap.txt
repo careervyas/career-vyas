@@ -1,0 +1,189 @@
+
+---
+
+## 📁 DOCUMENT 4: PRODUCT ROADMAP & EXECUTION PLAN
+
+*Purpose: Clear timeline of what to build and when*
+
+
+# CAREER VYAS - 15-DAY LAUNCH ROADMAP
+
+## WEEK 1: BUILD (Days 1-7)
+
+### DAY 1: Foundation
+**Founder tasks:**
+- [ ] Create GitHub account
+- [ ] Create Vercel account
+- [ ] Create Supabase account
+- [ ] Buy domain (optional)
+- [ ] Create WhatsApp group
+
+**AI tasks:**
+- [ ] Project initialized
+- [ ] Database created
+- [ ] GitHub connected to Vercel
+
+### DAY 2: Database & Content Prep
+**Founder tasks:**
+- [ ] Pick 5 mentors (name, photo, college, expertise)
+- [ ] Write down 3 blog topics
+- [ ] Get WhatsApp invite link
+
+**AI tasks:**
+- [ ] Database tables created
+- [ ] Sample mentor data added
+- [ ] Project structure ready
+
+### DAY 3: Home + Mentors Pages
+**AI builds:**
+- [ ] Home page (hero + CTA)
+- [ ] Mentors page (5 profiles)
+
+**Founder reviews:**
+- [ ] Check mobile view
+- [ ] Approve or suggest changes
+
+### DAY 4: Community + Blog Pages
+**AI builds:**
+- [ ] Community page (WhatsApp link)
+- [ ] Blog listing page
+
+**Founder tasks:**
+- [ ] Test WhatsApp link
+- [ ] Share with 1 friend for feedback
+
+### DAY 5: Content + Signup
+**AI builds:**
+- [ ] Blog post 1 published
+- [ ] Email signup form
+- [ ] Webinar registration page
+
+**Founder tasks:**
+- [ ] Review blog post
+- [ ] Test signup form
+
+### DAY 6: Webinar Page + Blog 2
+**AI builds:**
+- [ ] Blog post 2 published
+- [ ] Webinar page content
+- [ ] Mentor bios completed
+
+**Founder tasks:**
+- [ ] Pick webinar date (Day 14)
+- [ ] Choose 1 mentor to co-host
+
+### DAY 7: TESTING & LAUNCH
+**AI tasks:**
+- [ ] Test all pages on mobile
+- [ ] Fix any bugs
+- [ ] Deploy to custom domain
+- [ ] Install analytics
+
+**Founder tasks:**
+- [ ] Test everything on your phone
+- [ ] Share link with 5 people
+- [ ] CELEBRATE - Website live!
+
+---
+
+## WEEK 2: GROWTH (Days 8-15)
+
+### DAY 8: Soft Launch
+**Founder tasks:**
+- [ ] Share website with all 20 mentors
+- [ ] Ask each to share with 5 students
+- [ ] Post on your LinkedIn
+- [ ] Join 3 Facebook parent groups
+
+**AI tasks:**
+- [ ] Track all signups
+- [ ] Send welcome email to new users
+- [ ] Content: Social media posts ready
+
+### DAY 9: Content Push
+**Founder tasks:**
+- [ ] Share blog post 1 in all groups
+- [ ] Post mentor spotlight (choose 1)
+- [ ] Add 10 students to WhatsApp group
+
+**AI tasks:**
+- [ ] Create "Free Career Guide" PDF
+- [ ] Set up email to deliver guide
+- [ ] Track downloads
+
+### DAY 10: Webinar Promotion Begins
+**Founder tasks:**
+- [ ] Announce webinar in all channels
+- [ ] Personal message to 20 promising students
+- [ ] Ask mentors to promote to their network
+
+**AI tasks:**
+- [ ] Webinar page optimized
+- [ ] Registration tracking set up
+- [ ] Reminder email sequence ready
+
+### DAY 11: Momentum Building
+**Founder tasks:**
+- [ ] Daily posts in WhatsApp group
+- [ ] Share student success story (even small)
+- [ ] Post in 5 more Facebook groups
+- [ ] Reach out to 1 school teacher you know
+
+**AI tasks:**
+- [ ] Blog post 3 published
+- [ ] Analytics report - where are users coming from?
+- [ ] Suggest top sources to double down
+
+### DAY 12: Community Engagement
+**Founder tasks:**
+- [ ] Host "Ask Me Anything" in WhatsApp (1 hour)
+- [ ] Get 3 students to introduce themselves
+- [ ] Share what will be covered in webinar
+
+**AI tasks:**
+- [ ] Send webinar reminder to all registrants
+- [ ] Prepare Q&A document for webinar
+- [ ] Track open rates
+
+### DAY 13: Final Prep
+**Founder tasks:**
+- [ ] Final webinar countdown posts
+- [ ] Prepare your slides (10 slides max)
+- [ ] Test tech with co-host mentor
+- [ ] Send personal reminder to top 10 prospects
+
+**AI tasks:**
+- [ ] Final reminder email
+- [ ] WhatsApp broadcast reminder
+- [ ] Registration report - how many?
+
+### DAY 14: WEBINAR DAY!
+**Schedule:**
+- 6:00 PM - Tech check
+- 6:30 PM - Webinar starts (30 min)
+- 7:00 PM - Live Q&A (15 min)
+- 7:15 PM - WhatsApp group invite
+- 7:30 PM - Follow-up in group
+
+**AI tasks:**
+- [ ] Track attendance
+- [ ] Send recording to registrants
+- [ ] Add attendees to WhatsApp group
+- [ ] Send thank you email with next steps
+
+### DAY 15: REVIEW & PLAN
+**Founder tasks:**
+- [ ] Count results:
+  - Website visitors: ___ 
+  - Email signups: ___
+  - WhatsApp members: ___
+  - Webinar attendees: ___
+- [ ] What worked? (3 things)
+- [ ] What didn't? (3 things)
+- [ ] Plan Week 3 priorities
+
+**AI tasks:**
+- [ ] Complete analytics report
+- [ ] List all feedback from users
+- [ ] Suggest top 3 features for next sprint
+- [ ] Celebrate with founder! 🎉
