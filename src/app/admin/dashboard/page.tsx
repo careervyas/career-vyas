@@ -4,48 +4,87 @@ import { formatDistanceToNow } from "date-fns";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDashboard() {
-    // 1. Get counts
-    const [
-        { count: usersCount },
-        { count: mentorsCount },
-        { count: careersCount },
-        { count: coursesCount },
-        { count: examsCount },
-        { count: collegesCount },
-        { count: bookingsCount },
-    ] = await Promise.all([
-        supabaseAdmin.from("users").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("mentors").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("career_profiles").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("courses").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("exams").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("colleges").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("bookings").select("*", { count: "exact", head: true }),
-    ]);
+// Safe query helper — never throws, always returns a default
+async function safeCount(table: string): Promise<number> {
+    try {
+        const { count } = await supabaseAdmin.from(table).select("*", { count: "exact", head: true });
+        return count || 0;
+    } catch { return 0; }
+}
 
-    // 2. Active users today (activity in last 24h)
+async function safeQuery<T>(fn: () => Promise<{ data: T | null }>, fallback: T): Promise<T> {
+    try {
+        const { data } = await fn();
+        return data ?? fallback;
+    } catch { return fallback; }
+}
+
+export default async function AdminDashboard() {
+    // All queries are wrapped — page will never crash
+    const [usersCount, mentorsCount, careersCount, coursesCount, examsCount, collegesCount, bookingsCount] =
+        await Promise.all([
+            safeCount("users"),
+            safeCount("mentors"),
+            safeCount("career_profiles"),
+            safeCount("courses"),
+            safeCount("exams"),
+            safeCount("colleges"),
+            safeCount("bookings"),
+        ]);
+
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const { count: activeUsersToday } = await supabaseAdmin
-        .from("user_activity")
-        .select("user_id", { count: "exact", head: true })
-        .gte("timestamp", yesterday.toISOString());
 
-    // 3. Content views (total activity logs)
-    const { count: totalContentViews } = await supabaseAdmin
-        .from("user_activity")
-        .select("*", { count: "exact", head: true });
+    let activeUsersToday = 0;
+    let totalContentViews = 0;
+    let recentViews: any[] = [];
+    let recentUsers: any[] = [];
+    let recentActivity: any[] = [];
 
-    // 3.5 Top Popular Content (last 100 views)
-    const { data: recentViews } = await supabaseAdmin
-        .from("user_activity")
-        .select("content_type, content_id")
-        .eq("activity_type", "PAGE_VIEW")
-        .order("timestamp", { ascending: false })
-        .limit(100);
+    try {
+        const { count } = await supabaseAdmin
+            .from("user_activity")
+            .select("user_id", { count: "exact", head: true })
+            .gte("timestamp", yesterday.toISOString());
+        activeUsersToday = count || 0;
+    } catch { }
 
-    const viewCounts = (recentViews || []).reduce((acc: any, log: any) => {
+    try {
+        const { count } = await supabaseAdmin
+            .from("user_activity")
+            .select("*", { count: "exact", head: true });
+        totalContentViews = count || 0;
+    } catch { }
+
+    try {
+        const { data } = await supabaseAdmin
+            .from("user_activity")
+            .select("content_type, content_id")
+            .eq("activity_type", "PAGE_VIEW")
+            .order("timestamp", { ascending: false })
+            .limit(100);
+        recentViews = data || [];
+    } catch { }
+
+    try {
+        const { data } = await supabaseAdmin
+            .from("users")
+            .select("id, name, email, created_at")
+            .order("created_at", { ascending: false })
+            .limit(5);
+        recentUsers = data || [];
+    } catch { }
+
+    try {
+        const { data } = await supabaseAdmin
+            .from("user_activity")
+            .select(`id, activity_type, content_type, timestamp, user:users(name)`)
+            .order("timestamp", { ascending: false })
+            .limit(5);
+        recentActivity = data || [];
+    } catch { }
+
+    const viewCounts = recentViews.reduce((acc: any, log: any) => {
         const id = log.content_id;
         if (id) acc[id] = (acc[id] || 0) + 1;
         return acc;
@@ -56,35 +95,18 @@ export default async function AdminDashboard() {
         .slice(0, 3)
         .map(([id]) => id);
 
-    // 4. Recent Signups
-    const { data: recentUsers } = await supabaseAdmin
-        .from("users")
-        .select("id, name, email, created_at")
-        .order("created_at", { ascending: false })
-        .limit(5);
-
-    // 5. Recent Activity
-    const { data: recentActivity } = await supabaseAdmin
-        .from("user_activity")
-        .select(`
-            id, activity_type, content_type, timestamp,
-            user:users(name)
-        `)
-        .order("timestamp", { ascending: false })
-        .limit(5);
-
     const statCards = [
-        { title: "Total Users", count: usersCount || 0, color: "bg-[#4ade80]", link: "/admin/users" },
-        { title: "Active Today", count: activeUsersToday || 0, color: "bg-[var(--color-primary-yellow)]", link: "/admin/analytics" },
-        { title: "Content Views", count: totalContentViews || 0, color: "bg-white", link: "/admin/analytics" },
-        { title: "Bookings", count: bookingsCount || 0, color: "bg-[var(--color-primary-purple)]", link: "/admin/bookings" },
+        { title: "Total Users", count: usersCount, color: "bg-[#4ade80]", link: "/admin/users" },
+        { title: "Active Today", count: activeUsersToday, color: "bg-[var(--color-primary-yellow)]", link: "/admin/analytics" },
+        { title: "Content Views", count: totalContentViews, color: "bg-white", link: "/admin/analytics" },
+        { title: "Bookings", count: bookingsCount, color: "bg-[var(--color-primary-purple)]", link: "/admin/bookings" },
     ];
 
     const contentCards = [
-        { title: "Careers", count: careersCount || 0, link: "/admin/content/careers" },
-        { title: "Courses", count: coursesCount || 0, link: "/admin/content/courses" },
-        { title: "Exams", count: examsCount || 0, link: "/admin/content/exams" },
-        { title: "Colleges", count: collegesCount || 0, link: "/admin/content/colleges" },
+        { title: "Careers", count: careersCount, link: "/admin/content/careers" },
+        { title: "Courses", count: coursesCount, link: "/admin/content/courses" },
+        { title: "Exams", count: examsCount, link: "/admin/content/exams" },
+        { title: "Colleges", count: collegesCount, link: "/admin/content/colleges" },
     ];
 
     return (
@@ -102,7 +124,7 @@ export default async function AdminDashboard() {
                         className={`border-4 border-black p-6 brutal-shadow hover:translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all ${stat.color} ${stat.color === 'bg-[var(--color-primary-purple)]' ? 'text-white' : 'text-black'}`}
                     >
                         <h3 className="font-bold uppercase text-sm mb-2">{stat.title}</h3>
-                        <p className={`text-5xl font-black uppercase tracking-tighter ${stat.color === 'bg-[var(--color-primary-purple)]' ? 'drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white' : 'drop-shadow-[2px_2px_0px_rgba(255,255,255,1)] text-black'}`}>
+                        <p className={`text-5xl font-black uppercase tracking-tighter ${stat.color === 'bg-[var(--color-primary-purple)]' ? 'text-white' : 'text-black'}`}>
                             {stat.count}
                         </p>
                     </Link>
@@ -123,27 +145,25 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
 
-                <div className="lg:col-span-2 bg-white border-4 border-black p-6 brutal-shadow-sm flex flex-col items-center justify-center">
+                <div className="lg:col-span-2 bg-white border-4 border-black p-6 brutal-shadow-sm flex flex-col">
                     <h2 className="text-2xl font-black uppercase mb-4 w-full text-left border-b-4 border-black pb-2">Top Popular Content</h2>
-                    <div className="w-full text-center py-4">
+                    <div className="w-full py-4 flex-grow flex flex-col justify-center">
                         {popularContent.length === 0 ? (
                             <>
-                                <h3 className="text-3xl font-black uppercase opacity-20 rotate-[-2deg] mb-2">AWAITING MORE DATA</h3>
-                                <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[#4ade80] brutal-shadow-sm">Tracking view metrics across modules.</p>
+                                <h3 className="text-3xl font-black uppercase opacity-20 rotate-[-2deg] mb-2 text-center">AWAITING MORE DATA</h3>
+                                <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[#4ade80] brutal-shadow-sm mx-auto">Tracking view metrics across modules.</p>
                             </>
                         ) : (
-                            <div className="flex justify-center items-center h-full gap-4 flex-col">
-                                <p className="font-bold text-sm uppercase text-black/60 bg-[var(--color-bg)] px-2 border-2 border-black border-dashed">Trending Now</p>
+                            <div className="flex flex-col gap-4">
+                                <p className="font-bold text-sm uppercase text-black/60 bg-[var(--color-bg)] px-2 border-2 border-black border-dashed self-start">Trending Now</p>
                                 {popularContent.map((id, idx) => {
                                     const colors = ['bg-[#ffde59]', 'bg-[#4ade80]', 'bg-white'];
                                     return (
-                                        <div key={idx} className={`border-4 border-black p-4 w-full brutal-shadow-sm flex items-center justify-between ${colors[idx % colors.length]}`}>
-                                            <div className="flex items-center gap-4">
-                                                <span className="font-black text-2xl">#{idx + 1}</span>
-                                                <span className="font-black uppercase text-xl truncate text-left">{id}</span>
-                                            </div>
+                                        <div key={idx} className={`border-4 border-black p-4 w-full brutal-shadow-sm flex items-center gap-4 ${colors[idx % colors.length]}`}>
+                                            <span className="font-black text-2xl">#{idx + 1}</span>
+                                            <span className="font-black uppercase text-xl truncate">{id}</span>
                                         </div>
-                                    )
+                                    );
                                 })}
                             </div>
                         )}
@@ -160,10 +180,10 @@ export default async function AdminDashboard() {
                         <Link href="/admin/users" className="text-xs font-bold underline hover:text-[var(--color-primary-yellow)]">VIEW ALL</Link>
                     </div>
                     <div className="p-0">
-                        {recentUsers?.length === 0 ? (
-                            <div className="p-6 text-center font-bold">No recent signups.</div>
+                        {recentUsers.length === 0 ? (
+                            <div className="p-6 text-center font-bold text-black/50">No users yet.</div>
                         ) : (
-                            recentUsers?.map((user: any) => (
+                            recentUsers.map((user: any) => (
                                 <div key={user.id} className="border-b-2 border-black p-4 flex justify-between items-center hover:bg-[var(--color-bg)]">
                                     <div>
                                         <p className="font-black uppercase">{user.name || 'Anonymous'}</p>
@@ -185,14 +205,14 @@ export default async function AdminDashboard() {
                         <Link href="/admin/analytics" className="text-xs font-bold underline hover:text-[#4ade80]">VIEW ALL</Link>
                     </div>
                     <div className="p-0">
-                        {recentActivity?.length === 0 ? (
-                            <div className="p-6 text-center font-bold">No recent activity.</div>
+                        {recentActivity.length === 0 ? (
+                            <div className="p-6 text-center font-bold text-black/50">No activity tracked yet.</div>
                         ) : (
-                            recentActivity?.map((act: any) => (
-                                <div key={act.id} className="border-b-2 border-black p-4 flex flex-col justify-center hover:bg-[var(--color-bg)]">
+                            recentActivity.map((act: any) => (
+                                <div key={act.id} className="border-b-2 border-black p-4 flex flex-col hover:bg-[var(--color-bg)]">
                                     <div className="flex justify-between items-center mb-1">
                                         <p className="font-black uppercase text-sm">
-                                            {act.user?.name || 'Someone'} <span className="text-black/50 font-normal lowercase">did:</span> {act.activity_type}
+                                            {(act.user as any)?.name || 'Someone'} <span className="text-black/50 font-normal lowercase">did:</span> {act.activity_type}
                                         </p>
                                         <p className="text-xs font-bold whitespace-nowrap opacity-70">
                                             {formatDistanceToNow(new Date(act.timestamp), { addSuffix: true })}
@@ -207,7 +227,6 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

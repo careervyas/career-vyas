@@ -5,16 +5,17 @@ import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
 export const dynamic = "force-dynamic";
 
 export default async function AdminAnalyticsPage() {
-    const { data: activityLogs } = await supabaseAdmin
-        .from("user_activity")
-        .select(`
-      *,
-      user:users(name)
-    `)
-        .order("timestamp", { ascending: false })
-        .limit(100);
+    let activityLogs: any[] = [];
+    try {
+        const { data: activityLogsRaw } = await supabaseAdmin
+            .from("user_activity")
+            .select(`*, user:users(name)`)
+            .order("timestamp", { ascending: false })
+            .limit(100);
+        activityLogs = activityLogsRaw || [];
+    } catch { }
 
-    const logs: any[] = activityLogs || [];
+    const logs: any[] = activityLogs;
 
     // Calculate Search Volume
     const searchLogs = logs.filter(l => l.activity_type === 'SEARCH' || l.content_type === 'GLOBAL_SEARCH');

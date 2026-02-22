@@ -5,16 +5,20 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function AdminUsersPage() {
-    const { data: users } = await supabaseAdmin
-        .from("users")
-        .select("*")
-        .order("created_at", { ascending: false });
+    let users: any[] = [];
+    try {
+        const { data } = await supabaseAdmin
+            .from("users")
+            .select("*")
+            .order("created_at", { ascending: false });
+        users = data || [];
+    } catch { }
 
     return (
         <div>
             <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
                 <h1 className="text-4xl font-black uppercase">
-                    Registered Users <span className="text-[var(--color-primary-blue)]">({users?.length || 0})</span>
+                    Registered Users <span className="text-[var(--color-primary-blue)]">({users.length})</span>
                 </h1>
                 <button className="brutal-btn bg-[#4ade80] px-6 py-3 font-black uppercase">
                     Export CSV
