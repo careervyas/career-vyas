@@ -1,0 +1,92 @@
+import { supabaseAdmin } from "@/lib/supabase/admin";
+import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminAnalyticsPage() {
+    const { data: activityLogs } = await supabaseAdmin
+        .from("user_activity")
+        .select(`
+      *,
+      user:users(name)
+    `)
+        .order("timestamp", { ascending: false })
+        .limit(50);
+
+    return (
+        <div>
+            <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
+                <h1 className="text-4xl font-black uppercase">
+                    Platform Analytics
+                </h1>
+                <button className="brutal-btn bg-[var(--color-primary-orange)] px-6 py-3 font-black uppercase">
+                    Generate Report
+                </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div className="col-span-1 lg:col-span-2 bg-white border-4 border-black p-6 brutal-shadow-sm min-h-[300px] flex items-center justify-center">
+                    <div className="text-center">
+                        <h3 className="text-4xl font-black uppercase opacity-20 rotate-[-5deg] mb-4">CHARTS SYNCING...</h3>
+                        <p className="font-bold border-2 border-black inline-block px-4 py-2 bg-[var(--color-primary-yellow)] brutal-shadow-sm">Awaiting sufficient traffic data</p>
+                    </div>
+                </div>
+                <div className="col-span-1 flex flex-col gap-6">
+                    <div className="bg-[#4ade80] border-4 border-black p-6 brutal-shadow-sm flex-grow flex flex-col justify-center items-center">
+                        <p className="font-black uppercase text-sm mb-2 text-center">Top Career Query</p>
+                        <h4 className="text-3xl font-black text-center bg-white px-2 border-2 border-black">Software Eng.</h4>
+                    </div>
+                    <div className="bg-[#f43f5e] border-4 border-black p-6 brutal-shadow-sm flex-grow flex flex-col justify-center items-center text-white">
+                        <p className="font-black uppercase text-sm mb-2 text-center text-white/80">Search Volume</p>
+                        <h4 className="text-5xl font-black text-center drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] text-white">1,245</h4>
+                    </div>
+                </div>
+            </div>
+
+            <h2 className="text-2xl font-black uppercase mb-4 border-b-4 border-black pb-2 inline-block">Real-Time Activity Feed</h2>
+
+            <div className="bg-white border-4 border-black brutal-shadow-sm overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                    <thead>
+                        <tr className="bg-black text-white uppercase text-sm font-black border-b-4 border-black">
+                            <th className="p-4 border-r-4 border-black w-24">Event</th>
+                            <th className="p-4 border-r-4 border-black">User</th>
+                            <th className="p-4 border-r-4 border-black">Content Target</th>
+                            <th className="p-4">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {!activityLogs || activityLogs.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} className="p-8 text-center font-bold text-xl uppercase">
+                                    No activity tracked yet. Set up /api/activity endpoints.
+                                </td>
+                            </tr>
+                        ) : (
+                            activityLogs.map((log) => (
+                                <tr key={log.id} className="border-b-4 border-black hover:bg-[var(--color-bg)] transition-colors">
+                                    <td className="p-4 border-r-4 border-black">
+                                        <span className="brutal-badge border-black bg-[var(--color-primary-blue)] text-white font-mono text-xs">
+                                            {log.activity_type || 'PAGE_VIEW'}
+                                        </span>
+                                    </td>
+                                    <td className="p-4 border-r-4 border-black font-bold uppercase">
+                                        {log.user?.name || 'Anonymous User'}
+                                    </td>
+                                    <td className="p-4 border-r-4 border-black font-mono text-sm">
+                                        {log.content_type || 'PAGE'}
+                                        {log.content_id ? ` : ${log.content_id}` : ''}
+                                    </td>
+                                    <td className="p-4 text-sm font-bold opacity-70">
+                                        {log.timestamp ? formatDistanceToNow(new Date(log.timestamp), { addSuffix: true }) : 'N/A'}
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
