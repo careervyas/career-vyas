@@ -33,25 +33,25 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
     return (
         <div className="w-full">
             {/* Controls */}
-            <div className="bg-[#f43f5e] border-4 border-black p-6 brutal-shadow-sm mb-12 flex flex-col md:flex-row gap-6 items-center">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-[var(--color-border)] mb-12 flex flex-col md:flex-row gap-6 items-center">
                 <div className="w-full md:w-1/2">
-                    <label className="block text-white font-black uppercase text-sm mb-2" htmlFor="search">Search Exams</label>
+                    <label className="block font-semibold text-[var(--color-text)] text-sm mb-2" htmlFor="search">Search Exams</label>
                     <input
                         id="search"
                         type="text"
                         placeholder="e.g. JEE Main, NEET..."
                         value={search}
                         onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-                        className="w-full border-4 border-black p-4 font-bold focus:outline-none focus:bg-[#ffde59] transition-colors"
+                        className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-4 py-3 text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all"
                     />
                 </div>
                 <div className="w-full md:w-1/2">
-                    <label className="block text-white font-black uppercase text-sm mb-2" htmlFor="level">Filter by Level</label>
+                    <label className="block font-semibold text-[var(--color-text)] text-sm mb-2" htmlFor="level">Filter by Level</label>
                     <select
                         id="level"
                         value={filterLevel}
                         onChange={(e) => { setFilterLevel(e.target.value); setCurrentPage(1); }}
-                        className="w-full border-4 border-black p-4 font-bold appearance-none bg-white focus:outline-none focus:bg-[#ffde59] transition-colors cursor-pointer"
+                        className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] px-4 py-3 text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all cursor-pointer appearance-none"
                     >
                         {levels.map((level: any, idx) => (
                             <option key={idx} value={level}>{level}</option>
@@ -67,68 +67,72 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
                         <Link
                             key={exam.id}
                             href={`/explore/exams/${exam.slug}`}
-                            className="bg-white border-4 border-black flex flex-col brutal-shadow hover:translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all h-full group p-6"
+                            className="modern-card flex flex-col h-full group overflow-hidden"
                         >
-                            <div className="flex justify-between items-start mb-4">
-                                <span className="brutal-badge border-black bg-[var(--color-bg)]">
-                                    {exam.level || 'National'}
-                                </span>
-                                <span className="text-xl font-bold border-2 border-black px-2 bg-[var(--color-primary-yellow)] leading-none pt-1">
-                                    🔔
-                                </span>
+                            <div className="p-6 flex flex-col flex-grow relative z-10">
+                                <div className="flex justify-between items-start mb-4">
+                                    <span className="bg-rose-50 text-rose-700 border border-rose-100 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+                                        {exam.level || 'National'}
+                                    </span>
+                                    <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 shadow-sm shadow-yellow-100/50">
+                                        🔔
+                                    </div>
+                                </div>
+
+                                <h2 className="text-xl font-bold leading-tight mb-1 text-[var(--color-text)] group-hover:text-rose-600 transition-colors">
+                                    {exam.name}
+                                </h2>
+
+                                <p className="font-medium text-sm text-[var(--color-text-muted)] mb-6 flex-grow">
+                                    {exam.full_form}
+                                </p>
+
+                                <div className="bg-[var(--color-bg-soft)] rounded-xl p-4 flex flex-col gap-3 mb-2 border border-[var(--color-border)]">
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="font-semibold text-[var(--color-text-muted)] tracking-wide">Exam Date</span>
+                                        <span className="font-bold text-[var(--color-text)]">{exam.exam_date ? format(new Date(exam.exam_date), 'MMM dd, yyyy') : 'TBA'}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-sm border-t border-[var(--color-border)] pt-2">
+                                        <span className="font-semibold text-[var(--color-text-muted)] tracking-wide">Mode</span>
+                                        <span className="font-bold text-[var(--color-text)]">{exam.mode || 'Online CBT'}</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <h2 className="text-4xl font-black leading-tight mb-1 uppercase group-hover:text-[#f43f5e] group-hover:underline decoration-4 underline-offset-4 transition-colors">
-                                {exam.name}
-                            </h2>
-
-                            <p className="font-bold text-sm text-black/60 mb-6 flex-grow">
-                                {exam.full_form}
-                            </p>
-
-                            <div className="bg-[var(--color-bg)] border-2 border-black p-4 flex flex-col gap-2 mb-4">
-                                <div className="flex justify-between items-center text-sm">
-                                    <span className="font-black uppercase text-black/50 tracking-wider">Exam Date</span>
-                                    <span className="font-bold">{exam.exam_date ? format(new Date(exam.exam_date), 'MMM dd, yyyy') : 'TBA'}</span>
-                                </div>
-                                <div className="flex justify-between items-center text-sm">
-                                    <span className="font-black uppercase text-black/50 tracking-wider">Mode</span>
-                                    <span className="font-bold bg-white border-black border-2 px-1">{exam.mode || 'Online CBT'}</span>
-                                </div>
-                            </div>
-
-                            <div className="pt-4 border-t-4 border-black mt-auto">
-                                <span className="font-black uppercase text-sm group-hover:text-[#f43f5e]">VIEW SYLLABUS & DETAILS ➝</span>
+                            <div className="px-6 py-4 bg-[var(--color-bg-soft)] border-t border-[var(--color-border)] group-hover:bg-rose-50 transition-colors flex justify-between items-center text-sm font-semibold text-rose-600">
+                                <span>View Syllabus & Details</span>
+                                <span className="transform group-hover:translate-x-1 transition-transform">→</span>
                             </div>
                         </Link>
                     );
                 })}
 
                 {paginated.length === 0 && (
-                    <div className="col-span-full border-4 border-black p-12 text-center bg-white brutal-shadow-sm text-black">
-                        <h3 className="text-2xl font-black uppercase mb-2">No Exams Found</h3>
-                        <p className="font-bold text-black/60">Try adjusting your search filters.</p>
+                    <div className="col-span-full rounded-2xl border border-[var(--color-border)] p-12 text-center bg-white shadow-sm">
+                        <div className="text-4xl mb-4">📝</div>
+                        <h3 className="text-xl font-bold mb-2 text-[var(--color-text)]">No Exams Found</h3>
+                        <p className="text-[var(--color-text-muted)]">Try adjusting your search filters.</p>
                     </div>
                 )}
             </div>
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center gap-4">
+                <div className="flex justify-center gap-2">
                     <button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage(p => p - 1)}
-                        className="brutal-btn bg-white px-6 py-3 font-black uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="modern-btn-secondary px-6 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Prev
+                        Previous
                     </button>
-                    <div className="font-black text-xl border-4 border-black bg-[var(--color-primary-yellow)] px-6 py-3 brutal-shadow-sm flex items-center">
+                    <div className="flex items-center justify-center font-semibold text-sm bg-white border border-[var(--color-border)] rounded-full px-6 min-w-[5rem] shadow-sm text-[var(--color-text)]">
                         {currentPage} / {totalPages}
                     </div>
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage(p => p + 1)}
-                        className="brutal-btn bg-black text-white px-6 py-3 font-black uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="modern-btn-secondary px-6 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Next
                     </button>

@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #fffbf0;
-  --color-text: #000000;
-  --color-border: #000000;
-  --color-primary-yellow: #ffde59;
-  --color-primary-blue: #3b82f6;
-  --color-primary-purple: #a855f7;
-  --color-primary-orange: #f97316;
+  --color-bg: #F9FAFB;
+  --color-bg-soft: #F3F4F6;
+  --color-text: #111827;
+  --color-text-muted: #4B5563;
+  --color-border: #E5E7EB;
+  
+  /* Primary Indigo Palette */
+  --color-primary-indigo: #4F46E5;
+  --color-primary-indigo-dark: #4338CA;
+  --color-primary-indigo-light: #6366F1;
+  --color-primary-indigo-soft: #EEF2FF;
+  
+  /* Accent Colors */
+  --color-success: #10B981;
+  --color-highlight: #F43F5E;
+  --color-purple: #8B5CF6;
+  --color-yellow: #FBBF24;
 
-  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
@@ -17,25 +27,26 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--color-bg);
-  border-left: 2px solid black;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary-yellow);
-  border: 2px solid black;
+  background: #CBD5E1;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-orange);
+  background: #94A3B8;
 }
 
 /* Smooth scrolling */
@@ -43,59 +54,69 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Neo-Brutalism Utilities */
-.brutal-border {
-  border: 3px solid black;
+/* Modern UI Utilities */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.brutal-shadow {
-  box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+.modern-card {
+  background-color: #ffffff;
+  border-radius: 1.5rem; /* rounded-3xl approx */
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.brutal-shadow-sm {
-  box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+.modern-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  transform: translateY(-4px);
 }
 
-.brutal-shadow-hover:hover {
-  box-shadow: none;
-  transform: translate(6px, 6px);
-}
-
-.brutal-card {
-  background-color: white;
-  border: 3px solid black;
-  box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
-  transition: all 0.2s ease-in-out;
-}
-
-.brutal-btn {
-  background-color: var(--color-primary-yellow);
-  border: 3px solid black;
-  box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
-  transition: all 0.15s ease-in-out;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: black;
-}
-
-.brutal-btn:hover {
-  box-shadow: none;
-  transform: translate(4px, 4px);
-}
-
-.brutal-btn:active {
-  box-shadow: none;
-  transform: translate(4px, 4px);
-}
-
-.brutal-badge {
-  background-color: var(--color-primary-blue);
+.modern-btn {
+  background-color: var(--color-primary-indigo);
   color: white;
-  border: 2px solid black;
+  border-radius: 9999px; /* fully rounded */
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+}
+
+.modern-btn:hover {
+  background-color: var(--color-primary-indigo-dark);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+  transform: translateY(-1px);
+}
+
+.modern-btn:active {
+  transform: translateY(0);
+}
+
+.modern-btn-secondary {
+  background-color: white;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px; /* fully rounded */
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.modern-btn-secondary:hover {
+  background-color: var(--color-bg-soft);
+  border-color: #D1D5DB;
+}
+
+.modern-badge {
+  background-color: var(--color-primary-indigo-soft);
+  color: var(--color-primary-indigo-dark);
+  border-radius: 9999px;
   display: inline-block;
-  padding: 4px 8px;
-  text-transform: uppercase;
-  font-weight: 800;
+  padding: 4px 12px;
+  font-weight: 600;
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.025em;
 }
