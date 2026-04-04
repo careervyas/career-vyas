@@ -18,7 +18,6 @@ async function getExamAndRelations(slug: string) {
 
     if (error || !exam) return null;
 
-    // Fetch Relationships
     const { data: relations } = await supabaseAdmin
         .from("content_relationships")
         .select("*")
@@ -41,93 +40,97 @@ export default async function ExamProfilePage({
     const { exam } = data;
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
             <PageTracker activityType="PAGE_VIEW" contentType="EXAM PROFILE" contentId={exam.name} />
 
             <article className="pt-32 pb-24 min-h-[85vh] relative overflow-hidden">
+                <div className="absolute top-20 right-10 w-64 h-64 bg-rose-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+                <div className="absolute bottom-40 left-10 w-72 h-72 bg-pink-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
-                    <Link href="/explore/exams" className="inline-flex items-center gap-2 font-bold uppercase mb-8 hover:underline decoration-4 underline-offset-4 text-[#f43f5e]">
-                        <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        ALL EXAMS
+                    <Link href="/explore/exams" className="inline-flex items-center gap-2 font-semibold text-sm text-rose-500 mb-8 hover:underline underline-offset-4 transition-colors">
+                        <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        All Exams
                     </Link>
 
-                    <header className="mb-12 border-b-4 border-black pb-8">
+                    <header className="mb-12 border-b border-[var(--color-border)] pb-8">
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <span className="brutal-badge border-black bg-white text-black">
+                            <span className="modern-badge bg-rose-50 text-rose-700">
                                 {exam.level || 'National Level'}
                             </span>
                             <ShareButtons title={exam.name} path={`/explore/exams/${slug}`} />
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight leading-[1.1] mb-2 text-[#f43f5e] drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-2 text-rose-500">
                             {exam.name}
                         </h1>
-                        <p className="text-2xl font-bold text-black/60 mb-8">{exam.full_form}</p>
+                        <p className="text-xl font-medium text-[var(--color-text-muted)] mb-8">{exam.full_form}</p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-                            <div className="bg-[var(--color-primary-yellow)] border-4 border-black p-4 brutal-shadow-sm flex flex-col justify-center items-center text-center">
-                                <p className="font-black text-xs uppercase opacity-70 mb-1">Date</p>
-                                <p className="text-xl font-bold uppercase">{exam.exam_date ? format(new Date(exam.exam_date), 'MMM dd, yyyy') : 'TBA'}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                            <div className="modern-card p-5 bg-amber-50 border-amber-100 text-center">
+                                <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-1">Date</p>
+                                <p className="text-lg font-bold text-amber-800">{exam.exam_date ? format(new Date(exam.exam_date), 'MMM dd, yyyy') : 'TBA'}</p>
                             </div>
-                            <div className="bg-[var(--color-primary-blue)] text-white border-4 border-black p-4 brutal-shadow-sm flex flex-col justify-center items-center text-center">
-                                <p className="font-black text-xs uppercase opacity-70 mb-1">Mode</p>
-                                <p className="text-xl font-bold uppercase">{exam.mode || 'Online CBT'}</p>
+                            <div className="modern-card p-5 bg-indigo-50 border-indigo-100 text-center">
+                                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-1">Mode</p>
+                                <p className="text-lg font-bold text-indigo-800">{exam.mode || 'Online CBT'}</p>
                             </div>
-                            <div className="bg-white border-4 border-black p-4 brutal-shadow-sm flex flex-col justify-center items-center text-center">
-                                <p className="font-black text-xs uppercase opacity-70 mb-1">Official Site</p>
+                            <div className="modern-card p-5 text-center">
+                                <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-1">Official Site</p>
                                 {exam.website ? (
-                                    <a href={exam.website} target="_blank" rel="noopener noreferrer" className="text-lg font-bold underline hover:text-[#f43f5e]">Link ↗</a>
+                                    <a href={exam.website} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-[var(--color-primary-indigo)] underline hover:text-rose-500 transition-colors">Link ↗</a>
                                 ) : (
-                                    <p className="text-lg font-bold">N/A</p>
+                                    <p className="text-lg font-bold text-[var(--color-text-muted)]">N/A</p>
                                 )}
                             </div>
                         </div>
 
-                        <p className="text-xl font-bold bg-white border-4 border-black p-6 brutal-shadow-sm leading-relaxed">
-                            {exam.description || 'Centralized entrance examination for admission into premier institutes.'}
-                        </p>
+                        <div className="modern-card p-6">
+                            <p className="text-lg font-medium leading-relaxed text-[var(--color-text-muted)]">
+                                {exam.description || 'Centralized entrance examination for admission into premier institutes.'}
+                            </p>
+                        </div>
                     </header>
 
-                    <section className="bg-white border-4 border-black p-8 brutal-shadow-sm mb-12">
-                        <h2 className="text-3xl font-black uppercase mb-6 border-b-4 border-black pb-2 inline-block">
+                    <section className="modern-card p-8 mb-12">
+                        <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">
                             Syllabus & Pattern
                         </h2>
-                        <div className="prose prose-lg max-w-none prose-p:font-bold prose-p:text-black/80 prose-p:leading-relaxed whitespace-pre-wrap">
+                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed whitespace-pre-wrap">
                             {exam.syllabus || "Syllabus details are currently being updated for the latest examination cycle."}
                         </div>
                     </section>
 
-                    {/* Relational Content */}
-                    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div className="bg-[var(--color-bg)] border-4 border-black p-6 flex flex-col justify-between hover:bg-[var(--color-primary-blue)] hover:text-white transition-colors group">
-                            <div>
-                                <h3 className="text-2xl font-black uppercase mb-2 border-b-2 border-black group-hover:border-white pb-1">Target Courses</h3>
-                                <p className="font-bold text-sm tracking-wide">The degree programs this exam unlocks.</p>
-                            </div>
-                            <button className="mt-6 border-2 border-black group-hover:bg-white group-hover:text-black w-full py-3 font-black uppercase text-sm">Explore Courses</button>
+                    {/* Related Content */}
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div className="modern-card p-6 group hover:shadow-lg transition-all">
+                            <h3 className="text-xl font-bold mb-2 text-[var(--color-text)]">Target Courses</h3>
+                            <p className="text-[var(--color-text-muted)] text-sm font-medium mb-4">The degree programs this exam unlocks.</p>
+                            <Link href="/explore/courses" className="modern-btn-secondary px-5 py-2 text-sm inline-flex items-center gap-1">
+                                Explore Courses <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </Link>
                         </div>
-
-                        <div className="bg-[var(--color-bg)] border-4 border-black p-6 flex flex-col justify-between hover:bg-[var(--color-primary-orange)] hover:text-black transition-colors group">
-                            <div>
-                                <h3 className="text-2xl font-black uppercase mb-2 border-b-2 border-black pb-1">Accepting Colleges</h3>
-                                <p className="font-bold text-sm tracking-wide">Institutes that accept this exam&apos;s scores.</p>
-                            </div>
-                            <button className="mt-6 border-2 border-black group-hover:bg-black group-hover:text-white w-full py-3 font-black uppercase text-sm">View Colleges</button>
+                        <div className="modern-card p-6 group hover:shadow-lg transition-all">
+                            <h3 className="text-xl font-bold mb-2 text-[var(--color-text)]">Accepting Colleges</h3>
+                            <p className="text-[var(--color-text-muted)] text-sm font-medium mb-4">Institutes that accept this exam&apos;s scores.</p>
+                            <Link href="/explore/colleges" className="modern-btn-secondary px-5 py-2 text-sm inline-flex items-center gap-1">
+                                View Colleges <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </Link>
                         </div>
                     </section>
 
-                    <div className="mt-16 bg-black border-4 border-[#f43f5e] p-8 brutal-shadow flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="text-white">
-                            <p className="font-black uppercase text-3xl">LACKING PREP STRATEGY?</p>
-                            <p className="font-bold mt-2 text-white/80">Connect with toppers who have already cracked this exam.</p>
+                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-rose-500 to-pink-600 text-white flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <div>
+                            <p className="text-2xl font-bold">Lacking Prep Strategy?</p>
+                            <p className="font-medium mt-2 text-rose-100">Connect with toppers who have already cracked this exam.</p>
                         </div>
                         <Link
                             href="/mentors"
-                            className="brutal-btn bg-[#f43f5e] text-white border-white px-8 py-4 text-center text-xl w-full sm:w-auto font-black uppercase whitespace-nowrap"
+                            className="bg-white text-rose-600 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-rose-50 transition-colors shadow-lg"
                         >
-                            FIND MENTOR
+                            Find Mentor →
                         </Link>
                     </div>
 

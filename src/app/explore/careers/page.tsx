@@ -22,20 +22,22 @@ export default async function ExploreCareersPage() {
     const careers = await getCareers();
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
 
-            <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh] relative overflow-hidden">
+            <section className="pt-32 pb-24 border-b border-[var(--color-border)] min-h-[85vh] relative overflow-hidden">
+                {/* Background Decorative Gradient Orbs */}
+                <div className="absolute top-20 right-10 w-64 h-64 bg-indigo-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+                <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
                     <div className="mb-16">
-                        <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 tracking-tight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
-                            EXPLORE <br />
-                            <span className="bg-[var(--color-primary-yellow)] px-4 leading-[1.1] inline-block border-[5px] border-black brutal-shadow-sm rotate-2 mt-2 mb-4">
-                                CAREERS
-                            </span>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1] text-[var(--color-text)]">
+                            <span className="text-[var(--color-primary-indigo)] mb-2 block">Explore</span>
+                            Career Paths
                         </h1>
-                        <p className="text-xl font-bold max-w-2xl text-black/80 leading-relaxed border-l-4 border-black pl-6 bg-white p-4 brutal-shadow-sm text-left">
+                        <p className="text-lg md:text-xl font-medium max-w-2xl text-[var(--color-text-muted)] leading-relaxed">
                             Discover over 100+ highly vetted career paths. Find out exactly what it takes, what it pays, and how to get there.
                         </p>
                     </div>

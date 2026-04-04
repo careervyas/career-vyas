@@ -17,7 +17,6 @@ async function getCourseAndRelations(slug: string) {
 
     if (error || !course) return null;
 
-    // Fetch hypothetical Relationships (if course targets careers/exams/colleges)
     const { data: relations } = await supabaseAdmin
         .from("content_relationships")
         .select("*")
@@ -42,98 +41,102 @@ export default async function CourseProfilePage({
     const { course } = data;
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
             <PageTracker activityType="PAGE_VIEW" contentType="COURSE PROFILE" contentId={course.title} />
 
             <article className="pt-32 pb-24 min-h-[85vh] relative overflow-hidden">
+                <div className="absolute top-20 left-10 w-64 h-64 bg-purple-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+                <div className="absolute bottom-40 right-10 w-72 h-72 bg-violet-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
-                    <Link href="/explore/courses" className="inline-flex items-center gap-2 font-bold uppercase mb-8 hover:underline decoration-4 underline-offset-4">
-                        <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        ALL COURSES
+                    <Link href="/explore/courses" className="inline-flex items-center gap-2 font-semibold text-sm text-[var(--color-purple)] mb-8 hover:underline underline-offset-4 transition-colors">
+                        <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        All Courses
                     </Link>
 
-                    <header className="mb-12 border-b-4 border-black pb-8">
+                    <header className="mb-12 border-b border-[var(--color-border)] pb-8">
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <span className="brutal-badge bg-[var(--color-primary-yellow)] text-black">
+                            <span className="modern-badge bg-purple-50 text-purple-700">
                                 {course.type || 'Degree path'}
                             </span>
                             <ShareButtons title={course.title} path={`/explore/courses/${slug}`} />
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-8 leading-[1.1]">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 leading-[1.1] text-[var(--color-text)]">
                             {course.title}
                         </h1>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-white border-4 border-black p-6 brutal-shadow-sm">
-                                <p className="font-black text-xs uppercase text-black/50 tracking-wider mb-1">Duration</p>
-                                <p className="text-2xl font-black uppercase">{course.duration || '3-4 Years'}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div className="modern-card p-6">
+                                <p className="text-xs font-semibold uppercase text-[var(--color-text-muted)] tracking-widest mb-1">Duration</p>
+                                <p className="text-2xl font-bold text-[var(--color-text)]">{course.duration || '3-4 Years'}</p>
                             </div>
-                            <div className="bg-white border-4 border-black p-6 brutal-shadow-sm">
-                                <p className="font-black text-xs uppercase text-black/50 tracking-wider mb-1">Eligibility</p>
-                                <p className="text-xl font-bold uppercase leading-tight">{course.eligibility || '10+2 / High School Equivalent'}</p>
+                            <div className="modern-card p-6">
+                                <p className="text-xs font-semibold uppercase text-[var(--color-text-muted)] tracking-widest mb-1">Eligibility</p>
+                                <p className="text-lg font-bold text-[var(--color-text)] leading-tight">{course.eligibility || '10+2 / High School Equivalent'}</p>
                             </div>
                         </div>
 
-                        <p className="text-2xl font-bold bg-[#4ade80] border-4 border-black p-6 brutal-shadow-sm leading-relaxed">
-                            {course.description || 'A comprehensive academic program tailored to help you secure a job in today’s demanding industry.'}
-                        </p>
+                        <div className="modern-card p-6 bg-emerald-50 border-emerald-100">
+                            <p className="text-lg font-medium leading-relaxed text-emerald-800">
+                                {course.description || 'A comprehensive academic program tailored to help you secure a job in today\'s demanding industry.'}
+                            </p>
+                        </div>
                     </header>
 
-                    {/* Extracted Data Sections */}
-                    <section className="bg-white border-4 border-black p-8 brutal-shadow-sm mb-12">
-                        <h2 className="text-3xl font-black uppercase mb-6 border-b-4 border-black pb-2 inline-block">
+                    <section className="modern-card p-8 mb-12">
+                        <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">
                             Program Syllabus & Details
                         </h2>
-                        <div className="prose prose-lg max-w-none prose-p:font-bold prose-p:text-black/80 prose-p:leading-relaxed">
+                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed">
                             {course.details || (
-                                <div className="p-4 border-2 border-dashed border-black bg-[var(--color-bg)]">
+                                <div className="p-4 border border-dashed border-[var(--color-border)] rounded-2xl bg-[var(--color-bg-soft)] text-[var(--color-text-muted)]">
                                     Full curriculum map pending faculty update.
                                 </div>
                             )}
                         </div>
                     </section>
 
-                    {/* Relational Content */}
-                    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        <div className="bg-[var(--color-primary-blue)] text-white border-4 border-black p-6 brutal-shadow-sm flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-xl font-black uppercase mb-2 border-b-2 border-white pb-1">Careers</h3>
-                                <p className="font-bold text-sm text-white/80 line-clamp-2">The roles you can secure after completing this degree.</p>
-                            </div>
-                            <button className="mt-4 border-2 border-white bg-black w-full py-2 font-black uppercase text-xs hover:bg-white hover:text-black transition-colors">View Paths</button>
+                    {/* Related Content */}
+                    <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div className="modern-card p-6 group hover:shadow-lg transition-all">
+                            <h3 className="text-lg font-bold mb-2 text-[var(--color-text)]">Careers</h3>
+                            <p className="text-[var(--color-text-muted)] text-sm font-medium mb-4">The roles you can secure after this degree.</p>
+                            <Link href="/explore/careers" className="modern-btn-secondary px-4 py-2 text-xs inline-flex items-center gap-1">
+                                View Paths <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </Link>
                         </div>
 
-                        <div className="bg-[#f43f5e] text-white border-4 border-black p-6 brutal-shadow-sm flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-xl font-black uppercase mb-2 border-b-2 border-white pb-1">Exams</h3>
-                                <p className="font-bold text-sm text-white/80 line-clamp-2">Entrance exams required for admission to top institutes.</p>
-                            </div>
-                            <button className="mt-4 border-2 border-white bg-black w-full py-2 font-black uppercase text-xs hover:bg-white hover:text-black transition-colors">View Exams</button>
+                        <div className="modern-card p-6 group hover:shadow-lg transition-all">
+                            <h3 className="text-lg font-bold mb-2 text-[var(--color-text)]">Exams</h3>
+                            <p className="text-[var(--color-text-muted)] text-sm font-medium mb-4">Entrance exams required for admission.</p>
+                            <Link href="/explore/exams" className="modern-btn-secondary px-4 py-2 text-xs inline-flex items-center gap-1">
+                                View Exams <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </Link>
                         </div>
 
-                        <div className="bg-[var(--color-primary-orange)] border-4 border-black p-6 brutal-shadow-sm flex flex-col justify-between">
-                            <div>
-                                <h3 className="text-xl font-black uppercase mb-2 border-b-2 border-black pb-1">Colleges</h3>
-                                <p className="font-bold text-sm text-black/80 line-clamp-2">Explore the top institutions offering this curriculum.</p>
-                            </div>
-                            <button className="mt-4 border-2 border-black bg-white w-full py-2 font-black uppercase text-xs hover:translate-x-[2px] transition-transform">View Colleges</button>
+                        <div className="modern-card p-6 group hover:shadow-lg transition-all">
+                            <h3 className="text-lg font-bold mb-2 text-[var(--color-text)]">Colleges</h3>
+                            <p className="text-[var(--color-text-muted)] text-sm font-medium mb-4">Top institutions offering this curriculum.</p>
+                            <Link href="/explore/colleges" className="modern-btn-secondary px-4 py-2 text-xs inline-flex items-center gap-1">
+                                View Colleges <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </Link>
                         </div>
                     </section>
 
                     {/* Mentor CTA */}
-                    <div className="mt-16 bg-black border-4 border-black p-8 brutal-shadow flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="text-white">
-                            <p className="font-black uppercase text-3xl">NEED HELP CHOOSING?</p>
-                            <p className="font-bold mt-2 text-white/80">Speak with alumni to understand if this course matches your ambitions.</p>
+                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-purple-600 to-violet-600 text-white flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <div>
+                            <p className="text-2xl font-bold">Need Help Choosing?</p>
+                            <p className="font-medium mt-2 text-purple-100">Speak with alumni to understand if this course matches your ambitions.</p>
                         </div>
                         <Link
                             href="/mentors"
-                            className="brutal-btn bg-[#ffde59] text-black border-white px-8 py-4 text-center text-xl w-full sm:w-auto font-black uppercase whitespace-nowrap"
+                            className="bg-white text-purple-700 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-purple-50 transition-colors shadow-lg"
                         >
-                            FIND MENTOR
+                            Find Mentor →
                         </Link>
                     </div>
 

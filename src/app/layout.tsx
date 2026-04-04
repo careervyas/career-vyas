@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import ChatWidget from "@/components/ChatWidget";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -38,8 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={outfit.variable}>
-      <body className="bg-[var(--color-bg)] text-black font-sans antialiased selection:bg-black selection:text-[#ffde59]">
+      <body className="bg-[var(--color-bg)] text-black font-sans antialiased selection:bg-[var(--color-primary-indigo)] selection:text-white">
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

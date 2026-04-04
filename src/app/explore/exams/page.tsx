@@ -22,20 +22,21 @@ export default async function ExploreExamsPage() {
     const exams = await getExams();
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
 
-            <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="pt-32 pb-24 border-b border-[var(--color-border)] min-h-[85vh] relative overflow-hidden">
+                <div className="absolute top-20 right-10 w-64 h-64 bg-rose-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+                <div className="absolute bottom-20 left-10 w-72 h-72 bg-pink-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
                     <div className="mb-16">
-                        <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 tracking-tight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
-                            ENTRANCE <br />
-                            <span className="bg-[#f43f5e] text-white px-4 leading-[1.1] inline-block border-[5px] border-black brutal-shadow-sm rotate-1 mt-2 mb-4">
-                                EXAMS
-                            </span>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1] text-[var(--color-text)]">
+                            <span className="text-rose-500 mb-2 block">Entrance</span>
+                            Exams
                         </h1>
-                        <p className="text-xl font-bold max-w-2xl text-black/80 leading-relaxed border-l-4 border-black pl-6 bg-white p-4 brutal-shadow-sm text-left">
+                        <p className="text-lg md:text-xl font-medium max-w-2xl text-[var(--color-text-muted)] leading-relaxed">
                             Track deadlines, understand syllabus changes, and prepare for the gateways to your dream colleges.
                         </p>
                     </div>

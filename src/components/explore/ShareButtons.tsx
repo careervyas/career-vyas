@@ -23,14 +23,14 @@ export default function ShareButtons({ title, path }: ShareButtonsProps) {
 
     return (
         <div className="flex gap-2">
-            <button onClick={shareTw} className="px-3 py-2 bg-[#1DA1F2] text-white border-2 border-black font-black uppercase text-xs brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                X / TW
+            <button onClick={shareTw} className="px-3 py-1.5 bg-sky-50 text-sky-600 border border-sky-200 rounded-full font-semibold text-xs hover:bg-sky-100 transition-colors">
+                𝕏 / TW
             </button>
-            <button onClick={shareWa} className="px-3 py-2 bg-[#25D366] text-black border-2 border-black font-black uppercase text-xs brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                W-APP
+            <button onClick={shareWa} className="px-3 py-1.5 bg-green-50 text-green-600 border border-green-200 rounded-full font-semibold text-xs hover:bg-green-100 transition-colors">
+                WhatsApp
             </button>
-            <button onClick={copyLink} className="px-3 py-2 bg-white text-black border-2 border-black font-black uppercase text-xs brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                COPY
+            <button onClick={copyLink} className="px-3 py-1.5 bg-[var(--color-bg-soft)] text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-full font-semibold text-xs hover:bg-gray-200 transition-colors">
+                Copy Link
             </button>
         </div>
     );

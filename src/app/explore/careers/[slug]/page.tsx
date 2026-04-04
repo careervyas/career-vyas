@@ -20,7 +20,6 @@ async function getCareerAndRelations(slug: string) {
     // Increment view count in background
     supabaseAdmin.rpc('increment_career_view', { career_slug: slug }).then();
 
-    // Fetch Relationships (assuming target_type matches table name or identifier)
     const { data: relations } = await supabaseAdmin
         .from("content_relationships")
         .select("*")
@@ -28,12 +27,6 @@ async function getCareerAndRelations(slug: string) {
         .eq("source_id", career.id);
 
     const related = { courses: [], exams: [], colleges: [] };
-
-    if (relations && relations.length > 0) {
-        // Here we ideally fetch the actual records based on target_id.
-        // For MVP simplicity, we simulate the join parsing if target_type is available.
-        // In a strict prod environment, we would do a joined query.
-    }
 
     return { career, related };
 }
@@ -51,81 +44,85 @@ export default async function CareerProfilePage({
     }
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
             <PageTracker activityType="PAGE_VIEW" contentType="CAREER PROFILE" contentId={career.title} />
 
             <article className="pt-32 pb-24 min-h-[85vh] relative overflow-hidden">
+                {/* Background orbs */}
+                <div className="absolute top-20 right-10 w-64 h-64 bg-indigo-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+                <div className="absolute bottom-40 left-10 w-72 h-72 bg-purple-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
-                    <Link href="/explore/careers" className="inline-flex items-center gap-2 font-bold uppercase mb-8 hover:underline decoration-4 underline-offset-4">
-                        <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        ALL CAREERS
+                    <Link href="/explore/careers" className="inline-flex items-center gap-2 font-semibold text-sm text-[var(--color-primary-indigo)] mb-8 hover:underline underline-offset-4 transition-colors">
+                        <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        All Careers
                     </Link>
 
-                    <header className="mb-12 border-b-4 border-black pb-8">
+                    <header className="mb-12 border-b border-[var(--color-border)] pb-8">
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div className="flex gap-4">
-                                <span className="brutal-badge bg-[var(--color-primary-orange)] text-black">
+                            <div className="flex gap-3">
+                                <span className="modern-badge">
                                     {career.demand || 'High Demand'}
                                 </span>
-                                <span className="font-bold uppercase text-sm border-2 border-black px-2 py-1 bg-white brutal-shadow-sm">
+                                <span className="modern-badge bg-emerald-50 text-emerald-700">
                                     ⏳ {career.study_duration || 'Not specified'}
                                 </span>
-                                <span className="font-bold uppercase text-sm border-2 border-black px-2 py-1 bg-[#4ade80] brutal-shadow-sm">
-                                    💰 {career.salary_range || 'Varies'}
+                                <span className="modern-badge bg-green-50 text-green-700">
+                                    💰 {career.salary_range || career.avg_salary || 'Varies'}
                                 </span>
                             </div>
                             <ShareButtons title={career.title} path={`/explore/careers/${slug}`} />
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-8 leading-[1.1] flex items-center gap-4">
-                            <span className="text-6xl md:text-8xl drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">{career.icon || '💼'}</span>
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.1] flex items-center gap-4 text-[var(--color-text)]">
+                            <span className="text-5xl md:text-7xl">{career.icon || '💼'}</span>
                             {career.title}
                         </h1>
 
-                        <div className="bg-white border-4 border-black p-6 brutal-shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
-                            <p className="text-xl font-bold leading-relaxed flex-grow">
+                        <div className="modern-card p-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                            <p className="text-lg font-medium leading-relaxed text-[var(--color-text-muted)] flex-grow">
                                 {career.summary}
                             </p>
-                            <div className="bg-black text-white p-4 border-4 border-black text-center min-w-[150px]">
-                                <p className="text-xs font-black uppercase tracking-widest text-[#4ade80] mb-1">Total Views</p>
-                                <p className="text-4xl font-black">{career.view_count || 1}</p>
+                            <div className="bg-[var(--color-primary-indigo)] text-white p-4 rounded-2xl text-center min-w-[140px]">
+                                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-1">Total Views</p>
+                                <p className="text-3xl font-bold">{career.view_count || 1}</p>
                             </div>
                         </div>
                     </header>
 
-                    <section className="bg-white border-4 border-black p-8 brutal-shadow-sm mb-12">
-                        <h2 className="text-3xl font-black uppercase mb-6 border-b-4 border-black pb-2 inline-block">
-                            ABOUT THIS PATH
+                    <section className="modern-card p-8 mb-12">
+                        <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">
+                            About This Path
                         </h2>
-                        <div className="prose prose-lg max-w-none prose-p:font-bold prose-p:text-black/80 prose-p:leading-relaxed whitespace-pre-wrap">
+                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed whitespace-pre-wrap">
                             {career.description || "No detailed description provided yet."}
                         </div>
                     </section>
 
-                    {/* Relational Content Block placeholder */}
-                    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <div className="bg-[var(--color-primary-yellow)] border-4 border-black p-6 brutal-shadow-sm">
-                            <h3 className="text-2xl font-black uppercase mb-4 border-b-2 border-black pb-2">Related Courses</h3>
-                            <p className="font-bold italic text-black/60">Cross-referencing ecosystem mappings...</p>
+                    {/* Related Content */}
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div className="modern-card p-6 bg-indigo-50 border-indigo-100">
+                            <h3 className="text-xl font-bold mb-3 text-indigo-900">Related Courses</h3>
+                            <p className="text-indigo-600 text-sm font-medium">Cross-referencing ecosystem mappings...</p>
                         </div>
-                        <div className="bg-[#f43f5e] text-white border-4 border-black p-6 brutal-shadow-sm">
-                            <h3 className="text-2xl font-black uppercase mb-4 border-b-2 border-white pb-2">Entrance Exams</h3>
-                            <p className="font-bold italic text-white/60">Cross-referencing ecosystem mappings...</p>
+                        <div className="modern-card p-6 bg-rose-50 border-rose-100">
+                            <h3 className="text-xl font-bold mb-3 text-rose-900">Entrance Exams</h3>
+                            <p className="text-rose-600 text-sm font-medium">Cross-referencing ecosystem mappings...</p>
                         </div>
                     </section>
 
-                    <div className="mt-16 bg-[var(--color-primary-blue)] border-4 border-black p-8 brutal-shadow flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="text-white">
-                            <p className="font-black uppercase text-3xl drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">CONNECT WITH A MENTOR</p>
-                            <p className="font-bold mt-2">Get 1-on-1 guidance from experts in this specific field.</p>
+                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-[var(--color-primary-indigo)] to-[var(--color-primary-indigo-dark)] text-white flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <div>
+                            <p className="text-2xl font-bold">Connect With a Mentor</p>
+                            <p className="font-medium mt-2 text-indigo-100">Get 1-on-1 guidance from experts in this specific field.</p>
                         </div>
                         <Link
                             href="/mentors"
-                            className="brutal-btn bg-[#ffde59] text-black px-8 py-4 text-center text-xl w-full sm:w-auto font-black uppercase whitespace-nowrap"
+                            className="bg-white text-[var(--color-primary-indigo)] px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-indigo-50 transition-colors shadow-lg"
                         >
-                            FIND MENTOR
+                            Find Mentor →
                         </Link>
                     </div>
 
