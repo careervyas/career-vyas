@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 async function getCollegeAndRelations(slug: string) {
     const { data: college, error } = await supabaseAdmin
-        .from("colleges")
+        .from("college_profiles")
         .select("*")
         .eq("slug", slug)
         .single();
@@ -37,15 +37,17 @@ async function getCollegeAndRelations(slug: string) {
         if (rel.target_type === "course" || rel.source_type === "course") {
             const courseSlug = rel.target_type === "course" ? rel.target_slug : rel.source_slug;
             if (courseSlug && !linkedCourses.find(c => c.slug === courseSlug)) {
-                const { data: course } = await supabaseAdmin.from("courses").select("slug, title").eq("slug", courseSlug).single();
-                if (course) linkedCourses.push(course);
+                // Fetch from course_profiles
+                const { data: course } = await supabaseAdmin.from("course_profiles").select("slug, name").eq("slug", courseSlug).single();
+                if (course) linkedCourses.push({ slug: course.slug, title: course.name });
             }
         }
         if (rel.target_type === "exam" || rel.source_type === "exam") {
             const examSlug = rel.target_type === "exam" ? rel.target_slug : rel.source_slug;
             if (examSlug && !linkedExams.find(e => e.slug === examSlug)) {
-                const { data: exam } = await supabaseAdmin.from("exams").select("slug, name").eq("slug", examSlug).single();
-                if (exam) linkedExams.push(exam);
+                // Fetch from exam_profiles
+                const { data: exam } = await supabaseAdmin.from("exam_profiles").select("slug, name").eq("slug", examSlug).single();
+                if (exam) linkedExams.push({ slug: exam.slug, name: exam.name });
             }
         }
     }
@@ -65,25 +67,33 @@ export default async function CollegeProfilePage({
     if (!data) notFound();
 
     const { college, linkedCourses, linkedExams } = data;
-    const rawCourses = (college.courses_offered || []) as any[];
-    // Fix double-serialized JSON: items may be strings like '{"name":"MBA",...}'
-    const coursesOffered = rawCourses.map((c: any) => {
-        if (typeof c === 'string') {
-            try { return JSON.parse(c); } catch { return null; }
-        }
-        return c;
-    }).filter(Boolean);
-    const feeStructure = (college.fee_structure || []) as any[];
-    const placementStats = college.placement_stats as any;
+    const coursesOffered = (college.courses_programs || []) as any[];
+    const feeStructure = (college.fee_structure?.by_program || []) as any[];
+    const placementStats = college.placements || {};
+    const heroStats = college.hero_stats || {};
+    const about = college.about || {};
+    const rankings = college.rankings || [];
+    const infrastructure = college.infrastructure || {};
+    const hostel = college.hostel || {};
 
     // Build section anchors for sticky nav
     const sections: { id: string; label: string; icon: string }[] = [];
     sections.push({ id: "overview", label: "Overview", icon: "🏫" });
     if (coursesOffered.length > 0) sections.push({ id: "courses", label: "Courses", icon: "📚" });
     if (feeStructure?.length > 0) sections.push({ id: "fees", label: "Fees", icon: "💰" });
-    if (placementStats) sections.push({ id: "placements", label: "Placements", icon: "📊" });
-    if (college.hostel_info) sections.push({ id: "hostel", label: "Hostel & Campus", icon: "🏠" });
+    if (placementStats && Object.keys(placementStats).length > 0) sections.push({ id: "placements", label: "Placements", icon: "📊" });
+    if (Object.keys(infrastructure).length > 0 || Object.keys(hostel).length > 0) sections.push({ id: "hostel", label: "Hostel & Campus", icon: "🏠" });
     if (linkedCourses.length > 0 || linkedExams.length > 0) sections.push({ id: "related", label: "Related", icon: "🔗" });
+
+    // Format currency helper
+    const formatINR = (val: any) => {
+        if (!val) return '—';
+        if (typeof val === 'number') {
+            if (val > 100000) return `₹ ${(val/100000).toFixed(2)} Lakhs`;
+            return `₹ ${val.toLocaleString('en-IN')}`;
+        }
+        return val;
+    };
 
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
@@ -107,17 +117,19 @@ export default async function CollegeProfilePage({
                     {/* ─── HERO HEADER ─── */}
                     <header className="mb-0 pb-6">
                         <div className="flex flex-wrap items-center gap-3 mb-4">
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-                                {college.type || 'University'}
-                            </span>
-                            {college.ranking && (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
-                                    <Trophy size={12} /> NIRF Rank #{college.ranking}
+                            {college.type && (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                    {college.type}
                                 </span>
                             )}
-                            {college.category && (
+                            {(heroStats.nirf_rank_overall || heroStats.nirf_rank_engineering) && (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                                    <Trophy size={12} /> NIRF #{heroStats.nirf_rank_overall || heroStats.nirf_rank_engineering}
+                                </span>
+                            )}
+                            {heroStats.naac_grade && (
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">
-                                    {college.category}
+                                    NAAC {heroStats.naac_grade}
                                 </span>
                             )}
                         </div>
@@ -127,20 +139,20 @@ export default async function CollegeProfilePage({
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-muted)] mb-6">
-                            {(college.city || college.state) && (
+                            {(college.location_city || college.location_state) && (
                                 <span className="flex items-center gap-1.5">
                                     <MapPin size={14} className="text-rose-500" />
-                                    {[college.city, college.state].filter(Boolean).join(', ')}
+                                    {[college.location_city, college.location_state].filter(Boolean).join(', ')}
                                 </span>
                             )}
-                            {college.campus_size && (
+                            {college.campus_size_acres && (
                                 <span className="flex items-center gap-1.5">
                                     <Building2 size={14} className="text-blue-500" />
-                                    {college.campus_size}
+                                    {college.campus_size_acres} Acres
                                 </span>
                             )}
-                            {college.map_link && (
-                                <a href={college.map_link} target="_blank" rel="noopener noreferrer"
+                            {college.google_maps_url && (
+                                <a href={college.google_maps_url} target="_blank" rel="noopener noreferrer"
                                    className="flex items-center gap-1.5 text-[var(--color-primary-indigo)] hover:underline">
                                     <Navigation size={14} />
                                     View on Map ↗
@@ -171,22 +183,26 @@ export default async function CollegeProfilePage({
                         <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
                             <GraduationCap size={22} className="mx-auto mb-2 text-purple-500" />
                             <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Courses</p>
-                            <p className="text-xl font-bold text-[var(--color-text)]">{coursesOffered.length || '—'}</p>
+                            <p className="text-xl font-bold text-[var(--color-text)]">{heroStats.total_courses || coursesOffered.length || '—'}</p>
                         </div>
                         <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
                             <Banknote size={22} className="mx-auto mb-2 text-emerald-500" />
                             <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Avg Package</p>
-                            <p className="text-lg font-bold text-[var(--color-text)]">{placementStats?.avg_package || '—'}</p>
+                            <p className="text-lg font-bold text-[var(--color-text)]">
+                                {heroStats.avg_package_lpa ? `₹${heroStats.avg_package_lpa}L` : (placementStats.avg_package_lpa ? `₹${placementStats.avg_package_lpa}L` : '—')}
+                            </p>
                         </div>
                         <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
                             <Users size={22} className="mx-auto mb-2 text-amber-500" />
-                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Recruiters</p>
-                            <p className="text-sm font-bold text-[var(--color-text)]">{college.top_recruiters || 'Top Companies'}</p>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Students</p>
+                            <p className="text-sm font-bold text-[var(--color-text)]">{heroStats.student_strength ? `${Math.round(heroStats.student_strength)}` : '—'}</p>
                         </div>
                         <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
                             <BarChart3 size={22} className="mx-auto mb-2 text-blue-500" />
-                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Placed</p>
-                            <p className="text-xl font-bold text-[var(--color-text)]">{placementStats?.placement_percentage || '—'}</p>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Top Ranking</p>
+                            <p className="text-xl font-bold text-[var(--color-text)]">
+                                {rankings.length > 0 ? `#${rankings[0].rank} (${rankings[0].agency})` : '—'}
+                            </p>
                         </div>
                     </div>
 
@@ -198,8 +214,15 @@ export default async function CollegeProfilePage({
                         </div>
                         <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
                             <p className="text-[15px] leading-7 text-[var(--color-text-muted)]">
-                                {college.overview || college.description || "Information is being updated."}
+                                {about.description || "Information is being updated."}
                             </p>
+                            {about.notable_facts && about.notable_facts.length > 0 && (
+                                <ul className="mt-4 space-y-2 text-sm text-[var(--color-text-muted)] list-disc pl-5">
+                                    {about.notable_facts.map((fact: string, idx: number) => (
+                                        <li key={idx}>{fact}</li>
+                                    ))}
+                                </ul>
+                            )}
                             {college.address && (
                                 <div className="mt-5 pt-5 border-t border-[var(--color-border)] flex flex-wrap gap-6 text-sm">
                                     <div>
@@ -211,7 +234,7 @@ export default async function CollegeProfilePage({
                         </div>
                     </section>
 
-                    {/* ─── COURSES OFFERED (Shiksha-style table) ─── */}
+                    {/* ─── COURSES OFFERED ─── */}
                     {coursesOffered.length > 0 && (
                         <section id="courses" className="mb-10 scroll-mt-32">
                             <div className="flex items-center justify-between gap-2 mb-4">
@@ -231,28 +254,32 @@ export default async function CollegeProfilePage({
                                                 <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Course</th>
                                                 <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Eligibility</th>
                                                 <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Entrance Exam</th>
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">1st Yr Fees</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-[var(--color-border)]">
                                             {coursesOffered.map((course: any, i: number) => (
                                                 <tr key={i} className="hover:bg-indigo-50/30 transition-colors align-top">
                                                     <td className="py-3.5 px-5">
-                                                        <span className="font-semibold text-[var(--color-primary-indigo)] text-[15px]">{course.name}</span>
-                                                        {course.branches && course.branches.length > 0 && (
+                                                        <span className="font-semibold text-[var(--color-primary-indigo)] text-[15px]">{course.degree}</span>
+                                                        {course.duration_years && <span className="ml-2 text-xs text-[var(--color-text-muted)]">({course.duration_years} yrs)</span>}
+                                                        
+                                                        {course.streams && course.streams.length > 0 && (
                                                             <div className="mt-2">
                                                                 <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1.5">Specializations:</p>
                                                                 <div className="flex flex-wrap gap-1.5">
-                                                                    {course.branches.map((branch: string, j: number) => (
+                                                                    {course.streams.slice(0, 10).map((branch: string, j: number) => (
                                                                         <span key={j} className="inline-block px-2 py-0.5 rounded-md text-[11px] font-medium bg-purple-50 text-purple-700 border border-purple-200">
                                                                             {branch}
                                                                         </span>
                                                                     ))}
+                                                                    {course.streams.length > 10 && <span className="text-[11px] text-gray-400">+{course.streams.length - 10} more</span>}
                                                                 </div>
                                                             </div>
                                                         )}
                                                     </td>
                                                     <td className="py-3.5 px-5 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-xs">
-                                                        {course.eligibility || '—'}
+                                                        {course.eligibility_summary || '—'}
                                                     </td>
                                                     <td className="py-3.5 px-5">
                                                         {course.entrance_exam ? (
@@ -262,6 +289,9 @@ export default async function CollegeProfilePage({
                                                         ) : (
                                                             <span className="text-[var(--color-text-muted)] text-xs">—</span>
                                                         )}
+                                                    </td>
+                                                    <td className="py-3.5 px-5 font-medium">
+                                                        {formatINR(course.first_year_fees_inr)}
                                                     </td>
                                                 </tr>
                                             ))}
@@ -284,18 +314,20 @@ export default async function CollegeProfilePage({
                                     <table className="w-full text-sm">
                                         <thead>
                                             <tr className="bg-gray-50 border-b border-[var(--color-border)]">
-                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Component</th>
-                                                <th className="text-right py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Amount</th>
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Program</th>
+                                                <th className="text-right py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Tuition Fee (Annual)</th>
+                                                <th className="text-right py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Hostel Fee</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-[var(--color-border)]">
-                                            {feeStructure.slice(0, 20).map((row: any, i: number) => (
+                                            {feeStructure.map((row: any, i: number) => (
                                                 <tr key={i} className="hover:bg-amber-50/30 transition-colors">
-                                                    <td className="py-3 px-5 font-medium text-[var(--color-text)]">{row.item}</td>
-                                                    <td className="py-3 px-5 text-right">
-                                                        {(row.values || []).map((v: string, j: number) => (
-                                                            <span key={j} className="inline-block ml-4 font-semibold text-emerald-700">{v}</span>
-                                                        ))}
+                                                    <td className="py-3 px-5 font-medium text-[var(--color-text)]">{row.program}</td>
+                                                    <td className="py-3 px-5 text-right font-semibold text-emerald-700">
+                                                        {formatINR(row.annual_tuition_inr)}
+                                                    </td>
+                                                    <td className="py-3 px-5 text-right font-semibold text-rose-700">
+                                                        {formatINR(row.hostel_fees_annual_inr)}
                                                     </td>
                                                 </tr>
                                             ))}
@@ -307,93 +339,109 @@ export default async function CollegeProfilePage({
                     )}
 
                     {/* ─── PLACEMENTS ─── */}
-                    {placementStats && (
+                    {placementStats && Object.keys(placementStats).length > 0 && (
                         <section id="placements" className="mb-10 scroll-mt-32">
                             <div className="flex items-center gap-2 mb-4">
                                 <BarChart3 size={22} className="text-blue-600" />
-                                <h2 className="text-xl font-bold text-[var(--color-text)]">Placement Statistics</h2>
+                                <h2 className="text-xl font-bold text-[var(--color-text)]">Placement Statistics {placementStats.report_year ? `(${placementStats.report_year})` : ''}</h2>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-                                {placementStats.avg_package && (
+                                {(placementStats.avg_package_lpa || heroStats.avg_package_lpa) && (
                                     <div className="bg-white rounded-xl border border-emerald-200 p-5 text-center shadow-sm">
                                         <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-1">Avg Package</p>
-                                        <p className="text-2xl font-bold text-emerald-700">{placementStats.avg_package}</p>
+                                        <p className="text-2xl font-bold text-emerald-700">₹{placementStats.avg_package_lpa || heroStats.avg_package_lpa} LPA</p>
                                     </div>
                                 )}
-                                {placementStats.highest_package && (
+                                {(placementStats.highest_package_lpa || heroStats.highest_package_lpa) && (
                                     <div className="bg-white rounded-xl border border-amber-200 p-5 text-center shadow-sm">
                                         <p className="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-1">Highest Package</p>
-                                        <p className="text-2xl font-bold text-amber-700">{placementStats.highest_package}</p>
+                                        <p className="text-2xl font-bold text-amber-700">₹{placementStats.highest_package_lpa || heroStats.highest_package_lpa} LPA</p>
+                                        {placementStats.highest_package_company && <p className="text-xs mt-1 text-amber-600/80">({placementStats.highest_package_company})</p>}
                                     </div>
                                 )}
-                                {placementStats.placement_percentage && (
+                                {placementStats.students_placed_pct && (
                                     <div className="bg-white rounded-xl border border-blue-200 p-5 text-center shadow-sm">
                                         <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-1">Students Placed</p>
-                                        <p className="text-2xl font-bold text-blue-700">{placementStats.placement_percentage}</p>
+                                        <p className="text-2xl font-bold text-blue-700">{placementStats.students_placed_pct}%</p>
                                     </div>
                                 )}
                             </div>
-                            {placementStats.tables?.map((table: string[][], tIdx: number) => (
-                                <div key={tIdx} className="bg-white rounded-xl border border-[var(--color-border)] shadow-sm overflow-hidden mb-4">
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-sm">
-                                            <thead>
-                                                <tr className="bg-gray-50 border-b border-[var(--color-border)]">
-                                                    {table[0]?.map((cell: string, i: number) => (
-                                                        <th key={i} className="text-left py-3 px-4 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">{cell}</th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-[var(--color-border)]">
-                                                {table.slice(1).map((row: string[], rIdx: number) => (
-                                                    <tr key={rIdx} className="hover:bg-blue-50/30 transition-colors">
-                                                        {row.map((cell: string, cIdx: number) => (
-                                                            <td key={cIdx} className="py-2.5 px-4 text-[var(--color-text-muted)] text-[13px]">{cell}</td>
-                                                        ))}
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
+                            
+                            {placementStats.top_recruiters && placementStats.top_recruiters.length > 0 && (
+                                <div className="bg-white rounded-xl border border-[var(--color-border)] p-5 shadow-sm mb-4">
+                                    <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">Top Recruiters</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {placementStats.top_recruiters.map((company: string, idx: number) => (
+                                            <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+                                                {company}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
-                            ))}
+                            )}
+
                         </section>
                     )}
 
                     {/* ─── HOSTEL & CAMPUS ─── */}
-                    {(college.hostel_info || college.campus_facilities) && (
+                    {(Object.keys(infrastructure).length > 0 || Object.keys(hostel).length > 0) && (
                         <section id="hostel" className="mb-10 scroll-mt-32">
                             <div className="flex items-center gap-2 mb-4">
                                 <Bed size={22} className="text-rose-600" />
                                 <h2 className="text-xl font-bold text-[var(--color-text)]">Hostel & Campus</h2>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                {college.hostel_info && (
+                                {Object.keys(hostel).length > 0 && (
                                     <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
-                                        <h3 className="text-base font-bold mb-3 text-[var(--color-text)] flex items-center gap-2">
+                                        <h3 className="text-base font-bold mb-4 text-[var(--color-text)] flex items-center gap-2">
                                             <Bed size={18} className="text-rose-500" /> Hostel Facilities
                                         </h3>
-                                        <div className="text-[13px] text-[var(--color-text-muted)] leading-6 space-y-2">
-                                            {college.hostel_info.split('\n').filter((line: string) => line.trim()).map((line: string, i: number) => (
-                                                <p key={i}>{line.trim()}</p>
-                                            ))}
+                                        <div className="grid grid-cols-2 gap-4 mb-4">
+                                            {hostel.capacity_students && (
+                                                <div className="bg-rose-50 p-3 rounded-lg text-rose-800">
+                                                    <p className="text-[10px] uppercase font-bold tracking-wider opacity-70">Capacity</p>
+                                                    <p className="text-lg font-bold">{hostel.capacity_students}</p>
+                                                </div>
+                                            )}
+                                            {hostel.annual_fees_inr && (
+                                                <div className="bg-rose-50 p-3 rounded-lg text-rose-800">
+                                                    <p className="text-[10px] uppercase font-bold tracking-wider opacity-70">Annual Fee</p>
+                                                    <p className="text-lg font-bold">₹{hostel.annual_fees_inr}</p>
+                                                </div>
+                                            )}
                                         </div>
+                                        {hostel.facilities && hostel.facilities.length > 0 && (
+                                            <ul className="text-[13px] text-[var(--color-text-muted)] space-y-2 list-disc pl-5">
+                                                {hostel.facilities.map((f: string, i: number) => <li key={i}>{f}</li>)}
+                                            </ul>
+                                        )}
                                     </div>
                                 )}
-                                {college.campus_facilities && (
+
+                                {Object.keys(infrastructure).length > 0 && (
                                     <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
-                                        <h3 className="text-base font-bold mb-3 text-[var(--color-text)] flex items-center gap-2">
-                                            <Building2 size={18} className="text-indigo-500" /> Campus Facilities
+                                        <h3 className="text-base font-bold mb-4 text-[var(--color-text)] flex items-center gap-2">
+                                            <Building2 size={18} className="text-indigo-500" /> Campus Infrastructure
                                         </h3>
-                                        <div className="text-[13px] text-[var(--color-text-muted)] leading-6 space-y-2">
-                                            {college.campus_facilities.split('\n').filter((line: string) => line.trim()).map((line: string, i: number) => {
-                                                // Check if it's a sub-header (e.g., "Library:", "Sports:")
-                                                if (/^(Library|Sports|Hostel|Mess|Gym|Lab|Research|Cultural)[:\s]/i.test(line.trim())) {
-                                                    return <p key={i} className="font-semibold text-[var(--color-text)] mt-3 first:mt-0">{line.trim()}</p>;
-                                                }
-                                                return <p key={i}>{line.trim()}</p>;
-                                            })}
+                                        {infrastructure.library && (
+                                            <div className="mb-4">
+                                                <p className="text-sm font-semibold text-[var(--color-text)]">Library</p>
+                                                <p className="text-[13px] text-[var(--color-text-muted)] mt-1">{infrastructure.library}</p>
+                                            </div>
+                                        )}
+                                        <div className="flex flex-wrap gap-2">
+                                            {infrastructure.medical_centre && <span className="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded text-xs font-medium border border-indigo-100">Medical Centre</span>}
+                                            {infrastructure.canteen_cafeteria && <span className="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded text-xs font-medium border border-indigo-100">Cafeteria</span>}
+                                            {infrastructure.auditorium && <span className="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded text-xs font-medium border border-indigo-100">Auditorium</span>}
                                         </div>
+                                        {infrastructure.sports_facilities && infrastructure.sports_facilities.length > 0 && (
+                                            <div className="mt-4">
+                                                <p className="text-sm font-semibold text-[var(--color-text)] mb-2">Sports</p>
+                                                <ul className="text-[13px] text-[var(--color-text-muted)] space-y-1 list-disc pl-5">
+                                                    {infrastructure.sports_facilities.map((f: string, i: number) => <li key={i}>{f}</li>)}
+                                                </ul>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>

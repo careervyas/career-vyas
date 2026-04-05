@@ -144,12 +144,17 @@ def process_with_claude(
     import openai
     
     # Load keys from the correct variables in .env.local
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        log.error("GEMINI_API_KEY not found in environment")
+    api_key = os.environ.get("MISTRAL_API_KEY")
+    if api_key:
+        api_key = api_key.strip()
+    else:
+        log.error("MISTRAL_API_KEY not found in environment. Please add it to .env.local")
         return {}
 
-    client = openai.OpenAI(base_url="https://generativelanguage.googleapis.com/v1beta/openai/", api_key=api_key)
+    client = openai.OpenAI(
+        base_url="https://api.mistral.ai/v1",
+        api_key=api_key,
+    )
 
     system_prompt = f"""You are a Career Vyas content editor following the career-vyas-content skill.
 
@@ -179,8 +184,9 @@ Return the complete structured JSON payload for this {content_type}.
 
     try:
         response = client.chat.completions.create(
-            model="gemini-2.5-flash",
+            model="open-mistral-nemo",
             temperature=0.2,
+            max_tokens=8000,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -223,11 +229,23 @@ def upsert_to_supabase(content_type: str, payload: dict) -> bool:
     if not url or not key:
         log.warning("Supabase credentials not set — skipping upsert")
         return False
+        
+    ALLOWED_KEYS = {
+        "career_profile": {"id", "slug", "name", "category", "work_type", "industry", "sector", "hero_stats", "overview", "is_right_for_you", "how_to_become", "eligibility", "skills_required", "roles_responsibilities", "working_environment", "career_progression", "day_in_the_life", "salary_insights", "entrance_exams", "recommended_courses", "related_careers", "expert_tips", "faqs", "data_quality", "is_published"},
+        "exam_profile": {"id", "slug", "name", "full_name", "conducting_body", "level", "frequency", "mode", "medium", "official_website", "courses_covered", "hero_stats", "overview", "important_dates", "eligibility", "registration_process", "exam_pattern", "syllabus", "marking_scheme", "preparation_tips", "admit_card_details", "result_counselling", "cutoffs", "participating_colleges", "faqs", "data_quality", "is_published"},
+        "course_profile": {"id", "slug", "name", "full_name", "category", "level", "duration_years", "mode", "hero_stats", "overview", "is_right_for_you", "eligibility", "admission_process", "entrance_exams", "top_colleges", "fee_insights", "semester_syllabus", "specializations", "skills_acquired", "career_opportunities", "salary_insights", "top_recruiters", "higher_education_options", "faqs", "data_quality", "is_published"},
+        "college_profile": {"id", "slug", "name", "type", "city", "state", "campus_size", "address", "map_link", "courses_offered", "fee_structure", "hostel_info", "campus_facilities", "placement_stats", "description", "ranking", "data_quality", "is_published"}
+    }
 
     try:
         sb = create_client(url, key)
         table = table_map[content_type]
-        result = sb.table(table).upsert(payload, on_conflict="slug").execute()
+        
+        # Filter payload strictly by allowed columns
+        allowed = ALLOWED_KEYS.get(content_type, set())
+        clean_payload = {k: v for k, v in payload.items() if k in allowed and k != "id"}
+        
+        result = sb.table(table).upsert(clean_payload, on_conflict="slug").execute()
         log.info(f"Upserted {payload.get('slug')} into {table}")
         return True
     except Exception as e:
