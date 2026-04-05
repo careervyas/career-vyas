@@ -25,6 +25,19 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
         return matchesSearch && matchesStream;
     });
 
+    // Truncation helper for badges
+    const truncateBadge = (text: string | null | undefined, max: number = 30) => {
+        if (!text) return null;
+        if (text.length <= max) return text;
+        return text.substring(0, max) + '...';
+    };
+
+    // Clean summary helper
+    const cleanSummary = (text: string | null | undefined) => {
+        if (!text) return "No description available.";
+        return text.replace(/^(name of the )?career profile:\s*[-:]?\s*([a-z ]+)?\s*/i, '').trim();
+    };
+
     // Pagination logic
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
     const paginated = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -73,7 +86,7 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
                                 <span className="text-4xl drop-shadow-sm group-hover:scale-110 transition-transform relative z-10">
                                     {career.icon || '💼'}
                                 </span>
-                                <span className="bg-white text-indigo-700 font-semibold px-3 py-1 rounded-full text-xs shadow-sm shadow-indigo-100 z-10 border border-indigo-50">₹{career.salary_range || 'Varies'}</span>
+                                <span className="bg-white text-indigo-700 font-semibold px-3 py-1 rounded-full text-xs shadow-sm shadow-indigo-100 z-10 border border-indigo-50">₹{truncateBadge(career.salary_range || career.avg_salary) || 'Varies'}</span>
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow">
@@ -82,17 +95,17 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
                                 </h2>
 
                                 <p className="text-[var(--color-text-muted)] text-sm mb-6 flex-grow leading-relaxed line-clamp-3">
-                                    {career.summary}
+                                    {cleanSummary(career.summary)}
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)] mt-auto">
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Demand</p>
-                                        <p className="font-bold text-sm text-[var(--color-text)]">{career.demand || 'High'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-text)]">{truncateBadge(career.demand) || 'High'}</p>
                                     </div>
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Duration</p>
-                                        <p className="font-bold text-sm text-[var(--color-text)]">{career.study_duration || '3-4 Yrs'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-text)]">{truncateBadge(career.study_duration) || '3-4 Yrs'}</p>
                                     </div>
                                 </div>
                             </div>

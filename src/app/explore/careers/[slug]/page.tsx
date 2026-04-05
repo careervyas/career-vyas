@@ -43,6 +43,23 @@ export default async function CareerProfilePage({
         notFound();
     }
 
+    const truncateBadge = (text: string | null | undefined, max: number = 30) => {
+        if (!text) return null;
+        if (text.length <= max) return text;
+        return text.substring(0, max) + '...';
+    };
+
+    const cleanSummary = (text: string | null | undefined) => {
+        if (!text) return "No description available.";
+        return text.replace(/^(name of the )?career profile:\s*[-:]?\s*([a-z ]+)?\s*/i, '').trim();
+    };
+
+    const cleanDescription = (text: string | null | undefined) => {
+        if (!text) return "No detailed description provided yet.";
+        // Replace 3+ consecutive newlines with exactly 2 newlines (paragraph break)
+        return text.replace(/\n{3,}/g, '\n\n').replace(/^(name of the )?career profile:\s*[-:]?\s*([a-z ]+)?\s*/i, '').trim();
+    };
+
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
@@ -62,15 +79,15 @@ export default async function CareerProfilePage({
 
                     <header className="mb-12 border-b border-[var(--color-border)] pb-8">
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 flex-wrap">
                                 <span className="modern-badge">
-                                    {career.demand || 'High Demand'}
+                                    {truncateBadge(career.demand) || 'High Demand'}
                                 </span>
                                 <span className="modern-badge bg-emerald-50 text-emerald-700">
-                                    ⏳ {career.study_duration || 'Not specified'}
+                                    ⏳ {truncateBadge(career.study_duration) || 'Not specified'}
                                 </span>
                                 <span className="modern-badge bg-green-50 text-green-700">
-                                    💰 {career.salary_range || career.avg_salary || 'Varies'}
+                                    💰 {truncateBadge(career.salary_range || career.avg_salary) || 'Varies'}
                                 </span>
                             </div>
                             <ShareButtons title={career.title} path={`/explore/careers/${slug}`} />
@@ -83,7 +100,7 @@ export default async function CareerProfilePage({
 
                         <div className="modern-card p-6 flex flex-col md:flex-row justify-between items-center gap-6">
                             <p className="text-lg font-medium leading-relaxed text-[var(--color-text-muted)] flex-grow">
-                                {career.summary}
+                                {cleanSummary(career.summary)}
                             </p>
                             <div className="bg-[var(--color-primary-indigo)] text-white p-4 rounded-2xl text-center min-w-[140px]">
                                 <p className="text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-1">Total Views</p>
@@ -96,8 +113,8 @@ export default async function CareerProfilePage({
                         <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">
                             About This Path
                         </h2>
-                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed whitespace-pre-wrap">
-                            {career.description || "No detailed description provided yet."}
+                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed whitespace-pre-wrap rounded-2xl bg-white/50 border border-[var(--color-border)] p-6">
+                            {cleanDescription(career.description)}
                         </div>
                     </section>
 

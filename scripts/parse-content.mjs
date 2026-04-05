@@ -93,7 +93,16 @@ async function parseCareers() {
         if (!text) continue;
         
         // Extract first meaningful paragraph as summary
-        const lines = text.split('\n').filter(l => l.trim().length > 20);
+        const lines = text.split('\n').filter(l => {
+            const trimmed = l.trim();
+            // Ignore repetitive title headers in the actual text
+            if (trimmed.toLowerCase().startsWith('name of the career profile')) return false;
+            if (trimmed.toLowerCase().startsWith('career profile:')) return false;
+            if (trimmed.toLowerCase() === 'overview') return false;
+            if (trimmed.toLowerCase() === 'overview:') return false;
+            if (trimmed.toLowerCase() === 'what is ' + title.toLowerCase() + '?') return false;
+            return trimmed.length > 30;
+        });
         const summary = lines.length > 0 ? lines[0].substring(0, 300) : '';
         
         // Try to detect stream/field from title or content
@@ -319,10 +328,10 @@ function extractField(text, ...keywords) {
                 const colonIdx = line.indexOf(':');
                 if (colonIdx > -1) {
                     const value = line.substring(colonIdx + 1).trim();
-                    if (value.length > 3 && value.length < 500) return value;
+                    if (value.length > 2 && value.length < 120) return value;
                 }
                 // Or return the whole line if it's informative
-                if (line.trim().length > 10 && line.trim().length < 300) {
+                if (line.trim().length > 10 && line.trim().length < 120) {
                     return line.trim();
                 }
             }
