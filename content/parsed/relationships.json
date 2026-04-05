@@ -1,0 +1,3208 @@
+[
+  {
+    "source_type": "college",
+    "source_slug": "jlnmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nsmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-patna",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "macet-patna",
+    "target_type": "course",
+    "target_slug": "bpt",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gec-bilashpur",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims",
+    "target_type": "course",
+    "target_slug": "bsc-nursing",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims",
+    "target_type": "course",
+    "target_slug": "bpt",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-delhi",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-delhi",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-nagpur",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-gorakhpur",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-kalyani",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-bathinda",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-bibinagar",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-bhopal",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-bhubaneswar",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-jodhpur",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-jodhpur",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-raipur",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-rishikesh",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-raebareli",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aiims-mangalgiri",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "andra-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "guntur-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "govt-siddhartha-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "rmch-kakinada",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "abvims",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ndmc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mamc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vmmc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ucms",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "lhmc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dbmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "himsr",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "acms",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-amritsar",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pims",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "adesh-institute-of-medical-sciences",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gian-sagar-medical-collage",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "sri-guru-ramdas-institute-of-medical-science",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dr-br-ambedkar-medical-institute",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "guru-gobind-hosptal",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-patiala",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "bfuhs",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dayanand-medical-college-hospital",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "cmc-ludhiana",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "cmc-ludhiana",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "chintpurni-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "faamch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "smch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "tcmh",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "lmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "aryabhatta-knowledge-university",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "esic-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mgmmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "snmih",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "lbmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "kmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "narayan-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "rdjmmc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmch-bettiah",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "igims",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "annmh",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "shri-krishna-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "jnktmc",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "bhagat-phool-singh-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "adesh-medical-college-and-hospital-shahabad-kurukshetra",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "al-falah-school-of-medical-science",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "wcmsrh",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "esic-medical-college-faridabad",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "kalpana-chawla-government-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pandit-bhagwat-dayal-sharma-post-graduate-institute-of-medical-sciences",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pandit-bhagwat-dayal-sharma-post-graduate-institute-of-medical-sciences",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "shaheed-hasan-khan-mewati-government-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "maharaja-agrasen-medical-college-agroha",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nc-medical-college-and-hospital-panipat",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "maharishi-markandeshwar-institute-of-medical-sciences-and-research",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "shree-guru-gobind-singh-tricentenary-university",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dr-rajendra-prasad-government-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "indira-gandhi-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "shri-lal-bahadur-shastri-docx",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dr-yashwant-singh-parmar-government-medical-college-docx",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "dr-radhakrishnan-government-medical-college",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pt-jawahar-lal-nehru-government-medical-college-and-hospital-chamba",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "sher-i-kashmir-of-medical-collage",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-srinagar",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-jammu",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-anantnag",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-baramulla",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-kathua",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-rajouri",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-doda",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ascoms",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "jipmar-pondicherry",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "igrmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mvmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mgmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vmmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "avmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "svmch",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "inimsh",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-haldwani",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gmc-doon",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "veer-chandra-singh-garhwali-government",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "gbcm",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "hims-dehradhun",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "shri-guru-ram",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ssjimsr",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "offers"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-jodhpur",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-jodhpur",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-dharwad",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-palakkad",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-palakkad",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "iit-bombay",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-jalandhar",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-patna",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-karnataka",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-karnataka",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-karnataka",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-mizoram",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nit-andhrapradesh",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mnnit-allahabad",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "govt-women-engeneering-collage-ajmer",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nsmch",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "christ-university-bangalore",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vrsec-vijayawada-velagapudi-ramakrishna-siddhartha-engineering-college",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ssimt",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "padre-conceicao-college-of-engineering",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ld-college-of-engineering",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ld-college-of-engineering",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ld-college-of-engineering",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "charotal-university-of-science",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "pandit-deendayal-petroleum-university",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "mriirs",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "ndri",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "nman-institute-of-technology-karkala-taulak",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "manipal-institute-of-technology",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "purnima-university-jaipur",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "govt-engineering-collage-ajmer",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "rtu-kota",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "rtu-kota",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "amrita-vishwa-vidyapeetham-coimbatore",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "msit",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "adgitm",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "jmi",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "igdtuw",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "kiet-group-of-institutions-kiet",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "govt-siddhartha-medical-college",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vmmc",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "college",
+    "source_slug": "vmch",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "accepts"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-pharmacy",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-pharmacy",
+    "target_type": "career",
+    "target_slug": "medicinal-chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "career",
+    "target_slug": "forensic-scientist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "bacteriologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "medical-technologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "cell-biologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-microbiology",
+    "target_type": "career",
+    "target_slug": "virologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-zoology",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-zoology",
+    "target_type": "career",
+    "target_slug": "ecologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-zoology",
+    "target_type": "career",
+    "target_slug": "marine-biologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-computer-science",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-nursing",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-nursing",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-nursing",
+    "target_type": "career",
+    "target_slug": "nurse",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bams-bachelor-of-ayurveda-medicine-and-surgery",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bams-bachelor-of-ayurveda-medicine-and-surgery",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bams-bachelor-of-ayurveda-medicine-and-surgery",
+    "target_type": "career",
+    "target_slug": "ayurvedic-physician",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bpt",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bpt",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bpt",
+    "target_type": "career",
+    "target_slug": "osteopaths",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bpt",
+    "target_type": "career",
+    "target_slug": "physiotherapist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bums",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "bacteriologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "cardiologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "dermatologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "gynecologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "chief-medical-officer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "ecologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "general-surgeon",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "pediatrician",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "chiropodist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "career",
+    "target_slug": "radiologist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-statistics",
+    "target_type": "career",
+    "target_slug": "statistician",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-sociology",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-sociology",
+    "target_type": "career",
+    "target_slug": "human-resource-manager",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-in-journalism-and-mass-communication",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-in-journalism-and-mass-communication",
+    "target_type": "career",
+    "target_slug": "radio-jockey",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-history",
+    "target_type": "career",
+    "target_slug": "auctioneer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-environmental-science",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-llb-integrated",
+    "target_type": "career",
+    "target_slug": "corporate-lawyer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-llb-integrated",
+    "target_type": "career",
+    "target_slug": "corporate-lawyer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-general",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-general",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-applied-economics",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-travel-and-tourism-management",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-computer-application",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-financial-markets",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-financial-markets",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-statics",
+    "target_type": "career",
+    "target_slug": "statistician",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-statics",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-computer-science",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-computer-science",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-computer-science",
+    "target_type": "career",
+    "target_slug": "computer-scientist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-computer-science",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-marketing",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accountancy",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-finance",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-finance",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-finance",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting-and-finance",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-mangement",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-mangement",
+    "target_type": "career",
+    "target_slug": "human-resource-manager",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-and-insurance",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-computer-application",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-accounting",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-hr-management",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-management",
+    "target_type": "career",
+    "target_slug": "human-resource-manager",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "career",
+    "target_slug": "chartered-accountant",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "career",
+    "target_slug": "counselor",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bfm-bachelor-of-financial-market",
+    "target_type": "career",
+    "target_slug": "company-secretary",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-management-studies",
+    "target_type": "career",
+    "target_slug": "human-resource-manager",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "career",
+    "target_slug": "civil-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "career",
+    "target_slug": "interior-designer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "career",
+    "target_slug": "project-architect",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "aerospace-engineering",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "automobile-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "biomedical-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "chemist",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "civil-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "chemical-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "mechanical-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "career",
+    "target_slug": "quality-assurance-engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelors-in-computer-application",
+    "target_type": "career",
+    "target_slug": "engineer",
+    "relationship": "leads_to"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "exam",
+    "target_slug": "upsee",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-nursing",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-in-psychology-docx",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-in-journalism-and-mass-communication",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-political-science",
+    "target_type": "exam",
+    "target_slug": "civil-services-exam",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-llb-integrated",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-llb-integrated",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-applied-economics",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-business-economics",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-financial-markets",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-professional-docx",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-professional-docx",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-supply-chain-management",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-marketing",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-finance",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-finance",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-hospitality",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-management",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-tourism",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-in-sports-management",
+    "target_type": "exam",
+    "target_slug": "aat",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bfm-bachelor-of-financial-market",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-pharmacy",
+    "target_type": "college",
+    "target_slug": "bits-pilani",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-pharmacy",
+    "target_type": "college",
+    "target_slug": "aiims",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-general-docx",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bsc-nursing",
+    "target_type": "college",
+    "target_slug": "aiims",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bams-bachelor-of-ayurveda-medicine-and-surgery",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bums",
+    "target_type": "college",
+    "target_slug": "aryabhatta-knowledge-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "college",
+    "target_slug": "amrita-vishwa-vidyapeetham-coimbatore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "mbbs",
+    "target_type": "college",
+    "target_slug": "aiims",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-general-docx",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-general-docx",
+    "target_type": "college",
+    "target_slug": "miranda-house-delhi-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-english",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-statistics",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-sociology",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-sociology",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-in-journalism-and-mass-communication",
+    "target_type": "college",
+    "target_slug": "amity-university-noida",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-history",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-political-science",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-physical-education",
+    "target_type": "college",
+    "target_slug": "iit-madras",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-fine-arts",
+    "target_type": "college",
+    "target_slug": "manipal-university-jaipur",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-llb-integrated",
+    "target_type": "college",
+    "target_slug": "nirma-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-llb-integrated",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "ba-llb-integrated",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-general",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-general",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-general",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-travel-and-tourism-management",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-in-financial-markets",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-financial-accounting-docx",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-professional-docx",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "b-com-economics",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-taxation",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accountancy",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting-and-finance",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-accounting-and-finance",
+    "target_type": "college",
+    "target_slug": "pandit-deendayal-petroleum-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-and-finance",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-mangement",
+    "target_type": "college",
+    "target_slug": "gd-goenka-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-and-insurance",
+    "target_type": "college",
+    "target_slug": "gd-goenka-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bcom-banking-and-insurance",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-international-business",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-international-business",
+    "target_type": "college",
+    "target_slug": "gd-goenka-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-finance",
+    "target_type": "college",
+    "target_slug": "iit-bombay",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-finance",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-global-business",
+    "target_type": "college",
+    "target_slug": "parul-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-global-business",
+    "target_type": "college",
+    "target_slug": "gd-goenka-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-hospitality",
+    "target_type": "college",
+    "target_slug": "manipal-university-jaipur",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-marketing",
+    "target_type": "college",
+    "target_slug": "jaipur-national-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-supply-chain-management",
+    "target_type": "college",
+    "target_slug": "ggsipu",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bba-tourism",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-of-banking-and-insurance",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-in-economics",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-in-economics",
+    "target_type": "college",
+    "target_slug": "gd-goenka-university",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelor-in-economics",
+    "target_type": "college",
+    "target_slug": "ggsipu",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bfm-bachelor-of-financial-market",
+    "target_type": "college",
+    "target_slug": "lady-shri-ram-college",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bfm-bachelor-of-financial-market",
+    "target_type": "college",
+    "target_slug": "christ-university-bangalore",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "barch-general-docx",
+    "target_type": "college",
+    "target_slug": "nit-calicut",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-madras",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-delhi",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-bombay",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-kanpur",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-kharagpur",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "btech-general",
+    "target_type": "college",
+    "target_slug": "iit-roorkee",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "course",
+    "source_slug": "bachelors-in-computer-application",
+    "target_type": "college",
+    "target_slug": "ggsipu",
+    "relationship": "offered_at"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "aat",
+    "target_type": "college",
+    "target_slug": "iit-kharagpur",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "aat",
+    "target_type": "college",
+    "target_slug": "iit-roorkee",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "ceed",
+    "target_type": "college",
+    "target_slug": "iit-delhi",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "ceed",
+    "target_type": "college",
+    "target_slug": "iit-bombay",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "ceed",
+    "target_type": "college",
+    "target_slug": "iit-kanpur",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "ceed",
+    "target_type": "college",
+    "target_slug": "iit-guwahati",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "ceed",
+    "target_type": "college",
+    "target_slug": "iit-hyderabad",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "cma",
+    "target_type": "college",
+    "target_slug": "pandit-deendayal-petroleum-university",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "nata",
+    "target_type": "college",
+    "target_slug": "iit-roorkee",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "nata",
+    "target_type": "college",
+    "target_slug": "nit-calicut",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "nata",
+    "target_type": "college",
+    "target_slug": "deenbandhu-chhotu-ram-university-of-science-and-technology",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "nata",
+    "target_type": "college",
+    "target_slug": "jmi",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "exam",
+    "source_slug": "rrb-alp",
+    "target_type": "college",
+    "target_slug": "pilot",
+    "relationship": "accepted_by"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "beautician",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "cardiologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "dermatologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "endocrinologists",
+    "target_type": "course",
+    "target_slug": "bums",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "endocrinologists",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "neurologists",
+    "target_type": "course",
+    "target_slug": "bsc-nursing",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "neurologists",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "neurologists",
+    "target_type": "course",
+    "target_slug": "bums",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "neurologists",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "gynecologist",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "gynecologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "hematologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "chief-medical-officer",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "copy-of-obstetrician",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "ent-copy-copy",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "epidemiologists",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "general-surgeon",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "marine-biologist",
+    "target_type": "course",
+    "target_slug": "bsc-zoology",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "mathematician",
+    "target_type": "course",
+    "target_slug": "bachelor-of-management-studies",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "osteopaths",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "pediatrician",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "physiotherapist",
+    "target_type": "course",
+    "target_slug": "bums",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "physiotherapist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "radio-jockey",
+    "target_type": "course",
+    "target_slug": "ba-in-journalism-and-mass-communication",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "unani-copy-copy",
+    "target_type": "course",
+    "target_slug": "bums",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "virologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "auctioneer",
+    "target_type": "course",
+    "target_slug": "ba-history",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "auctioneer",
+    "target_type": "course",
+    "target_slug": "ba-fine-arts",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "chiropodist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "ophthalmologists",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "radiologist",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "cosmetologist-copy-copy",
+    "target_type": "course",
+    "target_slug": "bds",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "cosmetologist-copy-copy",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "pathologist-copy-copy",
+    "target_type": "course",
+    "target_slug": "mbbs",
+    "relationship": "requires_degree"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "automobile-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "automobile-engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "automobile-engineer",
+    "target_type": "exam",
+    "target_slug": "upsee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "biochemical-engineer",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "beautician",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "biomedical-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "chemist",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "civil-engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "cardiologist",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "neurologists",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "anesthesiologists",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "hematologist",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-civil-rights-lawyer",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-family-lawyer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-family-lawyer",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-field-technicians",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-law-reporter",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-organic-chemist",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-petroleum-and-petrochemical-engineer",
+    "target_type": "exam",
+    "target_slug": "upsee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-template-accountant",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "career-profile-template-accountant",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "chemical-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "computer-scientist",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "etc-engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "engineer",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "engineering-technician",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "engineering-technician",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "environmental-lawyer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "food-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "geological-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "hospital-adminstrator",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "human-resource-manager",
+    "target_type": "exam",
+    "target_slug": "cfa",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "human-resource-manager",
+    "target_type": "exam",
+    "target_slug": "cma",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "ias",
+    "target_type": "exam",
+    "target_slug": "civil-services-exam",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "ips-indian-police-officer",
+    "target_type": "exam",
+    "target_slug": "civil-services-exam",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "instrument-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "jewellery-designer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "jewellery-designer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "marine-biologist",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "mechanical-engineer",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "mechanical-engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "mechanical-engineer",
+    "target_type": "exam",
+    "target_slug": "upsee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "mechatronics-engineers",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "medical-technician",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "microbiologist-career-file",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "nurse",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "name-of-the-astronomer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "nuclear-engineer",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "ocean-engineer",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "osteopaths",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "pediatrician",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "polymer-engineer",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "project-architect",
+    "target_type": "exam",
+    "target_slug": "national-aptitude-test-in-architecture",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "quality-assurance-engineer",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "residential-architect",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "residential-architect",
+    "target_type": "exam",
+    "target_slug": "national-aptitude-test-in-architecture",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "virologist",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "auctioneer",
+    "target_type": "exam",
+    "target_slug": "upsee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "electrician",
+    "target_type": "exam",
+    "target_slug": "wbjee",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "audio-copy-copy",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "pathologist-copy-copy",
+    "target_type": "exam",
+    "target_slug": "ceed",
+    "relationship": "requires_exam"
+  },
+  {
+    "source_type": "career",
+    "source_slug": "vet-copy",
+    "target_type": "exam",
+    "target_slug": "nata",
+    "relationship": "requires_exam"
+  }
+]
