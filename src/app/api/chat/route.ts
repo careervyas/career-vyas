@@ -97,6 +97,42 @@ async function getRelevantContext(query: string): Promise<string> {
     return contextParts.join('\n\n');
 }
 
+async function callOpenAICompatibleAPI(apiUrl: string, apiKey: string, model: string, systemPrompt: string, history: any[], message: string, extraHeaders: Record<string, string> = {}): Promise<string> {
+    const formattedHistory = (history || [])
+        .filter((msg: any) => msg.content && msg.content.trim())
+        .map((msg: any) => ({
+            role: msg.role === 'user' ? 'user' : 'assistant',
+            content: msg.content
+        }));
+
+    const messages = [
+        { role: 'system', content: systemPrompt },
+        ...formattedHistory,
+        { role: 'user', content: message }
+    ];
+
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+            ...extraHeaders
+        },
+        body: JSON.stringify({
+            model: model,
+            messages: messages,
+        })
+    });
+
+    if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`API error (${response.status}): ${errText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const { message, history } = await req.json();
@@ -131,47 +167,126 @@ ${context ? `## Context from Career Vyas Database:\n${context}` : '## No specifi
 5. Never provide medical, legal, or financial advice — redirect to professionals
 6. Keep responses focused and structured — use bullet points and bold text for readability`;
 
-        // Build conversation for Gemini — try multiple models for resilience
-        const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+        // --- FALLBACK SEQUENCE ---
         let lastError: unknown = null;
 
-        for (const modelName of models) {
+        // 1. Try Deepseek API
+        if (process.env.DEEPSEEK_API_KEY) {
             try {
-                const model = genAI.getGenerativeModel({
-                    model: modelName,
-                    systemInstruction: systemPrompt,
-                });
-
-                // Filter history: Gemini requires alternating user/model, must start with user
-                const validHistory = (history || [])
-                    .filter((msg: { role: string; content: string }) => msg.content && msg.content.trim())
-                    .map((msg: { role: string; content: string }) => ({
-                        role: msg.role === 'user' ? 'user' : 'model',
-                        parts: [{ text: msg.content }],
-                    }));
-
-                // Ensure history starts with 'user' if non-empty
-                while (validHistory.length > 0 && validHistory[0].role !== 'user') {
-                    validHistory.shift();
-                }
-
-                const chat = model.startChat({
-                    history: validHistory,
-                });
-
-                const result = await chat.sendMessage(message);
-                const response = result.response.text();
-
+                const response = await callOpenAICompatibleAPI(
+                    'https://api.deepseek.com/chat/completions',
+                    process.env.DEEPSEEK_API_KEY,
+                    'deepseek-chat',
+                    systemPrompt,
+                    history,
+                    message
+                );
                 return NextResponse.json({ response });
             } catch (err) {
                 lastError = err;
-                console.warn(`Model ${modelName} failed, trying next...`, err instanceof Error ? err.message : '');
-                continue;
+                console.warn('Deepseek failed, falling back to Groq...', err instanceof Error ? err.message : '');
+            }
+        }
+
+        // 2. Try GROQ API
+        if (process.env.GROQ_API_KEY) {
+            try {
+                const response = await callOpenAICompatibleAPI(
+                    'https://api.groq.com/openai/v1/chat/completions',
+                    process.env.GROQ_API_KEY,
+                    'llama3-8b-8192', // Replace with any specific fine-tuned ID if needed
+                    systemPrompt,
+                    history,
+                    message
+                );
+                return NextResponse.json({ response });
+            } catch (err) {
+                lastError = err;
+                console.warn('Groq failed, falling back to Mistral...', err instanceof Error ? err.message : '');
+            }
+        }
+
+        // 3. Try MISTRAL API
+        if (process.env.MISTRAL_API_KEY) {
+            try {
+                const response = await callOpenAICompatibleAPI(
+                    'https://api.mistral.ai/v1/chat/completions',
+                    process.env.MISTRAL_API_KEY,
+                    'mistral-large-latest',
+                    systemPrompt,
+                    history,
+                    message
+                );
+                return NextResponse.json({ response });
+            } catch (err) {
+                lastError = err;
+                console.warn('Mistral failed, falling back to OpenRouter...', err instanceof Error ? err.message : '');
+            }
+        }
+
+        // 4. Try OPENROUTER API
+        if (process.env.OPENROUTER_API_KEY) {
+            try {
+                const response = await callOpenAICompatibleAPI(
+                    'https://openrouter.ai/api/v1/chat/completions',
+                    process.env.OPENROUTER_API_KEY,
+                    'google/gemini-2.0-flash-lite-preview-02-05:free', // Auto routing or fallback
+                    systemPrompt,
+                    history,
+                    message,
+                    {
+                        'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL || 'https://careervyas.com',
+                        'X-Title': 'Career Vyas Assistant'
+                    }
+                );
+                return NextResponse.json({ response });
+            } catch (err) {
+                lastError = err;
+                console.warn('OpenRouter failed, falling back to Gemini SDK...', err instanceof Error ? err.message : '');
+            }
+        }
+
+        // 5. Try GEMINI API (SDK fallback)
+        if (process.env.GEMINI_API_KEY) {
+            const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+            for (const modelName of models) {
+                try {
+                    const model = genAI.getGenerativeModel({
+                        model: modelName,
+                        systemInstruction: systemPrompt,
+                    });
+
+                    // Filter history: Gemini requires alternating user/model, must start with user
+                    const validHistory = (history || [])
+                        .filter((msg: { role: string; content: string }) => msg.content && msg.content.trim())
+                        .map((msg: { role: string; content: string }) => ({
+                            role: msg.role === 'user' ? 'user' : 'model',
+                            parts: [{ text: msg.content }],
+                        }));
+
+                    // Ensure history starts with 'user' if non-empty
+                    while (validHistory.length > 0 && validHistory[0].role !== 'user') {
+                        validHistory.shift();
+                    }
+
+                    const chat = model.startChat({
+                        history: validHistory,
+                    });
+
+                    const result = await chat.sendMessage(message);
+                    const response = result.response.text();
+
+                    return NextResponse.json({ response });
+                } catch (err) {
+                    lastError = err;
+                    console.warn(`Gemini Model ${modelName} failed, trying next...`, err instanceof Error ? err.message : '');
+                    continue;
+                }
             }
         }
 
         // All models failed
-        throw lastError || new Error('All models failed');
+        throw lastError || new Error('All models failed. Missing API keys?');
     } catch (error: unknown) {
         console.error('Chat API error:', error);
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
