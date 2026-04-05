@@ -51,69 +51,74 @@ export default function WebinarPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
 
-            <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh] relative overflow-hidden flex items-center">
+            <section className="pt-32 pb-24 border-b border-[var(--color-border)] min-h-[85vh] relative overflow-hidden flex items-center">
 
-                {/* Decorative background shapes */}
-                <div className="absolute top-20 right-10 w-24 h-24 bg-[var(--color-primary-orange)] border-4 border-black brutal-shadow rotate-12 hidden lg:block" />
-                <div className="absolute bottom-20 left-10 w-32 h-32 bg-[var(--color-primary-purple)] border-4 border-black brutal-shadow rounded-full hidden lg:block" />
+                <div className="absolute top-20 right-10 w-64 h-64 bg-indigo-200 rounded-full blur-[100px] opacity-40 hidden lg:block" />
+                <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200 rounded-full blur-[100px] opacity-40 hidden lg:block" />
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                     {/* Left Side text */}
                     <div>
-                        <div className="mb-6 brutal-badge bg-[var(--color-primary-blue)] text-white border-black border-2 rotate-[-2deg] px-4 py-2 text-sm font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] inline-block">
+                        <div className="mb-6 modern-badge bg-indigo-50/80 text-[var(--color-primary-indigo)] border border-indigo-200 px-6 py-2 text-sm font-semibold shadow-sm inline-block tracking-wider">
                             UPCOMING: SUNDAY 6:30 PM
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 tracking-tight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.1)] leading-[1.1]">
-                            CRACK YOUR <br />
-                            <span className="bg-[var(--color-primary-yellow)] px-4 leading-[1.2] inline-block border-[3px] border-black brutal-shadow-sm rotate-2 mt-2 mb-4">
-                                CAREER CODE
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight leading-[1.1] text-[var(--color-text)]">
+                            Crack Your <br />
+                            <span className="text-[var(--color-primary-indigo)] block mt-2 text-4xl md:text-6xl lg:text-7xl font-extrabold">
+                                Career Code
                             </span>
                         </h1>
 
-                        <p className="text-xl font-bold bg-white border-4 border-black p-6 brutal-shadow-sm italic mb-8">
+                        <p className="text-lg md:text-xl font-medium text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-lg">
                             Join 500+ students in our most requested webinar yet. Learn exactly how to choose between JEE, NEET, and emerging fields without losing your mind.
                         </p>
 
-                        <div className="space-y-4 font-bold text-lg">
-                            <div className="flex items-center gap-3">
-                                <span className="bg-[#4ade80] border-2 border-black w-8 h-8 flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] shrink-0">⏰</span>
+                        <div className="space-y-4 font-medium text-lg text-[var(--color-text-muted)]">
+                            <div className="flex items-center gap-4">
+                                <div className="bg-indigo-50 text-[var(--color-primary-indigo)] border border-indigo-100 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 font-bold shadow-sm">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
                                 <span>Duration: 45 Mins + 15 Mins Live Q&A</span>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <span className="bg-[var(--color-primary-purple)] text-white border-2 border-black w-8 h-8 flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] shrink-0">🎤</span>
+                            <div className="flex items-center gap-4">
+                                <div className="bg-indigo-50 text-[var(--color-primary-indigo)] border border-indigo-100 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 font-bold shadow-sm">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                </div>
                                 <span>Hosts: IIT Bombay & AIIMS Delhi Mentors</span>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <span className="bg-[var(--color-primary-orange)] border-2 border-black w-8 h-8 flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] shrink-0">💸</span>
+                            <div className="flex items-center gap-4">
+                                <div className="bg-indigo-50 text-[var(--color-primary-indigo)] border border-indigo-100 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 font-bold shadow-sm">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
                                 <span>Cost: 100% FREE</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right Side Form */}
-                    <div className="bg-white border-[4px] border-black p-8 md:p-10 brutal-shadow relative">
-                        <div className="absolute -top-5 -right-5 bg-[var(--color-primary-yellow)] border-[3px] border-black text-black font-black uppercase text-sm px-4 py-1 rotate-6 brutal-shadow-sm">
+                    <div className="modern-card p-8 md:p-10 relative overflow-hidden backdrop-blur-sm z-10 bg-white/90">
+                        <div className="absolute top-0 right-0 bg-[var(--color-primary-indigo)] text-white font-semibold uppercase tracking-widest text-xs px-6 py-2 rounded-bl-3xl z-20 shadow-sm border-b border-l border-indigo-400/30">
                             SEATS FILLING FAST!
                         </div>
 
-                        <h2 className="text-3xl font-black uppercase mb-8 border-b-4 border-black pb-4">
-                            SECURE YOUR SPOT
+                        <h2 className="text-3xl font-bold mb-8 border-b border-[var(--color-border)] pb-6 text-[var(--color-text)]">
+                            Secure Your Spot
                         </h2>
 
                         {message.text && (
-                            <div className={`mb-6 p-4 border-[3px] border-black font-black uppercase text-center brutal-shadow-sm ${message.type === 'success' ? 'bg-[#4ade80] text-black' : 'bg-[#f43f5e] text-white'}`}>
+                            <div className={`mb-6 p-4 rounded-xl font-medium text-center border ${message.type === 'success' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'}`}>
                                 {message.text}
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                             <div>
-                                <label className="block font-black uppercase text-sm mb-2" htmlFor="name">Full Name</label>
+                                <label className="block font-medium text-sm text-[var(--color-text-muted)] mb-2" htmlFor="name">Full Name</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -121,13 +126,13 @@ export default function WebinarPage() {
                                     required
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors"
+                                    className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all"
                                     placeholder="e.g. Rahul Kumar"
                                 />
                             </div>
 
                             <div>
-                                <label className="block font-black uppercase text-sm mb-2" htmlFor="email">Email Address</label>
+                                <label className="block font-medium text-sm text-[var(--color-text-muted)] mb-2" htmlFor="email">Email Address</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -135,14 +140,14 @@ export default function WebinarPage() {
                                     required
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors"
+                                    className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all"
                                     placeholder="e.g. rahul@example.com"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block font-black uppercase text-sm mb-2" htmlFor="phone">WhatsApp No.</label>
+                                    <label className="block font-medium text-sm text-[var(--color-text-muted)] mb-2" htmlFor="phone">WhatsApp No.</label>
                                     <input
                                         type="tel"
                                         id="phone"
@@ -150,18 +155,18 @@ export default function WebinarPage() {
                                         required
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors"
+                                        className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all"
                                         placeholder="10 Digits"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block font-black uppercase text-sm mb-2" htmlFor="classLevel">Class</label>
+                                    <label className="block font-medium text-sm text-[var(--color-text-muted)] mb-2" htmlFor="classLevel">Class</label>
                                     <select
                                         id="classLevel"
                                         name="classLevel"
                                         value={formData.classLevel}
                                         onChange={handleChange}
-                                        className="w-full bg-[var(--color-bg)] border-[3px] border-black p-4 font-bold focus:outline-none focus:bg-[var(--color-primary-yellow)] transition-colors appearance-none rounded-none"
+                                        className="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3.5 font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-indigo)] focus:border-transparent transition-all text-[var(--color-text)]"
                                     >
                                         <option value="8th">8th Std</option>
                                         <option value="9th">9th Std</option>
@@ -176,7 +181,7 @@ export default function WebinarPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-[var(--color-primary-blue)] border-[4px] border-black text-white font-black uppercase text-xl py-5 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                                className="modern-btn w-full mt-4 text-lg justify-center py-4"
                             >
                                 {loading ? 'BOOKING...' : 'YES, BOOK MY FREE SEAT!'}
                             </button>

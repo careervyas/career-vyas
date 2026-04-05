@@ -16,58 +16,57 @@ export default async function MentorsPage() {
     const displayMentors = mentors || [];
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
 
-            <section className="pt-32 pb-24 border-b-4 border-black border-dashed">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="pt-32 pb-24 border-b border-[var(--color-border)] min-h-[85vh] relative overflow-hidden">
+                <div className="absolute top-20 right-10 w-64 h-64 bg-indigo-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+                <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
                     <div className="mb-16">
-                        <h1 className="text-5xl md:text-7xl font-black uppercase mb-6 tracking-tight drop-shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
-                            OUR <br />
-                            <span className="bg-[var(--color-primary-purple)] text-white px-4 leading-[1.1] inline-block border-[5px] border-black brutal-shadow-sm -rotate-2 mt-2 mb-4">
-                                MENTORS
-                            </span>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1] text-[var(--color-text)]">
+                            <span className="text-[var(--color-primary-indigo)] mb-2 block">Our</span>
+                            Mentors
                         </h1>
-                        <p className="text-xl font-bold max-w-2xl text-black/80 leading-relaxed border-l-4 border-black pl-6 bg-white p-4 brutal-shadow-sm text-left">
+                        <p className="text-lg md:text-xl font-medium max-w-2xl text-[var(--color-text-muted)] leading-relaxed">
                             Book a 1-on-1 session with industry leaders who have already walked the path you want to take.
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {displayMentors.map((mentor, idx) => {
-                            const bgs = ['bg-[var(--color-primary-blue)]', 'bg-[var(--color-primary-yellow)]', 'bg-[#4ade80]', 'bg-[var(--color-primary-orange)]'];
-                            const bg = bgs[idx % bgs.length];
-
                             return (
-                                <div key={mentor.id} className="bg-white border-4 border-black flex flex-col brutal-shadow hover:translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all h-full group">
-                                    <div className={`${bg} border-b-4 border-black p-6 flex flex-col items-center justify-center min-h-[160px] relative overflow-hidden`}>
+                                <div key={mentor.id} className="modern-card flex flex-col h-full group overflow-hidden">
+                                    <div className="bg-indigo-50/50 border-b border-[var(--color-border)] p-6 flex flex-col items-center justify-center min-h-[160px] relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-100/50 rounded-full blur-2xl -mr-10 -mt-10 opacity-60"></div>
                                         {mentor.image_url ? (
-                                            <img src={mentor.image_url} alt={mentor.name} className="w-24 h-24 rounded-none border-4 border-black brutal-shadow-sm object-cover relative z-10 bg-white" />
+                                            <img src={mentor.image_url} alt={mentor.name} className="w-24 h-24 rounded-2xl shadow-sm object-cover relative z-10 bg-white" />
                                         ) : (
-                                            <div className="w-24 h-24 rounded-none border-4 border-black brutal-shadow-sm bg-black text-white flex items-center justify-center text-4xl font-black uppercase relative z-10">
+                                            <div className="w-24 h-24 rounded-2xl shadow-sm bg-[var(--color-primary-indigo)] text-white flex items-center justify-center text-4xl font-bold uppercase relative z-10">
                                                 {mentor.name.charAt(0)}
                                             </div>
                                         )}
                                     </div>
 
                                     <div className="p-6 flex flex-col flex-grow text-center">
-                                        <h2 className="text-2xl font-black uppercase mb-1">{mentor.name}</h2>
-                                        <p className="font-bold text-sm text-black/60 uppercase mb-4">{mentor.college || 'Industry Expert'}</p>
+                                        <h2 className="text-2xl font-bold mb-1 text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">{mentor.name}</h2>
+                                        <p className="font-medium text-sm text-[var(--color-text-muted)] uppercase tracking-wide mb-4">{mentor.college || 'Industry Expert'}</p>
 
                                         <div className="flex flex-wrap gap-2 justify-center mb-6">
                                             {mentor.expertise?.map((exp: string, i: number) => (
-                                                <span key={i} className="brutal-badge border-black bg-white">{exp}</span>
+                                                <span key={i} className="modern-badge bg-white shadow-sm border border-[var(--color-border)] text-[var(--color-text-muted)]">{exp}</span>
                                             ))}
                                         </div>
 
-                                        <p className="font-bold mb-8 flex-grow line-clamp-3 leading-relaxed">
+                                        <p className="font-medium mb-8 flex-grow line-clamp-3 leading-relaxed text-[var(--color-text-muted)]">
                                             {mentor.bio || 'Book a 60-minute session to discuss career goals, resume reviews, or interview preparation.'}
                                         </p>
 
                                         <Link
                                             href={`/mentors/${mentor.id}`}
-                                            className="mt-auto border-4 border-black bg-black text-white font-black uppercase py-4 group-hover:bg-[var(--color-primary-purple)] group-hover:text-white group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:!translate-y-[2px] transition-all"
+                                            className="modern-btn mt-auto justify-center w-full shadow-sm text-sm"
                                         >
                                             BOOK SESSION
                                         </Link>
@@ -77,9 +76,9 @@ export default async function MentorsPage() {
                         })}
 
                         {displayMentors.length === 0 && (
-                            <div className="col-span-full border-4 border-black p-12 text-center bg-white brutal-shadow-sm">
-                                <h3 className="text-2xl font-black uppercase mb-2">No Mentors Currently Available</h3>
-                                <p className="font-bold border-t-2 border-black inline-block mt-4 pt-2">Check back soon for our new expert roster.</p>
+                            <div className="col-span-full modern-card p-12 text-center bg-white">
+                                <h3 className="text-2xl font-bold mb-2 text-[var(--color-text)]">No Mentors Currently Available</h3>
+                                <p className="font-medium text-[var(--color-text-muted)] mt-2">Check back soon for our new expert roster.</p>
                             </div>
                         )}
                     </div>

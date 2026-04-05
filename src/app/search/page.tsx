@@ -28,31 +28,34 @@ export default async function SearchResultsPage({
     );
 
     return (
-        <main className="min-h-screen bg-[var(--color-bg)] text-black font-sans">
+        <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
 
             {q && q.length > 1 && (
                 <PageTracker activityType="SEARCH" contentType="GLOBAL_SEARCH" contentId={q} />
             )}
 
-            <section className="pt-32 pb-24 border-b-4 border-black border-dashed min-h-[85vh]">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="pt-32 pb-24 border-b border-[var(--color-border)] min-h-[85vh] relative overflow-hidden">
+                <div className="absolute top-20 right-10 w-64 h-64 bg-indigo-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
+                <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200 rounded-full blur-[100px] opacity-40 hidden md:block" />
 
-                    <div className="mb-12 border-b-4 border-black pb-8">
-                        <h1 className="text-4xl md:text-6xl font-black uppercase mb-4 tracking-tight">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+
+                    <div className="mb-12 border-b border-[var(--color-border)] pb-8">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight text-[var(--color-text)]">
                             Search Results
                         </h1>
-                        <p className="text-2xl font-bold bg-white border-[3px] border-black p-4 brutal-shadow-sm inline-block">
-                            Query: <span className="bg-[var(--color-primary-yellow)] px-2">"{q || ''}"</span>
+                        <p className="text-xl font-medium text-[var(--color-text-muted)] flex items-center gap-2">
+                            Query: <span className="modern-badge bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1 text-lg">"{q || ''}"</span>
                         </p>
                     </div>
 
                     {!q ? (
-                        <div className="bg-[#f43f5e] text-white p-8 border-4 border-black brutal-shadow-sm font-black text-2xl uppercase">
+                        <div className="modern-card p-8 bg-indigo-50/50 border border-indigo-100 font-semibold text-xl text-center text-[var(--color-primary-indigo)] text-[var(--color-text)]">
                             Please enter a search term to begin.
                         </div>
                     ) : !hasResults ? (
-                        <div className="bg-white p-8 border-4 border-black brutal-shadow-sm font-black text-2xl uppercase text-center">
+                        <div className="modern-card p-8 text-center text-xl font-medium text-[var(--color-text-muted)]">
                             No results found across the platform.
                         </div>
                     ) : (
@@ -60,12 +63,12 @@ export default async function SearchResultsPage({
 
                             {results.careers?.length > 0 && (
                                 <div>
-                                    <h2 className="text-2xl font-black uppercase mb-4 bg-black text-white p-2 inline-block border-2 border-black">CAREERS</h2>
+                                    <h2 className="text-xl font-bold uppercase mb-4 text-[var(--color-text)] tracking-widest border-b border-[var(--color-border)] pb-2 inline-block">CAREERS</h2>
                                     <div className="space-y-4">
                                         {results.careers.map((item: any) => (
-                                            <Link key={item.id} href={`/explore/careers/${item.slug}`} className="block border-4 border-black bg-white p-6 brutal-shadow-sm hover:translate-x-[2px] hover:-translate-y-[2px] transition-all">
-                                                <h3 className="text-xl font-black uppercase hover:underline">{item.title}</h3>
-                                                <p className="font-bold text-black/70 mt-2">{item.summary || 'Career profile overview'}</p>
+                                            <Link key={item.id} href={`/explore/careers/${item.slug}`} className="block modern-card p-6 group hover:translate-x-1 transition-all">
+                                                <h3 className="text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">{item.title}</h3>
+                                                <p className="font-medium text-[var(--color-text-muted)] mt-2 line-clamp-2">{item.summary || 'Career profile overview'}</p>
                                             </Link>
                                         ))}
                                     </div>
@@ -74,12 +77,12 @@ export default async function SearchResultsPage({
 
                             {results.courses?.length > 0 && (
                                 <div>
-                                    <h2 className="text-2xl font-black uppercase mb-4 bg-[var(--color-primary-blue)] text-white p-2 inline-block border-2 border-black">COURSES</h2>
+                                    <h2 className="text-xl font-bold uppercase mb-4 text-[var(--color-text)] tracking-widest border-b border-[var(--color-border)] pb-2 inline-block">COURSES</h2>
                                     <div className="space-y-4">
                                         {results.courses.map((item: any) => (
-                                            <Link key={item.id} href={`/explore/courses/${item.slug}`} className="block border-4 border-black bg-white p-6 brutal-shadow-sm hover:translate-x-[2px] hover:-translate-y-[2px] transition-all">
-                                                <h3 className="text-xl font-black uppercase hover:underline">{item.title}</h3>
-                                                <p className="font-bold text-black/70 mt-2">{item.type || 'Degree path'}</p>
+                                            <Link key={item.id} href={`/explore/courses/${item.slug}`} className="block modern-card p-6 group hover:translate-x-1 transition-all">
+                                                <h3 className="text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">{item.title}</h3>
+                                                <p className="font-medium text-[var(--color-text-muted)] mt-2 line-clamp-2">{item.type || 'Degree path'}</p>
                                             </Link>
                                         ))}
                                     </div>
@@ -88,12 +91,12 @@ export default async function SearchResultsPage({
 
                             {results.exams?.length > 0 && (
                                 <div>
-                                    <h2 className="text-2xl font-black uppercase mb-4 bg-[#f43f5e] text-white p-2 inline-block border-2 border-black">EXAMS</h2>
+                                    <h2 className="text-xl font-bold uppercase mb-4 text-[var(--color-text)] tracking-widest border-b border-[var(--color-border)] pb-2 inline-block">EXAMS</h2>
                                     <div className="space-y-4">
                                         {results.exams.map((item: any) => (
-                                            <Link key={item.id} href={`/explore/exams/${item.slug}`} className="block border-4 border-black bg-white p-6 brutal-shadow-sm hover:translate-x-[2px] hover:-translate-y-[2px] transition-all">
-                                                <h3 className="text-xl font-black uppercase hover:underline">{item.name}</h3>
-                                                <p className="font-bold text-black/70 mt-2">{item.full_form || 'Entrance examination'}</p>
+                                            <Link key={item.id} href={`/explore/exams/${item.slug}`} className="block modern-card p-6 group hover:translate-x-1 transition-all">
+                                                <h3 className="text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">{item.name}</h3>
+                                                <p className="font-medium text-[var(--color-text-muted)] mt-2 line-clamp-2">{item.full_form || 'Entrance examination'}</p>
                                             </Link>
                                         ))}
                                     </div>
@@ -102,12 +105,15 @@ export default async function SearchResultsPage({
 
                             {results.colleges?.length > 0 && (
                                 <div>
-                                    <h2 className="text-2xl font-black uppercase mb-4 bg-[#4ade80] text-black p-2 inline-block border-2 border-black">COLLEGES</h2>
+                                    <h2 className="text-xl font-bold uppercase mb-4 text-[var(--color-text)] tracking-widest border-b border-[var(--color-border)] pb-2 inline-block">COLLEGES</h2>
                                     <div className="space-y-4">
                                         {results.colleges.map((item: any) => (
-                                            <Link key={item.id} href={`/explore/colleges/${item.slug}`} className="block border-4 border-black bg-white p-6 brutal-shadow-sm hover:translate-x-[2px] hover:-translate-y-[2px] transition-all">
-                                                <h3 className="text-xl font-black uppercase hover:underline">{item.name}</h3>
-                                                <p className="font-bold text-black/70 mt-2">📍 {item.city || 'India'}</p>
+                                            <Link key={item.id} href={`/explore/colleges/${item.slug}`} className="block modern-card p-6 group hover:translate-x-1 transition-all">
+                                                <h3 className="text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">{item.name}</h3>
+                                                <p className="font-medium text-[var(--color-text-muted)] mt-2 flex items-center gap-1">
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                                    {item.city || 'India'}
+                                                </p>
                                             </Link>
                                         ))}
                                     </div>
