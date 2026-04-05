@@ -92,7 +92,7 @@ async function seedColleges() {
     const colleges = raw.map(c => ({
         name: c.name?.substring(0, 300),
         slug: c.slug,
-        description: c.description?.substring(0, 5000) || '',
+        description: c.overview?.substring(0, 5000) || c.description?.substring(0, 5000) || '',
         type: c.type || 'University',
         city: c.city?.substring(0, 100) || null,
         state: c.state?.substring(0, 100) || null,

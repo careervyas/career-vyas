@@ -120,3 +120,17 @@ html {
   font-size: 0.75rem;
   letter-spacing: 0.025em;
 }
+
+/* Hide scrollbar but still allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Scroll margin for anchor links under sticky header */
+.scroll-mt-32 {
+  scroll-margin-top: 8rem;
+}

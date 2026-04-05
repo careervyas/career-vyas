@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import ShareButtons from "@/components/explore/ShareButtons";
-import { MapPin, Globe, Banknote, Users, GraduationCap, Building2, Bed, Landmark, BarChart3, ExternalLink } from "lucide-react";
+import { MapPin, Globe, Banknote, Users, GraduationCap, Building2, Bed, Landmark, BarChart3, ExternalLink, BookOpen, Trophy, Navigation } from "lucide-react";
 import PageTracker from "@/components/PageTracker";
 
 export const dynamic = "force-dynamic";
@@ -18,21 +18,17 @@ async function getCollegeAndRelations(slug: string) {
 
     if (error || !college) return null;
 
-    // Get relationships
     const { data: relations } = await supabaseAdmin
         .from("content_relationships")
         .select("*")
         .eq("source_type", "college")
         .eq("source_id", college.id);
-
-    // Also get reverse relationships (e.g., exams that accept this college)
     const { data: reverseRelations } = await supabaseAdmin
         .from("content_relationships")
         .select("*")
         .eq("target_type", "college")
         .eq("target_id", college.id);
 
-    // Fetch linked content details
     const allRels = [...(relations || []), ...(reverseRelations || [])];
     const linkedCourses: { slug: string; title: string }[] = [];
     const linkedExams: { slug: string; name: string }[] = [];
@@ -66,7 +62,6 @@ export default async function CollegeProfilePage({
 }) {
     const { slug } = await params;
     const data = await getCollegeAndRelations(slug);
-
     if (!data) notFound();
 
     const { college, linkedCourses, linkedExams } = data;
@@ -74,251 +69,364 @@ export default async function CollegeProfilePage({
     const feeStructure = (college.fee_structure || []) as any[];
     const placementStats = college.placement_stats as any;
 
+    // Build section anchors for sticky nav
+    const sections: { id: string; label: string; icon: string }[] = [];
+    sections.push({ id: "overview", label: "Overview", icon: "🏫" });
+    if (coursesOffered.length > 0) sections.push({ id: "courses", label: "Courses", icon: "📚" });
+    if (feeStructure?.length > 0) sections.push({ id: "fees", label: "Fees", icon: "💰" });
+    if (placementStats) sections.push({ id: "placements", label: "Placements", icon: "📊" });
+    if (college.hostel_info) sections.push({ id: "hostel", label: "Hostel & Campus", icon: "🏠" });
+    if (linkedCourses.length > 0 || linkedExams.length > 0) sections.push({ id: "related", label: "Related", icon: "🔗" });
+
     return (
         <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans">
             <Navbar />
             <PageTracker activityType="PAGE_VIEW" contentType="COLLEGE PROFILE" contentId={college.name} />
 
-            <article className="pt-32 pb-24 min-h-[85vh] relative overflow-hidden">
-                <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
-                <div className="absolute bottom-40 right-10 w-72 h-72 bg-teal-200 rounded-full blur-[100px] opacity-30 hidden md:block" />
+            <article className="pt-28 pb-24 min-h-[85vh]">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                    {/* Breadcrumb */}
+                    <nav className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] mb-6">
+                        <Link href="/" className="hover:text-[var(--color-primary-indigo)] transition-colors">Home</Link>
+                        <span>/</span>
+                        <Link href="/explore" className="hover:text-[var(--color-primary-indigo)] transition-colors">Explore</Link>
+                        <span>/</span>
+                        <Link href="/explore/colleges" className="hover:text-[var(--color-primary-indigo)] transition-colors">Colleges</Link>
+                        <span>/</span>
+                        <span className="text-[var(--color-text)] font-medium truncate">{college.name}</span>
+                    </nav>
 
-                    <Link href="/explore/colleges" className="inline-flex items-center gap-2 font-semibold text-sm text-emerald-600 mb-8 hover:underline underline-offset-4 transition-colors">
-                        <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        All Colleges
-                    </Link>
-
-                    {/* Hero Header */}
-                    <header className="mb-12 border-b border-[var(--color-border)] pb-8">
-                        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div className="flex flex-wrap gap-2">
-                                <span className="modern-badge bg-emerald-50 text-emerald-700">
-                                    {college.type || 'University'}
+                    {/* ─── HERO HEADER ─── */}
+                    <header className="mb-0 pb-6">
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                                {college.type || 'University'}
+                            </span>
+                            {college.ranking && (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                                    <Trophy size={12} /> NIRF Rank #{college.ranking}
                                 </span>
-                                {college.ranking && (
-                                    <span className="modern-badge bg-amber-50 text-amber-700">
-                                        🏆 {college.ranking}
-                                    </span>
-                                )}
-                            </div>
-                            <ShareButtons title={college.name} path={`/explore/colleges/${slug}`} />
+                            )}
+                            {college.category && (
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">
+                                    {college.category}
+                                </span>
+                            )}
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-[var(--color-text)]">
+                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-3 text-[var(--color-text)]">
                             {college.name}
                         </h1>
 
-                        <div className="flex flex-wrap gap-3 mb-8">
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-muted)] mb-6">
                             {(college.city || college.state) && (
-                                <span className="modern-badge bg-rose-50 text-rose-700 flex items-center gap-2">
-                                    <MapPin size={16} /> {[college.city, college.state].filter(Boolean).join(', ')}
+                                <span className="flex items-center gap-1.5">
+                                    <MapPin size={14} className="text-rose-500" />
+                                    {[college.city, college.state].filter(Boolean).join(', ')}
                                 </span>
                             )}
                             {college.campus_size && (
-                                <span className="modern-badge bg-blue-50 text-blue-700 flex items-center gap-2">
-                                    <Building2 size={16} /> {college.campus_size}
+                                <span className="flex items-center gap-1.5">
+                                    <Building2 size={14} className="text-blue-500" />
+                                    {college.campus_size}
                                 </span>
                             )}
                             {college.map_link && (
-                                <a href={college.map_link} target="_blank" rel="noopener noreferrer" className="modern-badge bg-indigo-50 text-indigo-700 flex items-center gap-2 hover:bg-indigo-100 transition-colors">
-                                    <Globe size={16} /> View on Map ↗
+                                <a href={college.map_link} target="_blank" rel="noopener noreferrer"
+                                   className="flex items-center gap-1.5 text-[var(--color-primary-indigo)] hover:underline">
+                                    <Navigation size={14} />
+                                    View on Map ↗
                                 </a>
                             )}
                         </div>
 
-                        {/* Quick Stats */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div className="modern-card p-6 bg-emerald-50 border-emerald-100 text-center">
-                                <Users size={28} className="mx-auto mb-2 text-emerald-400" />
-                                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500 mb-1">Top Recruiters</p>
-                                <p className="text-base font-bold text-emerald-800">{college.top_recruiters || 'Top Tier Companies'}</p>
-                            </div>
-                            <div className="modern-card p-6 bg-amber-50 border-amber-100 text-center">
-                                <Banknote size={28} className="mx-auto mb-2 text-amber-400" />
-                                <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-1">Avg Package</p>
-                                <p className="text-2xl font-bold text-amber-800">{college.avg_package || placementStats?.avg_package || 'TBD'}</p>
-                            </div>
+                        <div className="flex items-center gap-3">
+                            <ShareButtons title={college.name} path={`/explore/colleges/${slug}`} />
                         </div>
                     </header>
 
-                    {/* Overview */}
-                    <section className="modern-card p-8 mb-8">
-                        <h2 className="text-2xl font-bold mb-4 text-[var(--color-text)] flex items-center gap-3">
-                            <Landmark size={24} className="text-emerald-500" /> About {college.name}
-                        </h2>
-                        <div className="prose prose-lg max-w-none text-[var(--color-text-muted)] leading-relaxed whitespace-pre-line">
-                            {college.description || "Information is being updated."}
+                    {/* ─── STICKY SECTION TABS ─── */}
+                    <div className="sticky top-[72px] z-30 bg-[var(--color-bg)] border-b border-[var(--color-border)] mb-8 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                        <nav className="flex gap-0 overflow-x-auto no-scrollbar">
+                            {sections.map((s) => (
+                                <a key={s.id} href={`#${s.id}`}
+                                   className="flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary-indigo)] border-b-2 border-transparent hover:border-[var(--color-primary-indigo)] transition-all whitespace-nowrap">
+                                    <span>{s.icon}</span>
+                                    {s.label}
+                                </a>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* ─── QUICK HIGHLIGHTS ─── */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
+                            <GraduationCap size={22} className="mx-auto mb-2 text-purple-500" />
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Courses</p>
+                            <p className="text-xl font-bold text-[var(--color-text)]">{coursesOffered.length || '—'}</p>
+                        </div>
+                        <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
+                            <Banknote size={22} className="mx-auto mb-2 text-emerald-500" />
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Avg Package</p>
+                            <p className="text-lg font-bold text-[var(--color-text)]">{placementStats?.avg_package || '—'}</p>
+                        </div>
+                        <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
+                            <Users size={22} className="mx-auto mb-2 text-amber-500" />
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Recruiters</p>
+                            <p className="text-sm font-bold text-[var(--color-text)]">{college.top_recruiters || 'Top Companies'}</p>
+                        </div>
+                        <div className="bg-white rounded-xl border border-[var(--color-border)] p-4 text-center shadow-sm">
+                            <BarChart3 size={22} className="mx-auto mb-2 text-blue-500" />
+                            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1">Placed</p>
+                            <p className="text-xl font-bold text-[var(--color-text)]">{placementStats?.placement_percentage || '—'}</p>
+                        </div>
+                    </div>
+
+                    {/* ─── OVERVIEW ─── */}
+                    <section id="overview" className="mb-10 scroll-mt-32">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Landmark size={22} className="text-emerald-600" />
+                            <h2 className="text-xl font-bold text-[var(--color-text)]">About {college.name}</h2>
+                        </div>
+                        <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
+                            <p className="text-[15px] leading-7 text-[var(--color-text-muted)]">
+                                {college.overview || college.description || "Information is being updated."}
+                            </p>
+                            {college.address && (
+                                <div className="mt-5 pt-5 border-t border-[var(--color-border)] flex flex-wrap gap-6 text-sm">
+                                    <div>
+                                        <span className="font-semibold text-[var(--color-text)]">Address: </span>
+                                        <span className="text-[var(--color-text-muted)]">{college.address}</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </section>
 
-                    {/* Courses Offered */}
+                    {/* ─── COURSES OFFERED (Shiksha-style table) ─── */}
                     {coursesOffered.length > 0 && (
-                        <section className="modern-card p-8 mb-8">
-                            <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)] flex items-center gap-3">
-                                <GraduationCap size={24} className="text-purple-500" /> Courses Offered
-                            </h2>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
-                                    <thead>
-                                        <tr className="border-b-2 border-[var(--color-border)]">
-                                            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Course</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Eligibility & Entrance Exam</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {coursesOffered.slice(0, 30).map((course: any, i: number) => (
-                                            <tr key={i} className="border-b border-[var(--color-border)] hover:bg-[var(--color-bg-soft)] transition-colors">
-                                                <td className="py-3 px-4 font-semibold text-[var(--color-text)]">{course.name}</td>
-                                                <td className="py-3 px-4 text-[var(--color-text-muted)] whitespace-pre-line text-xs leading-relaxed">{course.eligibility || 'Contact college'}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                        <section id="courses" className="mb-10 scroll-mt-32">
+                            <div className="flex items-center justify-between gap-2 mb-4">
+                                <div className="flex items-center gap-2">
+                                    <GraduationCap size={22} className="text-purple-600" />
+                                    <h2 className="text-xl font-bold text-[var(--color-text)]">
+                                        Courses Offered
+                                        <span className="text-sm font-normal text-[var(--color-text-muted)] ml-2">({coursesOffered.length} programs)</span>
+                                    </h2>
+                                </div>
                             </div>
-                        </section>
-                    )}
-
-                    {/* Fee Structure */}
-                    {feeStructure && feeStructure.length > 0 && (
-                        <section className="modern-card p-8 mb-8">
-                            <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)] flex items-center gap-3">
-                                <Banknote size={24} className="text-amber-500" /> Fee Structure
-                            </h2>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
-                                    <tbody>
-                                        {feeStructure.slice(0, 20).map((row: any, i: number) => (
-                                            <tr key={i} className="border-b border-[var(--color-border)] hover:bg-[var(--color-bg-soft)] transition-colors">
-                                                <td className="py-3 px-4 font-semibold text-[var(--color-text)]">{row.item}</td>
-                                                {(row.values || []).map((v: string, j: number) => (
-                                                    <td key={j} className="py-3 px-4 text-[var(--color-text-muted)]">{v}</td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Placement Statistics */}
-                    {placementStats && (
-                        <section className="modern-card p-8 mb-8">
-                            <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)] flex items-center gap-3">
-                                <BarChart3 size={24} className="text-blue-500" /> Placement Statistics
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                                {placementStats.avg_package && (
-                                    <div className="modern-card p-4 bg-emerald-50 border-emerald-100 text-center">
-                                        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500 mb-1">Avg Package</p>
-                                        <p className="text-xl font-bold text-emerald-800">{placementStats.avg_package}</p>
-                                    </div>
-                                )}
-                                {placementStats.highest_package && (
-                                    <div className="modern-card p-4 bg-amber-50 border-amber-100 text-center">
-                                        <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-1">Highest Package</p>
-                                        <p className="text-xl font-bold text-amber-800">{placementStats.highest_package}</p>
-                                    </div>
-                                )}
-                                {placementStats.placement_percentage && (
-                                    <div className="modern-card p-4 bg-blue-50 border-blue-100 text-center">
-                                        <p className="text-xs font-semibold uppercase tracking-widest text-blue-500 mb-1">Placed</p>
-                                        <p className="text-xl font-bold text-blue-800">{placementStats.placement_percentage}</p>
-                                    </div>
-                                )}
-                            </div>
-                            {placementStats.tables?.map((table: string[][], tIdx: number) => (
-                                <div key={tIdx} className="overflow-x-auto mb-4">
+                            <div className="bg-white rounded-xl border border-[var(--color-border)] shadow-sm overflow-hidden">
+                                <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead>
-                                            <tr className="border-b-2 border-[var(--color-border)]">
-                                                {table[0]?.map((cell: string, i: number) => (
-                                                    <th key={i} className="text-left py-2 px-3 font-semibold text-[var(--color-text)] text-xs">{cell}</th>
-                                                ))}
+                                            <tr className="bg-gray-50 border-b border-[var(--color-border)]">
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Course</th>
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Eligibility</th>
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Entrance Exam</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            {table.slice(1).map((row: string[], rIdx: number) => (
-                                                <tr key={rIdx} className="border-b border-[var(--color-border)]">
-                                                    {row.map((cell: string, cIdx: number) => (
-                                                        <td key={cIdx} className="py-2 px-3 text-[var(--color-text-muted)] text-xs">{cell}</td>
-                                                    ))}
+                                        <tbody className="divide-y divide-[var(--color-border)]">
+                                            {coursesOffered.map((course: any, i: number) => (
+                                                <tr key={i} className="hover:bg-indigo-50/30 transition-colors">
+                                                    <td className="py-3.5 px-5">
+                                                        <span className="font-semibold text-[var(--color-primary-indigo)]">{course.name}</span>
+                                                    </td>
+                                                    <td className="py-3.5 px-5 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-xs">
+                                                        {course.eligibility || '—'}
+                                                    </td>
+                                                    <td className="py-3.5 px-5">
+                                                        {course.entrance_exam ? (
+                                                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700">
+                                                                {course.entrance_exam}
+                                                            </span>
+                                                        ) : (
+                                                            <span className="text-[var(--color-text-muted)] text-xs">—</span>
+                                                        )}
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ─── FEE STRUCTURE ─── */}
+                    {feeStructure && feeStructure.length > 0 && (
+                        <section id="fees" className="mb-10 scroll-mt-32">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Banknote size={22} className="text-amber-600" />
+                                <h2 className="text-xl font-bold text-[var(--color-text)]">Fee Structure</h2>
+                            </div>
+                            <div className="bg-white rounded-xl border border-[var(--color-border)] shadow-sm overflow-hidden">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-sm">
+                                        <thead>
+                                            <tr className="bg-gray-50 border-b border-[var(--color-border)]">
+                                                <th className="text-left py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Component</th>
+                                                <th className="text-right py-3.5 px-5 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-[var(--color-border)]">
+                                            {feeStructure.slice(0, 20).map((row: any, i: number) => (
+                                                <tr key={i} className="hover:bg-amber-50/30 transition-colors">
+                                                    <td className="py-3 px-5 font-medium text-[var(--color-text)]">{row.item}</td>
+                                                    <td className="py-3 px-5 text-right">
+                                                        {(row.values || []).map((v: string, j: number) => (
+                                                            <span key={j} className="inline-block ml-4 font-semibold text-emerald-700">{v}</span>
+                                                        ))}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ─── PLACEMENTS ─── */}
+                    {placementStats && (
+                        <section id="placements" className="mb-10 scroll-mt-32">
+                            <div className="flex items-center gap-2 mb-4">
+                                <BarChart3 size={22} className="text-blue-600" />
+                                <h2 className="text-xl font-bold text-[var(--color-text)]">Placement Statistics</h2>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+                                {placementStats.avg_package && (
+                                    <div className="bg-white rounded-xl border border-emerald-200 p-5 text-center shadow-sm">
+                                        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-1">Avg Package</p>
+                                        <p className="text-2xl font-bold text-emerald-700">{placementStats.avg_package}</p>
+                                    </div>
+                                )}
+                                {placementStats.highest_package && (
+                                    <div className="bg-white rounded-xl border border-amber-200 p-5 text-center shadow-sm">
+                                        <p className="text-xs font-semibold uppercase tracking-widest text-amber-600 mb-1">Highest Package</p>
+                                        <p className="text-2xl font-bold text-amber-700">{placementStats.highest_package}</p>
+                                    </div>
+                                )}
+                                {placementStats.placement_percentage && (
+                                    <div className="bg-white rounded-xl border border-blue-200 p-5 text-center shadow-sm">
+                                        <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-1">Students Placed</p>
+                                        <p className="text-2xl font-bold text-blue-700">{placementStats.placement_percentage}</p>
+                                    </div>
+                                )}
+                            </div>
+                            {placementStats.tables?.map((table: string[][], tIdx: number) => (
+                                <div key={tIdx} className="bg-white rounded-xl border border-[var(--color-border)] shadow-sm overflow-hidden mb-4">
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-sm">
+                                            <thead>
+                                                <tr className="bg-gray-50 border-b border-[var(--color-border)]">
+                                                    {table[0]?.map((cell: string, i: number) => (
+                                                        <th key={i} className="text-left py-3 px-4 font-semibold text-[var(--color-text)] text-xs uppercase tracking-wider">{cell}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-[var(--color-border)]">
+                                                {table.slice(1).map((row: string[], rIdx: number) => (
+                                                    <tr key={rIdx} className="hover:bg-blue-50/30 transition-colors">
+                                                        {row.map((cell: string, cIdx: number) => (
+                                                            <td key={cIdx} className="py-2.5 px-4 text-[var(--color-text-muted)] text-[13px]">{cell}</td>
+                                                        ))}
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             ))}
                         </section>
                     )}
 
-                    {/* Hostel & Campus */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        {college.hostel_info && (
-                            <section className="modern-card p-6">
-                                <h3 className="text-xl font-bold mb-4 text-[var(--color-text)] flex items-center gap-2">
-                                    <Bed size={20} className="text-rose-500" /> Hostel Facilities
-                                </h3>
-                                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed whitespace-pre-line">
-                                    {college.hostel_info}
-                                </p>
-                            </section>
-                        )}
-                        {college.campus_facilities && (
-                            <section className="modern-card p-6">
-                                <h3 className="text-xl font-bold mb-4 text-[var(--color-text)] flex items-center gap-2">
-                                    <Building2 size={20} className="text-indigo-500" /> Campus Facilities
-                                </h3>
-                                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed whitespace-pre-line">
-                                    {college.campus_facilities}
-                                </p>
-                            </section>
-                        )}
-                    </div>
-
-                    {/* Linked Content */}
-                    {(linkedCourses.length > 0 || linkedExams.length > 0) && (
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">Related Content</h2>
-                            {linkedCourses.length > 0 && (
-                                <div className="mb-6">
-                                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-muted)]">📚 Courses Available Here</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {linkedCourses.map(c => (
-                                            <Link key={c.slug} href={`/explore/courses/${c.slug}`} className="modern-badge bg-purple-50 text-purple-700 hover:bg-purple-100 transition-colors flex items-center gap-1">
-                                                {c.title} <ExternalLink size={12} />
-                                            </Link>
-                                        ))}
+                    {/* ─── HOSTEL & CAMPUS ─── */}
+                    {(college.hostel_info || college.campus_facilities) && (
+                        <section id="hostel" className="mb-10 scroll-mt-32">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Bed size={22} className="text-rose-600" />
+                                <h2 className="text-xl font-bold text-[var(--color-text)]">Hostel & Campus</h2>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                {college.hostel_info && (
+                                    <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
+                                        <h3 className="text-base font-bold mb-3 text-[var(--color-text)] flex items-center gap-2">
+                                            <Bed size={18} className="text-rose-500" /> Hostel Facilities
+                                        </h3>
+                                        <div className="text-[13px] text-[var(--color-text-muted)] leading-6 space-y-2">
+                                            {college.hostel_info.split('\n').filter((line: string) => line.trim()).map((line: string, i: number) => (
+                                                <p key={i}>{line.trim()}</p>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                            {linkedExams.length > 0 && (
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-3 text-[var(--color-text-muted)]">📝 Accepted Entrance Exams</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {linkedExams.map(e => (
-                                            <Link key={e.slug} href={`/explore/exams/${e.slug}`} className="modern-badge bg-rose-50 text-rose-700 hover:bg-rose-100 transition-colors flex items-center gap-1">
-                                                {e.name} <ExternalLink size={12} />
-                                            </Link>
-                                        ))}
+                                )}
+                                {college.campus_facilities && (
+                                    <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm">
+                                        <h3 className="text-base font-bold mb-3 text-[var(--color-text)] flex items-center gap-2">
+                                            <Building2 size={18} className="text-indigo-500" /> Campus Facilities
+                                        </h3>
+                                        <div className="text-[13px] text-[var(--color-text-muted)] leading-6 space-y-2">
+                                            {college.campus_facilities.split('\n').filter((line: string) => line.trim()).map((line: string, i: number) => {
+                                                // Check if it's a sub-header (e.g., "Library:", "Sports:")
+                                                if (/^(Library|Sports|Hostel|Mess|Gym|Lab|Research|Cultural)[:\s]/i.test(line.trim())) {
+                                                    return <p key={i} className="font-semibold text-[var(--color-text)] mt-3 first:mt-0">{line.trim()}</p>;
+                                                }
+                                                return <p key={i}>{line.trim()}</p>;
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </section>
                     )}
 
-                    {/* Mentor CTA */}
-                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex flex-col sm:flex-row justify-between items-center gap-6">
+                    {/* ─── RELATED CONTENT ─── */}
+                    {(linkedCourses.length > 0 || linkedExams.length > 0) && (
+                        <section id="related" className="mb-10 scroll-mt-32">
+                            <div className="flex items-center gap-2 mb-4">
+                                <BookOpen size={22} className="text-indigo-600" />
+                                <h2 className="text-xl font-bold text-[var(--color-text)]">Related Content</h2>
+                            </div>
+                            <div className="bg-white rounded-xl border border-[var(--color-border)] p-6 shadow-sm space-y-6">
+                                {linkedCourses.length > 0 && (
+                                    <div>
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">📚 Courses Available at {college.name}</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {linkedCourses.map(c => (
+                                                <Link key={c.slug} href={`/explore/courses/${c.slug}`}
+                                                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 transition-colors">
+                                                    {c.title} <ExternalLink size={10} />
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                {linkedExams.length > 0 && (
+                                    <div>
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-3">📝 Accepted Entrance Exams</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {linkedExams.map(e => (
+                                                <Link key={e.slug} href={`/explore/exams/${e.slug}`}
+                                                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 transition-colors">
+                                                    {e.name} <ExternalLink size={10} />
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ─── MENTOR CTA ─── */}
+                    <div className="mt-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-white flex flex-col sm:flex-row justify-between items-center gap-6 shadow-lg">
                         <div>
                             <p className="text-2xl font-bold">Speak to Alumni</p>
                             <p className="font-medium mt-2 text-emerald-100">Find a mentor who actually studied at this college to get the real insight.</p>
                         </div>
-                        <Link
-                            href="/mentors"
-                            className="bg-white text-emerald-700 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-emerald-50 transition-colors shadow-lg"
-                        >
+                        <Link href="/mentors"
+                              className="bg-white text-emerald-700 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-emerald-50 transition-colors shadow-lg">
                             Find Mentor →
                         </Link>
                     </div>

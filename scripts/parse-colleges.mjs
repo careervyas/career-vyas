@@ -71,20 +71,36 @@ function extractCoursesOffered(html) {
     const tables = parseTables(html);
     if (tables.length === 0) return [];
     
-    // Usually the first table contains courses
+    const GARBAGE = /^(courses?|s\.no|sr|serial|#|fee|semester|tuition|total|hostel|mess|caution|deposit|exam|year|annual|particulars|1st|2nd|3rd|4th|amount|component|category|general|obc|sc|st)/i;
+    
     const courses = [];
     for (const table of tables) {
         for (const row of table) {
-            // Skip header rows that just say "Courses" / "Eligibility"
             if (row.length >= 1 && row[0].length > 2) {
                 const courseName = row[0].trim();
-                if (/^(courses?|s\.no|sr|serial|#)/i.test(courseName)) continue;
+                if (GARBAGE.test(courseName)) continue;
                 if (courseName.length < 2 || courseName.length > 150) continue;
+                // Skip rows that look like fee data (contain ₹ or numbers only)
+                if (/^[\d,₹\s.]+$/.test(courseName)) continue;
+                
+                // Parse eligibility to split entrance exam out
+                const rawElig = row.length > 1 ? row[1] || '' : '';
+                let eligibility = rawElig;
+                let entranceExam = row.length > 2 ? row[2] || '' : '';
+                
+                // If eligibility contains "Entrance exam:", split that out
+                const examMatch = rawElig.match(/entrance\s*exam[:\-–]?\s*(.+?)(?:\n|$)/i);
+                if (examMatch && !entranceExam) {
+                    entranceExam = examMatch[1].trim();
+                    eligibility = rawElig.replace(/entrance\s*exam[:\-–]?\s*.+?(?:\n|$)/i, '').trim();
+                }
+                // Clean eligibility prefix
+                eligibility = eligibility.replace(/^eligibility[:\-–]?\s*/i, '').trim();
                 
                 courses.push({
                     name: courseName.substring(0, 100),
-                    eligibility: row.length > 1 ? row[1]?.substring(0, 500) || '' : '',
-                    entrance_exam: row.length > 2 ? row[2]?.substring(0, 200) || '' : '',
+                    eligibility: eligibility.substring(0, 500) || '',
+                    entrance_exam: entranceExam.substring(0, 200) || '',
                 });
             }
         }
@@ -224,13 +240,34 @@ async function parseColleges() {
             const placementSection = findSection(sections, 'placement', 'placements', 'recruit');
             const placementStats = placementSection ? extractPlacementStats(placementSection.content) : null;
             
-            // Overview / description
+            // Overview - clean, first paragraph only
             const introSection = sections.find(s => s.heading === '__intro__');
             const overviewSection = findSection(sections, 'overview', 'about', 'introduction');
-            let description = '';
-            if (overviewSection) description = cleanSectionContent(overviewSection) || '';
-            else if (introSection) description = stripHtml(introSection.content).substring(0, 5000);
-            if (!description) description = text.substring(0, 5000);
+            
+            // Get the clean overview (first meaningful paragraph)
+            let overview = '';
+            const rawOverview = cleanSectionContent(overviewSection) || (introSection ? stripHtml(introSection.content) : text);
+            if (rawOverview) {
+                // Take only the first paragraph-like block (before any "Important info" or "Location" line)
+                const cutoffs = ['important information', 'location', 'address', 'courses offered', 'campus size', 'map link', 'campus map', 'reaching', 'how to reach'];
+                const lines = rawOverview.split('\n');
+                const cleanLines = [];
+                for (const line of lines) {
+                    const lower = line.trim().toLowerCase();
+                    if (cutoffs.some(c => lower.startsWith(c))) break;
+                    if (/^https?:\/\//i.test(line.trim())) continue; // Skip URLs
+                    if (line.trim()) cleanLines.push(line.trim());
+                }
+                overview = cleanLines.join('\n').trim();
+            }
+            if (!overview || overview.length < 20) overview = `${title} is a premier higher education institution in India.`;
+            
+            // Extract branches/specializations from the text
+            const branchesSection = findSection(sections, 'branch', 'specializ');
+            if (!branchesSection) {
+                // Try text-based
+                const tbSection = findSection(textSections, 'branch', 'specializ');
+            }
             
             colleges.push({
                 name: title,
@@ -248,7 +285,8 @@ async function parseColleges() {
                 hostel_info: hostelInfo?.substring(0, 3000) || null,
                 campus_facilities: campusFacilities?.substring(0, 3000) || null,
                 placement_stats: placementStats,
-                description: description.substring(0, 5000),
+                overview: overview.substring(0, 2000),
+                description: overview.substring(0, 2000),
                 full_content: text,
             });
         }
