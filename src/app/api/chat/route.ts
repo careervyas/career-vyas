@@ -170,7 +170,25 @@ ${context ? `## Context from Career Vyas Database:\n${context}` : '## No specifi
         // --- FALLBACK SEQUENCE ---
         let lastError: unknown = null;
 
-        // 1. Try Deepseek API
+        // 1. Try OPENAI API
+        if (process.env.OPENAI_API_KEY) {
+            try {
+                const response = await callOpenAICompatibleAPI(
+                    'https://api.openai.com/v1/chat/completions',
+                    process.env.OPENAI_API_KEY,
+                    'gpt-4o-mini',
+                    systemPrompt,
+                    history,
+                    message
+                );
+                return NextResponse.json({ response });
+            } catch (err) {
+                lastError = err;
+                console.warn('OpenAI failed, falling back to Deepseek...', err instanceof Error ? err.message : '');
+            }
+        }
+
+        // 2. Try Deepseek API
         if (process.env.DEEPSEEK_API_KEY) {
             try {
                 const response = await callOpenAICompatibleAPI(
