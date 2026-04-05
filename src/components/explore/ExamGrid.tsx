@@ -19,8 +19,8 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
 
     // Filter logic
     const filtered = initialExams.filter(e => {
-        const matchesSearch = e.name.toLowerCase().includes(search.toLowerCase()) ||
-            (e.full_form && e.full_form.toLowerCase().includes(search.toLowerCase()));
+        const matchesSearch = e.name?.toLowerCase().includes(search.toLowerCase()) ||
+            (e.full_name && e.full_name.toLowerCase().includes(search.toLowerCase()));
         const examLevel = e.level;
         const matchesLevel = filterLevel === "All" || examLevel === filterLevel;
         return matchesSearch && matchesLevel;
@@ -84,13 +84,15 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
                                 </h2>
 
                                 <p className="font-medium text-sm text-[var(--color-text-muted)] mb-6 flex-grow">
-                                    {exam.full_form}
+                                    {exam.full_name}
                                 </p>
 
                                 <div className="bg-[var(--color-bg-soft)] rounded-xl p-4 flex flex-col gap-3 mb-2 border border-[var(--color-border)]">
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="font-semibold text-[var(--color-text-muted)] tracking-wide">Exam Date</span>
-                                        <span className="font-bold text-[var(--color-text)]">{exam.exam_date ? format(new Date(exam.exam_date), 'MMM dd, yyyy') : 'TBA'}</span>
+                                        <span className="font-bold text-[var(--color-text)]">
+                                            {exam.important_dates && exam.important_dates.length > 0 ? exam.important_dates[0].date || exam.important_dates[0].month : 'TBA'}
+                                        </span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm border-t border-[var(--color-border)] pt-2">
                                         <span className="font-semibold text-[var(--color-text-muted)] tracking-wide">Mode</span>

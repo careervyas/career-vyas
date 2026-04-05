@@ -9,7 +9,8 @@ async function getCareers() {
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
         );
-        const { data } = await supabase.from("career_profiles").select("*").order("title");
+        const { data, error } = await supabase.from("career_profiles").select("*").order("name");
+        if (error) console.error(error);
         return data || [];
     } catch {
         return [];

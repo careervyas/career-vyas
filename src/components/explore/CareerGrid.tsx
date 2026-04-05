@@ -14,13 +14,13 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
     const itemsPerPage = 12;
 
     // Derive unique streams
-    const streams = ["All", ...Array.from(new Set(initialCareers.map(c => c.field_of_study || c.stream).filter(Boolean)))];
+    const streams = ["All", ...Array.from(new Set(initialCareers.map(c => c.category).filter(Boolean)))];
 
     // Filter logic
     const filtered = initialCareers.filter(c => {
-        const matchesSearch = c.title.toLowerCase().includes(search.toLowerCase()) ||
-            (c.summary && c.summary.toLowerCase().includes(search.toLowerCase()));
-        const streamField = c.field_of_study || c.stream;
+        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
+            (c.overview?.description && c.overview.description.toLowerCase().includes(search.toLowerCase()));
+        const streamField = c.category;
         const matchesStream = filterStream === "All" || streamField === filterStream;
         return matchesSearch && matchesStream;
     });
@@ -33,9 +33,9 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
     };
 
     // Clean summary helper
-    const cleanSummary = (text: string | null | undefined) => {
-        if (!text) return "No description available.";
-        return text.replace(/^(name of the )?career profile:\s*[-:]?\s*([a-z ]+)?\s*/i, '').trim();
+    const cleanSummary = (overview: any) => {
+        if (!overview || !overview.description) return "No description available.";
+        return overview.description;
     };
 
     // Pagination logic
@@ -86,16 +86,17 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
                                 <span className="text-4xl drop-shadow-sm group-hover:scale-110 transition-transform relative z-10">
                                     {career.icon || '💼'}
                                 </span>
-                                <span className="bg-white text-indigo-700 font-semibold px-3 py-1 rounded-full text-xs shadow-sm shadow-indigo-100 z-10 border border-indigo-50">₹{truncateBadge(career.salary_range || career.avg_salary) || 'Varies'}</span>
+                                <span className="bg-white text-indigo-700 font-semibold px-3 py-1 rounded-full text-xs shadow-sm shadow-indigo-100 z-10 border border-indigo-50">
+                                    {career.hero_stats?.avg_salary_entry_lpa ? `₹${career.hero_stats.avg_salary_entry_lpa}L+` : 'Varies'}</span>
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow">
                                 <h2 className="text-xl font-bold leading-tight mb-3 text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">
-                                    {career.title}
+                                    {career.name}
                                 </h2>
 
                                 <p className="text-[var(--color-text-muted)] text-sm mb-6 flex-grow leading-relaxed line-clamp-3">
-                                    {cleanSummary(career.summary)}
+                                    {cleanSummary(career.overview)}
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)] mt-auto">

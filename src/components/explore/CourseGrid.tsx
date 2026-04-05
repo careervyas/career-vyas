@@ -14,13 +14,13 @@ export default function CourseGrid({ initialCourses }: CourseGridProps) {
     const itemsPerPage = 12;
 
     // Derive unique course types
-    const types = ["All", ...Array.from(new Set(initialCourses.map(c => c.type).filter(Boolean)))];
+    const types = ["All", ...Array.from(new Set(initialCourses.map(c => c.category).filter(Boolean)))];
 
     // Filter logic
     const filtered = initialCourses.filter(c => {
-        const matchesSearch = c.title.toLowerCase().includes(search.toLowerCase()) ||
-            (c.description && c.description.toLowerCase().includes(search.toLowerCase()));
-        const courseType = c.type;
+        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
+            (c.overview?.description && c.overview.description.toLowerCase().includes(search.toLowerCase()));
+        const courseType = c.category;
         const matchesType = filterType === "All" || courseType === filterType;
         return matchesSearch && matchesType;
     });
@@ -71,7 +71,7 @@ export default function CourseGrid({ initialCourses }: CourseGridProps) {
                             <div className="p-6 flex flex-col flex-grow relative z-10">
                                 <div className="flex justify-between items-start mb-4">
                                     <span className="bg-purple-50 text-purple-700 border border-purple-100 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
-                                        {course.type || 'Degree path'}
+                                        {course.level || 'Degree path'}
                                     </span>
                                     <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
                                         🎓
@@ -79,21 +79,21 @@ export default function CourseGrid({ initialCourses }: CourseGridProps) {
                                 </div>
 
                                 <h2 className="text-xl font-bold leading-tight mb-2 text-[var(--color-text)] group-hover:text-purple-600 transition-colors">
-                                    {course.title}
+                                    {course.name}
                                 </h2>
 
                                 <p className="font-medium text-[var(--color-text-muted)] text-sm mb-6 flex-grow line-clamp-3 leading-relaxed">
-                                    {course.description || 'Comprehensive degree program leading to top careers in the modern industry landscape.'}
+                                    {course.overview?.description || 'Comprehensive degree program leading to top careers in the modern industry landscape.'}
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)] mt-auto">
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Duration</p>
-                                        <p className="font-bold text-sm text-[var(--color-text)]">{course.duration || '3-4 Years'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-text)]">{course.duration_years ? `${course.duration_years} Years` : '3-4 Years'}</p>
                                     </div>
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Eligibility</p>
-                                        <p className="font-bold text-sm text-[var(--color-text)] block truncate pr-2" title={course.eligibility || '10+2 Check details'}>{course.eligibility || '10+2 Check details'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-text)] block truncate pr-2" title={course.eligibility?.stream_required ? course.eligibility.stream_required.join(', ') : '10+2 Check details'}>{course.eligibility?.stream_required ? course.eligibility.stream_required.join(', ') : '10+2 Check details'}</p>
                                     </div>
                                 </div>
                             </div>

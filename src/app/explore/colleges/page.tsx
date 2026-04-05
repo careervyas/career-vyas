@@ -9,7 +9,8 @@ async function getColleges() {
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
         );
-        const { data } = await supabase.from("colleges").select("*").order("name");
+        const { data, error } = await supabase.from("college_profiles").select("*").order("name");
+        if (error) console.error(error);
         return data || [];
     } catch {
         return [];

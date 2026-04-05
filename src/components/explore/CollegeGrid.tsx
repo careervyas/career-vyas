@@ -19,8 +19,8 @@ export default function CollegeGrid({ initialColleges }: CollegeGridProps) {
 
     // Filter logic
     const filtered = initialColleges.filter(c => {
-        const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase()) ||
-            (c.location && c.location.toLowerCase().includes(search.toLowerCase()));
+        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
+            (c.city && c.city.toLowerCase().includes(search.toLowerCase()));
         const courseType = c.type;
         const matchesType = filterType === "All" || courseType === filterType;
         return matchesSearch && matchesType;
@@ -81,17 +81,17 @@ export default function CollegeGrid({ initialColleges }: CollegeGridProps) {
                                 </h2>
 
                                 <p className="font-medium text-[var(--color-text-muted)] mb-6 flex items-center gap-1 text-sm">
-                                    <MapPin size={16} className="text-gray-400" /> {college.location || 'India'}
+                                    <MapPin size={16} className="text-gray-400" /> {college.city ? `${college.city}, ${college.state}` : 'India'}
                                 </p>
 
                                 <div className="mt-auto grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)]">
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Avg Package</p>
-                                        <p className="font-bold text-sm text-[var(--color-success)]">{college.avg_package || 'TBD'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-success)]">{college.placement_stats?.average_package_lpa ? college.placement_stats.average_package_lpa + " LPA" : 'TBD'}</p>
                                     </div>
                                     <div>
                                         <p className="font-semibold text-xs text-[var(--color-text-muted)] tracking-wide mb-1">Top Recruiter</p>
-                                        <p className="font-bold text-sm text-[var(--color-text)] block truncate pr-2">{college.top_recruiters ? college.top_recruiters.split(',')[0] : 'N/A'}</p>
+                                        <p className="font-bold text-sm text-[var(--color-text)] block truncate pr-2">{college.placement_stats?.top_recruiters ? college.placement_stats.top_recruiters[0] : 'N/A'}</p>
                                     </div>
                                 </div>
                             </div>
