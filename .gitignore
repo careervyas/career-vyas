@@ -44,3 +44,7 @@ next-env.d.ts
 # large content files
 *.docx
 content/App Content*
+
+# Content Polishing Logs
+output/
+processor.log
