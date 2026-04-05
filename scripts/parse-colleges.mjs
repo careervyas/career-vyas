@@ -67,46 +67,205 @@ function extractLocation(text) {
     return { address: '', city, state };
 }
 
-function extractCoursesOffered(html) {
-    const tables = parseTables(html);
-    if (tables.length === 0) return [];
+// Known entrance exams for common degree programs
+const KNOWN_EXAMS = {
+    'btech': 'JEE Advanced', 'b.tech': 'JEE Advanced', 'b. tech': 'JEE Advanced', 'b tech': 'JEE Advanced',
+    'b.e': 'JEE Main / State CET', 'be': 'JEE Main / State CET',
+    'mba': 'CAT', 'pgdm': 'CAT / XAT / GMAT',
+    'mca': 'NIMCET / University Entrance', 'bba': 'University Entrance / IPMAT',
+    'b.arch': 'JEE Main Paper 2 / NATA', 'barch': 'JEE Main Paper 2 / NATA',
+    'b.des': 'UCEED', 'bdes': 'UCEED', 'm.des': 'CEED', 'mdes': 'CEED',
+    'mtech': 'GATE', 'm.tech': 'GATE', 'm. tech': 'GATE', 'm tech': 'GATE',
+    'msc': 'JAM / University Entrance', 'm.sc': 'JAM / University Entrance',
+    'phd': 'UGC NET / CSIR NET / GATE + Interview', 'ph.d': 'UGC NET / CSIR NET / GATE + Interview',
+    'dual degree': 'JEE Advanced',
+    'b.sc': 'University Entrance', 'bsc': 'University Entrance',
+    'b.com': 'University Entrance', 'bcom': 'University Entrance',
+    'llb': 'CLAT', 'b.pharma': 'University Entrance',
+    'mbbs': 'NEET', 'bds': 'NEET', 'm.phil': 'University Entrance',
+};
+
+function lookupExam(name) {
+    const n = name.toLowerCase().replace(/[.\s]+/g, '').trim();
+    for (const [key, val] of Object.entries(KNOWN_EXAMS)) {
+        if (n === key.replace(/[.\s]+/g, '')) return val;
+    }
+    for (const [key, val] of Object.entries(KNOWN_EXAMS)) {
+        const k = key.replace(/[.\s]+/g, '');
+        if (n.includes(k) || k.includes(n)) return val;
+    }
+    return '';
+}
+
+/**
+ * Finds the first table whose header row contains course-like keywords.
+ */
+function findCourseTable(html) {
+    const tableRegex = /<table[^>]*>([\s\S]*?)<\/table>/gi;
+    let match;
+    while ((match = tableRegex.exec(html)) !== null) {
+        const firstRowMatch = match[1].match(/<tr[^>]*>([\s\S]*?)<\/tr>/i);
+        if (!firstRowMatch) continue;
+        const headerText = firstRowMatch[1].replace(/<[^>]+>/g, '').toLowerCase();
+        if (headerText.includes('course') && (headerText.includes('eligib') || headerText.includes('entrance') || headerText.includes('exam'))) {
+            return match[0];
+        }
+    }
+    return null;
+}
+
+/**
+ * Parses the dedicated course table, extracting parent degrees and inline branches.
+ * BTech cell: "BTech Branches offered- Aerospace Engineering Chemical Engineering ..."
+ * → produces { name: "BTech", branches: ["Aerospace Engineering", "Chemical Engineering", ...] }
+ */
+function parseCourseTableWithBranches(tableHtml) {
+    const courses = [];
+    const seen = new Set();
     
-    const GARBAGE = /^(courses?|s\.no|sr|serial|#|fee|semester|tuition|total|hostel|mess|caution|deposit|exam|year|annual|particulars|1st|2nd|3rd|4th|amount|component|category|general|obc|sc|st)/i;
+    const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+    let rowMatch;
+    let isFirstRow = true;
+    
+    while ((rowMatch = rowRegex.exec(tableHtml)) !== null) {
+        const rowHtml = rowMatch[1];
+        const cellRegex = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
+        const cellsHtml = [];
+        let cellMatch;
+        while ((cellMatch = cellRegex.exec(rowHtml)) !== null) {
+            cellsHtml.push(cellMatch[1]);
+        }
+        if (cellsHtml.length < 1) continue;
+        
+        const firstCellText = cellsHtml[0].replace(/<[^>]+>/g, '').trim();
+        if (isFirstRow && /^courses?\s*$/i.test(firstCellText)) {
+            isFirstRow = false;
+            continue;
+        }
+        isFirstRow = false;
+        
+        const courseCell = cellsHtml[0];
+        const eligCell = cellsHtml.length > 1 ? cellsHtml[1] : '';
+        
+        // Get degree name from <strong>
+        const strongMatch = courseCell.match(/<strong>([\s\S]*?)<\/strong>/i);
+        const degreeName = strongMatch 
+            ? strongMatch[1].replace(/<[^>]+>/g, '').trim()
+            : firstCellText.split(/\n/)[0].trim();
+        
+        if (!degreeName || degreeName.length < 2) continue;
+        
+        // Extract branches
+        const branches = [];
+        const paragraphs = courseCell.split(/<p[^>]*>/i).map(p => p.replace(/<[^>]+>/g, '').trim()).filter(Boolean);
+        let collectBranches = false;
+        for (const p of paragraphs) {
+            if (/branches?\s*offered/i.test(p)) {
+                collectBranches = true;
+                const after = p.replace(/.*branches?\s*offered[-:\s]*/i, '').trim();
+                if (after && after.length > 2) branches.push(after);
+                continue;
+            }
+            if (collectBranches && p.length > 2) {
+                if (/^(BTech|MTech|MBA|MSc|PhD|Dual|B\.Des|M\.Des)/i.test(p)) break;
+                branches.push(p.trim());
+            }
+        }
+        
+        // Parse entrance exam and eligibility from eligibility cell
+        const eligText = eligCell.replace(/<[^>]+>/g, '\n').replace(/\n{2,}/g, '\n').trim();
+        let entranceExam = '';
+        let eligibility = '';
+        
+        const examMatch = eligText.match(/entrance\s*exam[:\-–]?\s*(.+?)(?:\n|$)/i);
+        if (examMatch) entranceExam = examMatch[1].trim();
+        const eligMatch = eligText.match(/eligibility[:\-–]?\s*(.+?)(?:\n|entrance|$)/is);
+        if (eligMatch) eligibility = eligMatch[1].replace(/\n+/g, ' ').trim();
+        if (!eligibility) eligibility = eligText.replace(/entrance\s*exam[:\-–]?\s*.+?(?:\n|$)/gi, '').replace(/\n+/g, ' ').trim();
+        if (!entranceExam) entranceExam = lookupExam(degreeName);
+        
+        const cleanDegree = degreeName.replace(/\n/g, ' / ').replace(/\s+/g, ' ').trim();
+        const key = cleanDegree.toLowerCase().replace(/[\s.]+/g, '');
+        if (seen.has(key)) continue;
+        seen.add(key);
+        
+        courses.push({
+            name: cleanDegree.substring(0, 100),
+            eligibility: eligibility.substring(0, 500) || '',
+            entrance_exam: entranceExam.substring(0, 200) || '',
+            branches: branches.map(b => b.replace(/\s+/g, ' ').trim()).filter(b => b.length > 2),
+        });
+    }
+    return courses;
+}
+
+/**
+ * Fallback: parse flat course tables, skipping fee/placement/stats tables.
+ */
+function parseFlatCourseTables(tables) {
+    const FEE_HEADER = /semester|tuition|fee|amount|component/i;
+    const STATS_HEADER = /program|registered|participated|placed|percentage|department|description|average|salary|ctc/i;
+    const GARBAGE_ROW = /^(courses?|s\.no|sr|serial|#|program|department|description|average|placement|registered|participated)/i;
     
     const courses = [];
+    const seen = new Set();
+    
     for (const table of tables) {
+        if (table.length < 2) continue;
+        const headerRow = table[0].join(' ').toLowerCase();
+        if (FEE_HEADER.test(headerRow)) continue;
+        if (STATS_HEADER.test(headerRow)) continue;
+        let numericRows = 0;
+        for (let i = 1; i < table.length; i++) {
+            const vals = table[i].slice(1);
+            if (vals.every(v => /^\s*[\d,.\-–₹%\s]*$/.test(v))) numericRows++;
+        }
+        if (numericRows / (table.length - 1) > 0.5) continue;
+        
         for (const row of table) {
-            if (row.length >= 1 && row[0].length > 2) {
-                const courseName = row[0].trim();
-                if (GARBAGE.test(courseName)) continue;
-                if (courseName.length < 2 || courseName.length > 150) continue;
-                // Skip rows that look like fee data (contain ₹ or numbers only)
-                if (/^[\d,₹\s.]+$/.test(courseName)) continue;
-                
-                // Parse eligibility to split entrance exam out
-                const rawElig = row.length > 1 ? row[1] || '' : '';
-                let eligibility = rawElig;
-                let entranceExam = row.length > 2 ? row[2] || '' : '';
-                
-                // If eligibility contains "Entrance exam:", split that out
-                const examMatch = rawElig.match(/entrance\s*exam[:\-–]?\s*(.+?)(?:\n|$)/i);
-                if (examMatch && !entranceExam) {
-                    entranceExam = examMatch[1].trim();
-                    eligibility = rawElig.replace(/entrance\s*exam[:\-–]?\s*.+?(?:\n|$)/i, '').trim();
-                }
-                // Clean eligibility prefix
-                eligibility = eligibility.replace(/^eligibility[:\-–]?\s*/i, '').trim();
-                
-                courses.push({
-                    name: courseName.substring(0, 100),
-                    eligibility: eligibility.substring(0, 500) || '',
-                    entrance_exam: entranceExam.substring(0, 200) || '',
-                });
+            if (row.length < 1) continue;
+            const name = row[0].trim();
+            if (GARBAGE_ROW.test(name)) continue;
+            if (name.length < 2 || name.length > 150) continue;
+            if (/^[\d,₹\s.\-–]+$/.test(name)) continue;
+            const key = name.toLowerCase().replace(/[\s.]+/g, '');
+            if (seen.has(key)) continue;
+            seen.add(key);
+            
+            const rawElig = row.length > 1 ? row[1] || '' : '';
+            let eligibility = rawElig;
+            let entranceExam = row.length > 2 ? row[2] || '' : '';
+            const examMatch = rawElig.match(/entrance\s*exam[:\-–]?\s*(.+?)(?:\n|$)/i);
+            if (examMatch) {
+                entranceExam = entranceExam || examMatch[1].trim();
+                eligibility = rawElig.replace(/entrance\s*exam[:\-–]?\s*.+?(?:\n|$)/i, '').trim();
             }
+            eligibility = eligibility.replace(/^eligibility[:\-–]?\s*/i, '').trim();
+            if (!entranceExam || /^\d+$/.test(entranceExam)) entranceExam = lookupExam(name);
+            if (/^\d+$/.test(eligibility)) continue;
+            
+            courses.push({
+                name: name.replace(/\n/g, ' / ').substring(0, 100),
+                eligibility: eligibility.substring(0, 500) || '',
+                entrance_exam: entranceExam.substring(0, 200) || '',
+                branches: [],
+            });
         }
     }
     return courses;
 }
+
+function extractCoursesOffered(html) {
+    // Strategy 1: Find the real course table by header detection
+    const courseTableHtml = findCourseTable(html);
+    if (courseTableHtml) {
+        return parseCourseTableWithBranches(courseTableHtml);
+    }
+    // Strategy 2: Fallback for docs without a Courses/Eligibility header table
+    const tables = parseTables(html);
+    return tables.length > 0 ? parseFlatCourseTables(tables) : [];
+}
+
 
 function extractFeeStructure(sectionContent) {
     const tables = parseTables(sectionContent);

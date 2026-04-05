@@ -235,9 +235,21 @@ export default async function CollegeProfilePage({
                                         </thead>
                                         <tbody className="divide-y divide-[var(--color-border)]">
                                             {coursesOffered.map((course: any, i: number) => (
-                                                <tr key={i} className="hover:bg-indigo-50/30 transition-colors">
+                                                <tr key={i} className="hover:bg-indigo-50/30 transition-colors align-top">
                                                     <td className="py-3.5 px-5">
-                                                        <span className="font-semibold text-[var(--color-primary-indigo)]">{course.name}</span>
+                                                        <span className="font-semibold text-[var(--color-primary-indigo)] text-[15px]">{course.name}</span>
+                                                        {course.branches && course.branches.length > 0 && (
+                                                            <div className="mt-2">
+                                                                <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)] mb-1.5">Specializations:</p>
+                                                                <div className="flex flex-wrap gap-1.5">
+                                                                    {course.branches.map((branch: string, j: number) => (
+                                                                        <span key={j} className="inline-block px-2 py-0.5 rounded-md text-[11px] font-medium bg-purple-50 text-purple-700 border border-purple-200">
+                                                                            {branch}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        )}
                                                     </td>
                                                     <td className="py-3.5 px-5 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-xs">
                                                         {course.eligibility || '—'}
