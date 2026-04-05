@@ -65,7 +65,14 @@ export default async function CollegeProfilePage({
     if (!data) notFound();
 
     const { college, linkedCourses, linkedExams } = data;
-    const coursesOffered = (college.courses_offered || []) as any[];
+    const rawCourses = (college.courses_offered || []) as any[];
+    // Fix double-serialized JSON: items may be strings like '{"name":"MBA",...}'
+    const coursesOffered = rawCourses.map((c: any) => {
+        if (typeof c === 'string') {
+            try { return JSON.parse(c); } catch { return null; }
+        }
+        return c;
+    }).filter(Boolean);
     const feeStructure = (college.fee_structure || []) as any[];
     const placementStats = college.placement_stats as any;
 
