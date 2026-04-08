@@ -48,3 +48,6 @@ content/App Content*
 # Content Polishing Logs
 output/
 processor.log
+
+# Google Credentials
+google-credentials.json

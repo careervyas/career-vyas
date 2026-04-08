@@ -1,76 +1,61 @@
 # CAREER VYAS - PAGE STRUCTURE
 
+## MAIN NAVIGATION
+- Home
+- Mentoring
+- Explore
+- Community & Blogs
+
 ## EXPLORE SECTION
 
 ### /explore (Main Landing)
-- Hero: "Explore Careers, Colleges, Exams & Courses"
-- Categories grid: Careers | Colleges | Exams | Courses
-- Featured content (most viewed)
-- Search bar
-
-### /careers (All Career Profiles)
-- List of 100+ careers with icons
-- Filter by stream (Science/Commerce/Arts)
-- Search functionality
-- Each card: Title, summary, salary range
+- Categories grid: Careers | Courses | Exams | Colleges
+- Search & Filter functionalities
 
 ### /careers/[slug] (Career Detail)
-- Career title & summary
-- Key info: Duration, Salary, Demand
-- Related Courses section
-- Required Exams section
-- Top Colleges section
-- Similar Careers section
-- Mentor spotlight (mentors in this field)
-
-### /courses (All Courses)
-- List of 100+ courses
-- Filter by career, duration, type
-- Search
+- Name of the career profile
+- Overview of career profile (roles & responsibilities)
+- Benefits of choosing this profile as a career
+- Basic procedure to approach this job
+- Eligibilities, skill requirements & working environment
+- Entrance exam to follow the route
+- Course description with their expenses (12th and Graduation)
+- Top institutions to pursue the course
+- Type of specialisation available under this job profile
+- Pay-Scales as per the experience
+- Promotions & upgradings
+- Top recruiting agencies for this profile
+- Demands & Future Scope
+- Top inspiring personalities who have also followed this profile
 
 ### /courses/[slug] (Course Detail)
-- Course title & description
-- Duration & eligibility
-- Careers this leads to
-- Exams required
-- Colleges offering this
-- Syllabus overview
-
-### /exams (All Exams)
-- List of 100+ exams
-- Filter by conducting body, level
-- Upcoming exam dates
+- What is the course?
+- Overview/Highlights of this Course
+- Difference between the courses (vs similar courses)
+- Streams/Fields of the course
+- Why should you study or opt for this course?
+- Career opportunities after graduating this course
+- Further/Higher studies after this course
+- Entry-level salary packages & average salary packages
+- Popular entrance exams to get admission
+- List of top colleges in India related to this course
 
 ### /exams/[slug] (Exam Detail)
-- Exam name & full form
-- Key dates
-- Pattern & syllabus
-- Eligibility
-- Courses covered
-- Colleges accepting
-- Preparation resources
-
-### /colleges (All Colleges)
-- 150+ colleges
-- Filter by state, type, ranking
-- Search
+- Name of the Exam & About the exam
+- Overview/Highlights (Particulars & Details table)
+- Eligibility criteria for this exam
+- Paper pattern & marking scheme
+- Available seats & participating institutions
+- Important events & their dates
+- Exam Application process & Selection procedure
 
 ### /colleges/[slug] (College Detail)
-- College name & type
-- Location & ranking
-- Courses offered
-- Exams accepted
-- Admission criteria
-- Fees overview
-- Placement summary
-- Facilities
-
-## ADMIN SECTION
-
-### /admin
-- Dashboard with metrics
-- Users management
-- Content management (all content types)
-- Analytics
-- Bookings overview
-- Settings
+- Name of the College & Logo
+- College description with campus images
+- Important Information (Location, Address, Map link, Campus size, How to reach)
+- Courses offered by the institute (Streams, Entrance exams, Eligibility)
+- Fee structure (Course-wise & year-wise)
+- Student Hostel details (Fees, Facilities, Images)
+- Campus facilities (Library, Canteen, Sports, Wifi, etc.)
+- Extracurricular activity (Clubs, Fests)
+- Placement statistics

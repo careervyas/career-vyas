@@ -31,9 +31,7 @@ export default function Navbar() {
     const navLinks = [
         { href: "/", label: "Home" },
         { href: "/mentoring", label: "Mentoring" },
-        { href: "/mentors", label: "Mentors" },
-        { href: "/community", label: "Community" },
-        { href: "/blog", label: "Blog" },
+        { href: "/community", label: "Community & Blogs" },
     ];
 
     const isExploreActive = pathname.startsWith("/explore");

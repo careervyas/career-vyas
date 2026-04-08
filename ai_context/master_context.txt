@@ -15,15 +15,9 @@ Career Vyas - Career guidance platform for Indian school students (Class 8-12)
 ### MUST HAVE (Launch with these):
 ✅ Home page (hero + value prop + CTA)
 ✅ Mentors page (showcase 5-7 active mentors)
-✅ Community page (WhatsApp group join)
-✅ Blog (2-3 posts to start)
-✅ Email signup form
-✅ Webinar registration (for Day 14 webinar)
-
-### NICE TO HAVE (Add if time permits):
-⭕ Explore page (career paths)
-⭕ Programs page
-⭕ More blog posts
+✅ Explore (Careers, Courses, Exams, Colleges sections)
+✅ Community & Blogs
+✅ Automated Data Backfill System (processes docx to AI-generated JSON matching site layout)
 
 ### CUT (Save for later):
 ❌ User accounts/login
@@ -31,7 +25,6 @@ Career Vyas - Career guidance platform for Indian school students (Class 8-12)
 ❌ Complex dashboards
 ❌ Mobile app
 ❌ All 20 mentors (start with 5-7)
-❌ Perfect design (good enough > perfect)
 
 ## 4. TARGET USERS
 - Indian school students (Class 8-12)
@@ -43,7 +36,6 @@ Career Vyas - Career guidance platform for Indian school students (Class 8-12)
 - **First 50 users**: Day 14
 - **Webinar attendees**: 20+ (Day 14)
 - **WhatsApp group members**: 50+ by Day 15
-- **Blog posts**: 2-3 published
 - **Budget**: Under ₹1000
 
 ## 6. DESIGN PRINCIPLES (15-Day)
@@ -51,15 +43,12 @@ Career Vyas - Career guidance platform for Indian school students (Class 8-12)
 - One clear CTA per page
 - Trust elements (mentor photos, real names)
 - Fast loading (<2 seconds)
-- No complexity
 
 ## 7. TECH STACK (ALL FREE)
 - **Frontend**: Next.js + Tailwind
 - **Hosting**: Vercel (free)
-- **Database**: Supabase (free)
-- **Email**: Resend (free tier - 100 emails/day)
-- **Analytics**: Google Analytics + Vercel (free)
-- **Domain**: ~₹800/year (optional)
+- **Database**: Supabase
+- **Data Engineering**: Python + Gemini 2.5 Pro via `scripts/backfill_content.py`
 
 ## 8. BRAND BASICS
 - Name: Career Vyas
