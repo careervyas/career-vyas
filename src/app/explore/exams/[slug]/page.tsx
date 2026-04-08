@@ -112,15 +112,7 @@ export default async function ExamProfilePage({ params }: { params: Promise<{ sl
 
                     </div>
 
-                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-rose-500 to-pink-600 text-white flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div>
-                            <p className="text-2xl font-bold">Lacking Prep Strategy?</p>
-                            <p className="font-medium mt-2 text-rose-100">Connect with toppers who have already cracked this exam.</p>
-                        </div>
-                        <Link href="/mentors" className="bg-white text-rose-600 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-rose-50 transition-colors shadow-lg">
-                            Find Mentor →
-                        </Link>
-                    </div>
+
 
                 </div>
             </article>

@@ -135,17 +135,7 @@ export default async function CollegeProfilePage({ params }: { params: Promise<{
 
                     </div>
 
-                    {/* MENTOR CTA */}
-                    <div className="mt-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-white flex flex-col sm:flex-row justify-between items-center gap-6 shadow-lg">
-                        <div>
-                            <p className="text-2xl font-bold">Speak to Alumni</p>
-                            <p className="font-medium mt-2 text-emerald-100">Find a mentor who actually studied at this college to get the real insight.</p>
-                        </div>
-                        <Link href="/mentors"
-                              className="bg-white text-emerald-700 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-emerald-50 transition-colors shadow-lg">
-                            Find Mentor →
-                        </Link>
-                    </div>
+
 
                 </div>
             </article>

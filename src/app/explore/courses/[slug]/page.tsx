@@ -118,15 +118,7 @@ export default async function CourseProfilePage({ params }: { params: Promise<{ 
 
                     </div>
 
-                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-purple-600 to-violet-600 text-white flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div>
-                            <p className="text-2xl font-bold">Need Help Choosing?</p>
-                            <p className="font-medium mt-2 text-purple-100">Speak with alumni to understand if this course matches your ambitions.</p>
-                        </div>
-                        <Link href="/mentors" className="bg-white text-purple-700 px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-purple-50 transition-colors shadow-lg">
-                            Find Mentor →
-                        </Link>
-                    </div>
+
 
                 </div>
             </article>

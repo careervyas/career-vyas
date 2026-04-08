@@ -30,7 +30,6 @@ export default function Navbar() {
 
     const navLinks = [
         { href: "/", label: "Home" },
-        { href: "/mentoring", label: "Mentoring" },
         { href: "/community", label: "Community & Blogs" },
     ];
 

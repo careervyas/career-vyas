@@ -132,16 +132,7 @@ export default async function CareerProfilePage({ params }: { params: Promise<{ 
 
                     </div>
 
-                    {/* Mentor CTA */}
-                    <div className="mt-16 modern-card p-8 bg-gradient-to-r from-[var(--color-primary-indigo)] to-[var(--color-primary-indigo-dark)] text-white flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div>
-                            <p className="text-2xl font-bold">Connect With a Mentor</p>
-                            <p className="font-medium mt-2 text-indigo-100">Get 1-on-1 guidance from experts in {name}.</p>
-                        </div>
-                        <Link href="/mentors" className="bg-white text-[var(--color-primary-indigo)] px-8 py-3 rounded-full text-center font-semibold w-full sm:w-auto whitespace-nowrap hover:bg-indigo-50 transition-colors shadow-lg">
-                            Find Mentor →
-                        </Link>
-                    </div>
+
 
                 </div>
             </article>
