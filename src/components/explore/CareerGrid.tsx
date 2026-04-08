@@ -16,26 +16,39 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
     // Derive unique streams
     const streams = ["All", ...Array.from(new Set(initialCareers.map(c => c.category).filter(Boolean)))];
 
+    // Clean name helper
+    const cleanName = (name: string | null) => {
+        if (!name) return "Unknown Profile";
+        return name.replace(/\*\*/g, '').replace(/\[(.*?)\]\{[^}]+\}/g, '$1').replace(/[\[\]]/g, '');
+    };
+
+    // Clean summary helper
+    const cleanSummary = (career: any) => {
+        if (career.new_layout_data?.overview) return career.new_layout_data.overview;
+        if (career.overview?.description) return career.overview.description;
+        if (career.overview?.summary) return career.overview.summary;
+        if (typeof career.overview === 'string') return career.overview;
+        return "No description available.";
+    };
+
     // Filter logic
     const filtered = initialCareers.filter(c => {
-        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
-            (c.overview?.description && c.overview.description.toLowerCase().includes(search.toLowerCase()));
+        const cName = cleanName(c.name);
+        const summ = cleanSummary(c);
+        const matchesSearch = cName.toLowerCase().includes(search.toLowerCase()) ||
+            summ.toLowerCase().includes(search.toLowerCase());
         const streamField = c.category;
         const matchesStream = filterStream === "All" || streamField === filterStream;
         return matchesSearch && matchesStream;
     });
 
     // Truncation helper for badges
+
+    // Truncation helper for badges
     const truncateBadge = (text: string | null | undefined, max: number = 30) => {
         if (!text) return null;
         if (text.length <= max) return text;
         return text.substring(0, max) + '...';
-    };
-
-    // Clean summary helper
-    const cleanSummary = (overview: any) => {
-        if (!overview || !overview.description) return "No description available.";
-        return overview.description;
     };
 
     // Pagination logic
@@ -92,11 +105,11 @@ export default function CareerGrid({ initialCareers }: CareerGridProps) {
 
                             <div className="p-6 flex flex-col flex-grow">
                                 <h2 className="text-xl font-bold leading-tight mb-3 text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors">
-                                    {career.name}
+                                    {cleanName(career.name)}
                                 </h2>
 
                                 <p className="text-[var(--color-text-muted)] text-sm mb-6 flex-grow leading-relaxed line-clamp-3">
-                                    {cleanSummary(career.overview)}
+                                    {cleanSummary(career)}
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)] mt-auto">

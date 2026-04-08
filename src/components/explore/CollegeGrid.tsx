@@ -17,9 +17,16 @@ export default function CollegeGrid({ initialColleges }: CollegeGridProps) {
     // Derive unique Types
     const types = ["All", ...Array.from(new Set(initialColleges.map(c => c.type).filter(Boolean)))];
 
+    // Clean name helper
+    const cleanName = (name: string | null) => {
+        if (!name) return "Unknown Profile";
+        return name.replace(/\*\*/g, '').replace(/\[(.*?)\]\{[^}]+\}/g, '$1').replace(/[\[\]]/g, '');
+    };
+
     // Filter logic
     const filtered = initialColleges.filter(c => {
-        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
+        const cName = cleanName(c.name);
+        const matchesSearch = cName.toLowerCase().includes(search.toLowerCase()) ||
             (c.city && c.city.toLowerCase().includes(search.toLowerCase()));
         const courseType = c.type;
         const matchesType = filterType === "All" || courseType === filterType;
@@ -77,7 +84,7 @@ export default function CollegeGrid({ initialColleges }: CollegeGridProps) {
                                 </div>
 
                                 <h2 className="text-xl font-bold leading-tight mb-2 text-[var(--color-text)] group-hover:text-[var(--color-primary-indigo)] transition-colors line-clamp-2">
-                                    {college.name}
+                                    {cleanName(college.name)}
                                 </h2>
 
                                 <p className="font-medium text-[var(--color-text-muted)] mb-6 flex items-center gap-1 text-sm">

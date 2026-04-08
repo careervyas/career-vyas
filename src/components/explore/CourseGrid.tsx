@@ -16,10 +16,27 @@ export default function CourseGrid({ initialCourses }: CourseGridProps) {
     // Derive unique course types
     const types = ["All", ...Array.from(new Set(initialCourses.map(c => c.category).filter(Boolean)))];
 
+    // Clean name helper
+    const cleanName = (name: string | null) => {
+        if (!name) return "Unknown Profile";
+        return name.replace(/\*\*/g, '').replace(/\[(.*?)\]\{[^}]+\}/g, '$1').replace(/[\[\]]/g, '');
+    };
+
+    // Clean summary helper
+    const cleanSummary = (course: any) => {
+        if (course.new_layout_data?.overview) return course.new_layout_data.overview;
+        if (course.overview?.description) return course.overview.description;
+        if (course.overview?.summary) return course.overview.summary;
+        if (typeof course.overview === 'string') return course.overview;
+        return "Comprehensive degree program leading to top careers in the modern industry landscape.";
+    };
+
     // Filter logic
     const filtered = initialCourses.filter(c => {
-        const matchesSearch = c.name?.toLowerCase().includes(search.toLowerCase()) ||
-            (c.overview?.description && c.overview.description.toLowerCase().includes(search.toLowerCase()));
+        const cName = cleanName(c.name);
+        const summ = cleanSummary(c);
+        const matchesSearch = cName.toLowerCase().includes(search.toLowerCase()) ||
+            summ.toLowerCase().includes(search.toLowerCase());
         const courseType = c.category;
         const matchesType = filterType === "All" || courseType === filterType;
         return matchesSearch && matchesType;
@@ -79,11 +96,11 @@ export default function CourseGrid({ initialCourses }: CourseGridProps) {
                                 </div>
 
                                 <h2 className="text-xl font-bold leading-tight mb-2 text-[var(--color-text)] group-hover:text-purple-600 transition-colors">
-                                    {course.name}
+                                    {cleanName(course.name)}
                                 </h2>
 
                                 <p className="font-medium text-[var(--color-text-muted)] text-sm mb-6 flex-grow line-clamp-3 leading-relaxed">
-                                    {course.overview?.description || 'Comprehensive degree program leading to top careers in the modern industry landscape.'}
+                                    {cleanSummary(course)}
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)] mt-auto">

@@ -17,9 +17,16 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
     // Derive unique levels
     const levels = ["All", ...Array.from(new Set(initialExams.map(e => e.level).filter(Boolean)))];
 
+    // Clean name helper
+    const cleanName = (name: string | null) => {
+        if (!name) return "Unknown Profile";
+        return name.replace(/\*\*/g, '').replace(/\[(.*?)\]\{[^}]+\}/g, '$1').replace(/[\[\]]/g, '');
+    };
+
     // Filter logic
     const filtered = initialExams.filter(e => {
-        const matchesSearch = e.name?.toLowerCase().includes(search.toLowerCase()) ||
+        const cName = cleanName(e.name);
+        const matchesSearch = cName.toLowerCase().includes(search.toLowerCase()) ||
             (e.full_name && e.full_name.toLowerCase().includes(search.toLowerCase()));
         const examLevel = e.level;
         const matchesLevel = filterLevel === "All" || examLevel === filterLevel;
@@ -80,7 +87,7 @@ export default function ExamGrid({ initialExams }: ExamGridProps) {
                                 </div>
 
                                 <h2 className="text-xl font-bold leading-tight mb-1 text-[var(--color-text)] group-hover:text-rose-600 transition-colors">
-                                    {exam.name}
+                                    {cleanName(exam.name)}
                                 </h2>
 
                                 <p className="font-medium text-sm text-[var(--color-text-muted)] mb-6 flex-grow">
